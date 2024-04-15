@@ -1,0 +1,153 @@
+.local-forms {
+    position: relative;
+}
+.local-forms label {
+    font-size: 20px;
+    color: #ababab;
+    font-weight: 500;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #fff;
+    margin-bottom: 0;
+    padding: 0 5px;
+    z-index: 99;
+}
+.local-forms .form-control::placeholder {
+    color: #333;
+    font-size: 14px;
+}
+.form-group.local-forms {
+    margin-bottom: 40px;
+}
+
+body {
+    background-color: #f4f6f9;
+}
+
+@media (min-width: 576px) {
+    .content-wrapper {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+}
+@media (min-width: 992px) {
+    .sidebar-mini.sidebar-collapse .content-wrapper,
+    .sidebar-mini.sidebar-collapse .main-header {
+        margin-left: 4.6rem !important;
+    }
+
+    .sidebar-mini.sidebar-collapse .main-footer {
+        margin-left: 0px !important;
+    }
+
+    .sidebar-mini.sidebar-collapse .main-header {
+        margin-left: 0rem !important;
+    }
+}
+
+.best-shadow {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.main-sidebar {
+    margin-top: 72px;
+    margin-bottom: 30px !important;
+    border-radius: 0.25rem !important;
+    min-height: 0 !important;
+    height: 603px !important;
+}
+
+.round-2 {
+    border-radius: 5px !important;
+}
+
+.w-40 {
+    width: 40px !important;
+}
+
+td {
+    vertical-align: middle !important;
+    border-top: none !important;
+}
+
+.main-footer {
+    margin-left: 0 !important;
+}
+
+.main-footer {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+.content-wrapper {
+    margin-bottom: 50px;
+}
+
+#headImageContainer {
+    position: relative;
+    top: 31px;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    overflow: hidden; /* Hide any overflow */
+}
+
+#headImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensure the image covers the entire container */
+    max-height: 100%; /* Set maximum height to prevent distortion */
+}
+
+.form-group select,
+.form-group input {
+    height: 50px !important;
+}
+
+/* label {
+    position: absolute !important;
+    top: -22px !important;
+} */
+
+.editBtn {
+    width: 39px;
+    border-radius: 0.25rem !important;
+    margin-right: 4px;
+}
+
+.ml-250 {
+    margin-left: 250px;
+}
+
+.attendanceInput{
+    border:none !important; 
+    height: 35px !important;
+    border-radius: 0.25rem;
+    padding-left: 15px;
+    padding-right: 15px;
+
+
+}
+
+input:focus{
+    outline: none !important;
+}
+
+.year {
+    background-color: white;
+    border-radius: .25rem;
+    padding: 10px;
+}
+
+.scoreInput{
+    border:none !important; 
+    height: 35px !important;
+    border-radius: 0.25rem;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 55px;
+}
