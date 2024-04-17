@@ -25,10 +25,10 @@ class AttendanceRequest extends FormRequest
         return [
             'year' => 'required|numeric|integer',
             'total_year' => 'required|numeric|integer',
-            'classes.*.present' => 'required|numeric|integer|min:0',
-            'classes.*.absent' => 'required|numeric|integer|min:0',
-            'classes.*.sick' => 'required|numeric|integer|min:0',
-            'classes.*.leave' => 'required|numeric|integer|min:0',
+            'attendances.*.present' => 'required|numeric|integer|min:0',
+            'attendances.*.absent' => 'required|numeric|integer|min:0',
+            'attendances.*.sick' => 'required|numeric|integer|min:0',
+            'attendances.*.leave' => 'required|numeric|integer|min:0',
         ];
     }
 }

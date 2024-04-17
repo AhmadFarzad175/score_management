@@ -1,6 +1,7 @@
 <x-newLayout header="Create Attendance">
     {{-- @dd($subjects) --}}
     <!-- /.card -->
+
     <form action="{{ route('scores.store') }}" method="POST">
         @csrf
         {{-- <div class="card d-flex flex-row text-right p-4">

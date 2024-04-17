@@ -13,10 +13,16 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::with(['classs', 'mainResidence'])->latest()->get();
-        return view('flows.students', compact('students'));
+        
+        $classes = Classs::all();
+        if($request['classs_id']){
+            $students = Student::with(['classs', 'mainResidence'])->where('classs_id', $request['classs_id'])->latest()->get();
+            return view('flows.students', compact('students', 'classes'));
+        }
+        $students = [];
+        return view('flows.students', compact('classes', 'students'));
     }
 
     /**
@@ -42,7 +48,7 @@ class StudentController extends Controller
         // Create the listing with the validated data
         Student::create($validated);
 
-        return redirect()->route('students.index')->with('success', "Student inserted successfully");
+        return redirect()->route('students.index', ['classs_id' => $validated['classs_id']])->with('success', "Student inserted successfully");
     }
 
     /**

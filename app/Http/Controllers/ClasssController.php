@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classs;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClasssRequest;
+use Illuminate\Support\Facades\Config;
 
 class ClasssController extends Controller
 {
@@ -29,8 +30,11 @@ class ClasssController extends Controller
      */
     public function store(ClasssRequest $request)
     {
+        Config::set('global.classs_id', '111111');
+        dd(config('global.classs_id'));
         $validated = $request->validated();
         Classs::create($validated);
+
 
         return redirect()->route('classes.index')->with('success', "Class inserted successfully");
     }

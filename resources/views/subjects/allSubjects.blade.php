@@ -11,8 +11,6 @@
 
 
 
-    {{-- @dd($subjects[0]->classs) --}}
-
     <!-- /.card -->
     <div class="card">
         <!-- /.card-header -->

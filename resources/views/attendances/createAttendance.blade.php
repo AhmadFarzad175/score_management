@@ -1,4 +1,41 @@
-<x-newLayout header="Create Attendance">
+<x-newLayout>
+    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
+        <div class="align-self-end">
+            <h4>Home | Create Attendance</h4>
+        </div>
+    </div>
+    <form action="{{route('attendances.create')}}" >
+        @csrf
+        <div class="card d-flex flex-row pt-3 justify-content-around flex-wrap">
+            <div class="col-12 col-sm-4 col-md-3">
+                <div class="form-group">
+                    <label for="classs">Class</label>
+                    <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
+                        @foreach($classes as $class)
+                            <option {{$students??[0]->classs_id == $class->id ? 'selected' : ''}} value="{{$class->id}}">{{$class->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-3">
+                <label for="classs">Year</label>
+                <div class="form-group">
+                    <select class="form-control select2" name="year" style="width: 100%;">
+                        <option selected="selected">dsfasdf</option>
+                        <option>dsfa</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
+                <button type="sbmit" class="btn btn-outline-info">
+                    <i class="fas fa-search"></i>
+                     Search
+                </button>
+            </div>
+        </div>
+    </form>
+
+
     <!-- /.card -->
     <form action="{{ route('attendances.store') }}" method="POST">
         @csrf
@@ -24,7 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($classes->students as $student)
+                        @foreach ($students as $student)
                             {{-- @dd($student) --}}
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -35,19 +72,20 @@
                                 <td>{{ $student->first_name }}</td>
                                 <td>{{ $student->father_name }}</td>
                                 <td>
-                                    <input type="number" name="classes[{{ $student->id }}][present]"
+                                    <input type="hidden" name="classs_id" value="{{$student->classs_id}}">
+                                    <input type="number" name="attendances[{{ $student->id }}][present]"
                                         class="attendanceInput best-shadow">
                                 </td>
                                 <td>
-                                    <input type="number" name="classes[{{ $student->id }}][absent]"
+                                    <input type="number" name="attendances[{{ $student->id }}][absent]"
                                         class="attendanceInput best-shadow">
                                 </td>
                                 <td>
-                                    <input type="number" name="classes[{{ $student->id }}][sick]"
+                                    <input type="number" name="attendances[{{ $student->id }}][sick]"
                                         class="attendanceInput best-shadow">
                                 </td>
                                 <td>
-                                    <input type="number" name="classes[{{ $student->id }}][leave]"
+                                    <input type="number" name="attendances[{{ $student->id }}][leave]"
                                         class="attendanceInput best-shadow">
                                 </td>
                             </tr>

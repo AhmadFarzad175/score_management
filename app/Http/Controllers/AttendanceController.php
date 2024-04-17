@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classs;
+use App\Models\Student;
 use App\Models\Attendance;
 use App\Traits\ChangeStates;
 use Illuminate\Http\Request;
@@ -16,32 +17,36 @@ class AttendanceController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
-    {
-        // Retrieve class with id = 4 and relevant student attributes using eager loading
-        $attendances = Attendance::with(['student:id,first_name,father_name,status'])
-            ->whereHas('student', function ($query) {
-                $query->where('classs_id', 4);
-            })
-            ->get();
 
-        // Pass the data to the view
-        return view('attendances.allAttendance', compact('attendances'));
+     public function index(Request $request)
+     {
+        $classes = Classs::all();
+        
+        // Fetch students with their attendances only if a class ID is provided
+        $students = $request->filled('classs_id') ?
+                        Student::with(['attendances' => function ($query) use ($request) {
+                            $query->where('classs_id', $request->classs_id);
+                        }])
+                        ->where('classs_id', $request->classs_id)
+                        ->get() :
+                        [];
+    
+        return view('attendances.allAttendance', compact('students', 'classes'));
     }
 
     /** 
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        // Retrieve class with id = 4 and relevant student attributes using eager loading
-        $classes = Classs::with(['students'])
-            ->where('id', 4)
-            ->first();
+        $classes = Classs::all();
+        if ($request['classs_id']) {
+            $students = Student::where('classs_id', $request['classs_id'])->orderBy('first_name')->orderBy('father_name')->get();
+            return view('attendances.createAttendance', compact('classes', 'students'));
+        }
 
-
-        // Pass the data to the view
-        return view('attendances.createAttendance', compact('classes'));
+        $students = [];
+        return view('attendances.createAttendance', compact('classes', 'students'));
     }
 
     /**
@@ -52,7 +57,7 @@ class AttendanceController extends Controller
         $validated = $request->validated();
 
         // Loop through the validated attendance data
-        foreach ($validated['classes'] as $studentId => $attendance) {
+        foreach ($validated['attendances'] as $studentId => $attendance) {
 
 
             // Create new attendance record if not found
@@ -68,14 +73,13 @@ class AttendanceController extends Controller
 
             //CHECK IF THE STUDENT IS MAHROOM OR NOT
             $status = intval($attendance['absent']) > intval($validated['total_year']) * 0.25;
-            if($status){
+            if ($status) {
                 $this->ChangeTheStateToMahroom($studentId);
-
             }
         }
 
         // Redirect back with a success message or any other action you desire
-        return redirect()->route('attendances.index')->with('success', 'Attendance inserted successfully.');
+        return redirect()->route('attendances.index', ['classs_id' => $request['classs_id']])->with('success', 'Attendance inserted successfully.');
     }
 
 
