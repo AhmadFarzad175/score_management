@@ -8,66 +8,9 @@
     <!-- /.modal -->
 
 
-    <div class="modal fade" id="modal-lg">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add New Class</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form -->
-                    <!-- form start -->
-                    <form
-                        action="{{ isset($method) ? route('classes.update', $students->id) : route('classes.store') }}"
-                        method="POST" style="display: flex; flex-wrap: wrap;">
-                        @csrf
-                        @if (isset($method))
-                            @method('PUT')
-                        @endif
-
-                        <div class="form-group col-12">
-                            <input type="hidden" name="method">
-                            {{-- FIRSTNAME --}}
-                            <div class="name mb-3">
-                                <label for="name">Class Name <span class="text-danger">*</span></label>
-                                <input type="text" name="name" id="name" class="form-control"
-                                    placeholder="12B1">
-
-                            </div>
-
-                            {{-- LASTNAME --}}
-                            <div class="negaran">
-                                <label for="negaran">Negaran Name <span class="text-danger">*</span></label>
-                                <input type="text" name="negaran" id="negaran" class="form-control"
-                                    placeholder="Abdul Rahman">
-
-                            </div>
-                        </div>
-
-
-                </div>
-                <div class="modal-footer ">
-                    <div class="student-submit text-left">
-                        <button type="submit"
-                            class="btn btn-primary">{{ isset($method) ? 'Update' : 'Create' }}</button>
-                    </div>
-                </div>
-
-                </form>
-
-
-
-
-
-
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
+    <x-classForm method='Update' />
+    
+    <x-classForm />
     <!-- /.modal -->
     <!-- /.card -->
     <div class="card">
@@ -93,7 +36,7 @@
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
                                         title="Edit" data-class-id="{{ $class->id }}" data-toggle="modal"
-                                        data-target="#modal-lg">
+                                        data-target="#modal-lgUpdate">
                                         <i class="mt-2 fa fa-thermometer" style="font-size: 16px"></i>
                                     </button>
 
@@ -112,7 +55,7 @@
                     @endforeach
 
             </table>
-            <div class="d-flex justify-content-between mt-3">
+            <div class="    -flex justify-content-between mt-3">
                 <a href=""></a>
                 <a href="{{route('students.index')}}" class="btn btn-info">Next</a>
             </div>
@@ -167,6 +110,8 @@
         if (element) {
             // If the clicked element has the class 'editBtn'
             const classId = element.dataset.classId; // Get the student ID from the data attribute
+            document.querySelector('.updateBtn').action = "classes/" + classId;
+            console.log(classId);
             populateClassData(classId); // Fetch and populate student data
         }
     });

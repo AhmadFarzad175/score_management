@@ -8,7 +8,6 @@ use App\Models\Attendance;
 use App\Traits\ChangeStates;
 use Illuminate\Http\Request;
 use App\Http\Requests\AttendanceRequest;
-use App\Http\Resources\AttendanceResource;
 
 class AttendanceController extends Controller
 {
@@ -18,20 +17,19 @@ class AttendanceController extends Controller
      */
 
 
-     public function index(Request $request)
-     {
+    public function index(Request $request)
+    {
         $classes = Classs::all();
-        
-        // Fetch students with their attendances only if a class ID is provided
-        $students = $request->filled('classs_id') ?
-                        Student::with(['attendances' => function ($query) use ($request) {
-                            $query->where('classs_id', $request->classs_id);
-                        }])
-                        ->where('classs_id', $request->classs_id)
-                        ->get() :
-                        [];
-    
-        return view('attendances.allAttendance', compact('students', 'classes'));
+
+        // Fetch attendances only if a class ID is provided
+        if ($request->filled('classs_id')) {
+            $attendances = Attendance::with('student')
+                ->where('classs_id', $request->classs_id)
+                ->get(); // Execute the query to fetch results
+        } else {
+            $attendances = []; // If class ID is not provided, return an empty array
+        }
+        return view('attendances.allAttendance', compact('attendances', 'classes'));
     }
 
     /** 

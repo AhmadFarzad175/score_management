@@ -32,3 +32,7 @@ Route::get('/classsProvince', [StudentController::class, 'classsProvince']);
 Route::get('/test', function () {
     return view('test');
 });
+
+// addEventListener in each button
+// upddate method
+// 

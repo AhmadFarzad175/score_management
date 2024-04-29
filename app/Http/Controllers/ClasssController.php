@@ -30,8 +30,6 @@ class ClasssController extends Controller
      */
     public function store(ClasssRequest $request)
     {
-        Config::set('global.classs_id', '111111');
-        dd(config('global.classs_id'));
         $validated = $request->validated();
         Classs::create($validated);
 
@@ -58,9 +56,13 @@ class ClasssController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Classs $classs)
+    public function update(ClasssRequest $request, Classs $classs)
     {
-        //
+        dd($classs);
+        $validated = $request->validated();
+        $classs->update();
+        
+        return redirect()->back()->with('success', "Class updated successfully");
     }
 
     /**

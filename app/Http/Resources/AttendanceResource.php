@@ -23,6 +23,10 @@ class AttendanceResource extends JsonResource
             'apsent' => $this->apsent,
             'sick' => $this->sick,
             'leave' => $this->leave,
+            'classs' =>[
+                'id' => $this->classs_id,
+                'name' => $this->classes->name,
+            ],
             'student' => [
                 'id' => $this->student_id,
                 'first_name' => $this->student->first_name,

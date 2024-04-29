@@ -10,7 +10,7 @@ class Subject extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [ 'name', 'classs'];
+    protected $fillable = [ 'name', 'classs_id'];
 
     public function scores()
     {

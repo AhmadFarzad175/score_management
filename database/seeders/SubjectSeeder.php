@@ -20,8 +20,7 @@ class SubjectSeeder extends Seeder
         foreach ($subjects as $subject) {
             Subject::create([
                 'name' => $subject,
-                'classs' => "دهم",
-                // 'classs_id' => 10,
+                'classs_id' => 10,
             ]);
         }
     }

@@ -20,6 +20,7 @@ class AttendanceFactory extends Factory
             'year' => $this->faker->year,
             'total_educational_year' => $this->faker->numberBetween(100, 150),
             'student_id' => $this->faker->numberBetween(0, 10),
+            'classs_id' => $this->faker->numberBetween(0, 10),
             'present' => $this->faker->numberBetween(0, 100),
             'absent' => $this->faker->numberBetween(0, 20),
             'sick' => $this->faker->numberBetween(0, 10),

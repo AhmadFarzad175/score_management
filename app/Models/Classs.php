@@ -22,6 +22,12 @@ class Classs extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function classes()
+    {
+        return $this->hasMany(Student::class);
+    }
+
+
     public function scores()
     {
         return $this->hasMany(Score::class);

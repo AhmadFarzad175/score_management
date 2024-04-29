@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classs;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,28 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $ordinary = [
+            '1' => 'اول',
+            '2' => 'دوم',
+            '3' => 'سوم',
+            '4' => 'چهارم',
+            '5' => 'پنجم',
+            '6' => 'ششم',
+            '7' => 'هفتم',
+            '8' => 'هشتم',
+            '9' => 'نهم',
+            '10' => 'دهم',
+            '11' => 'یازدهم',
+            '12' => 'دوازدهم',
+        ];
         // Retrieve class with id = 4 and relevant student attributes using eager loading
-        $subjects = Subject::Where('classs', 'دهم')->get();
+        $subjects = Subject::Where('classs_id', $request->classs_id)->get();
+        $classes = Classs::all();
 
         // Pass the data to the view
-        return view('subjects.allSubjects', compact('subjects'));
+        return view('subjects.allSubjects', compact('subjects', 'classes', 'ordinary'));
     }
 
     /**
@@ -34,11 +50,11 @@ class SubjectController extends Controller
     {
         $validated = $request->validate([
             'name' => "required|string|max:255",
-            'classs' => "required|string|max:255",
+            'classs_id' => "required",
         ]);
         Subject::create($validated);
 
-        return redirect()->route('subjects.index')->with('success', "subject inserted successfully");
+        return redirect()->route('subjects.index', ['classs_id' => $request->classs_id])->with('success', "subject inserted successfully");
     }
 
     /**
@@ -79,6 +95,6 @@ class SubjectController extends Controller
     public function destroy(Subject $subject)
     {
         $subject->delete();
-        return redirect()->route('subjects.index')->with('success', 'Subject deleted successfully');
+        return redirect()->route('subjects.index', ['classs_id' => $subject->classs_id])->with('success', 'Subject deleted successfully');
     }
 }

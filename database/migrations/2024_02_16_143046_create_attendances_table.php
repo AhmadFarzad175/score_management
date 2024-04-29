@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('year');
             $table->integer('total_educational_year');
             $table->foreignIdFor(Student::class);
+            $table->foreignIdFor(Classs::class);
             $table->integer('present');
             $table->integer('absent');
             $table->integer('sick');

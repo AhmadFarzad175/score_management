@@ -1,17 +1,8 @@
-<x-newLayout header="Create Attendance">
-    {{-- @dd($subjects) --}}
+<x-newLayout header="Create Score">
     <!-- /.card -->
 
     <form action="{{ route('scores.store') }}" method="POST">
         @csrf
-        {{-- <div class="card d-flex flex-row text-right p-4">
-            <div>
-                <b>Year </b><input type="number" name="year" class="attendanceInput best-shadow"><br><br>
-            </div>
-            <div>
-                <b>Total Educational Year </b><input type="number" name="total_year" class="attendanceInput best-shadow">
-            </div>
-        </div><br> --}}
         <div class="card">
             <!-- /.card-header -->
 

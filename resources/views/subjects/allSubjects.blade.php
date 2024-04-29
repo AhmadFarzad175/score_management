@@ -1,13 +1,45 @@
-<x-newLayout header="All Classes">
-    <div class="col-12 my-3 text-right">
-        <button type="button" class="btn btn-primary createBtn" data-toggle="modal" data-target="#modal-default">
+<x-newLayout>
+    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
+        <div class="align-self-end">
+            <h4>Home | Subjects</h4>
+        </div>
+        <button type="button" class="btn btn-dark createBtn" data-toggle="modal" data-target="#modal-default">
+            <i class="fas fa-plus"></i>
             Create
         </button>
 
-        <!-- /.modal -->
-        <x-subjectForm :classs="$subjects[0]->classs"/>
-        <!-- /.modal -->
     </div>
+    <form action="{{ route('subjects.index') }}">
+        @csrf
+        <div class="card d-flex flex-row pt-3 justify-content-around flex-wrap">
+            <div class="col-12 col-sm-4 col-md-3">
+                <div class="form-group">
+                    <label for="classs">Class</label>
+                    <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
+                        @foreach ($classes as $class)
+                            <option {{ $subjects ?? ([0])->classs_id == $class->id ? 'selected' : '' }}
+                                value="{{ $class->id }}">{{ $class->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-3">
+                <label for="classs">Year</label>
+                <div class="form-group">
+                    <select class="form-control select2" name="year" style="width: 100%;">
+                        <option selected="selected">dsfasdf</option>
+                        <option>dsfa</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
+                <button type="sbmit" class="btn btn-outline-info">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+        </div>
+    </form>
 
 
 
@@ -29,12 +61,13 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $subject->name }}</td>
-                            <td>{{ $subject->classs }}</td>
+                            <td>{{ $ordinary[$subject->classs_id] }}</td>
                             <td class="text-right py-0 align-middle">
                                 {{-- EDIT BTTON --}}
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
-                                        title="Edit" data-subject-id="{{ $subject->id }}" data-toggle="modal" data-target="#modal-defaultUpdate">
+                                        title="Edit" data-subject-id="{{ $subject->id }}" data-toggle="modal"
+                                        data-target="#modal-defaultUpdate">
                                         <i class="mt-2 fa fa-thermometer" style="font-size: 16px"></i>
                                     </button>
 
@@ -57,14 +90,21 @@
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('attendances.index') }}" class="btn btn-info">Back</a>
                 <a href="{{ route('scores.index') }}" class="btn btn-info">Next</a>
-            </div>        </div>
+            </div>
+        </div>
         <!-- /.card-body -->
     </div>
+
+{{-- @dd($subjects) --}}
+    <!-- /.modal -->
+    <x-subjectForm :classs="$subjects[0]->classs_id" />
+        <!-- /.modal -->
 </x-newLayout>
 
 <!-- /.modal -->
-<x-subjectForm classs="$subjects[0]->classs" method="Update"/>
+<x-subjectForm :classs="$subjects[0]->classs_id" method="Update" />
 <!-- /.modal -->
+
 
 
 <script>
@@ -113,6 +153,6 @@
             // If the clicked element has the class 'editBtn'
             const subjectId = element.dataset.subjectId; // Get the student ID from the data attribute
             populateSubjectData(subjectId); // Fetch and populate student data
-        }
+        }   
     });
 </script>

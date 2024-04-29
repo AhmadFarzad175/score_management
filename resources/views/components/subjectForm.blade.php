@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <!-- Form -->
                 <!-- form start -->
-                <form action="{{ isset($method) ? "" : route('subjects.store') }}"
+                <form action="{{ isset($method) ? route('subjects.update', ) : route('subjects.store') }}"
                     method="POST">
                     @if (isset($method))
                         @method('PUT')
@@ -19,7 +19,7 @@
                     @csrf
                     {{-- SUBJECT NAME --}}
                     <div class="form-group col-12">
-                        <input type="hidden" name="classs" value="{{$classs}}">
+                        <input type="hidden" name="classs_id" value="{{$classs}}">
                         <label for="name">Subject Name <span class="text-danger">*</span></label>
                         <input type="text" name="name" id="{{isset($method) ? 'subjectName' : ''}}" class="form-control" placeholder="Dari">
                     </div>
