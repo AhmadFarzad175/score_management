@@ -6,26 +6,18 @@
     </div>
     <form action="{{route('attendances.create')}}" >
         @csrf
-        <div class="card d-flex flex-row pt-3 justify-content-around flex-wrap">
+        <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
             <div class="col-12 col-sm-4 col-md-3">
                 <div class="form-group">
                     <label for="classs">Class</label>
                     <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
                         @foreach($classes as $class)
-                            <option {{$students??[0]->classs_id == $class->id ? 'selected' : ''}} value="{{$class->id}}">{{$class->name}}</option>
+                            <option {{request('classs_id') == $class->id ? 'selected' : ''}} value="{{$class->id}}">{{$class->name}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-sm-4 col-md-3">
-                <label for="classs">Year</label>
-                <div class="form-group">
-                    <select class="form-control select2" name="year" style="width: 100%;">
-                        <option selected="selected">dsfasdf</option>
-                        <option>dsfa</option>
-                    </select>
-                </div>
-            </div>
+            
             <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
                 <button type="sbmit" class="btn btn-outline-info">
                     <i class="fas fa-search"></i>

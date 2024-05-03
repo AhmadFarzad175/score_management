@@ -23,15 +23,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-sm-4 col-md-3">
-                <label for="classs">Year</label>
-                <div class="form-group">
-                    <select class="form-control select2" name="year" style="width: 100%;">
-                        <option selected="selected">dsfasdf</option>
-                        <option>dsfa</option>
-                    </select>
-                </div>
-            </div>
+            
             <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
                 <button type="sbmit" class="btn btn-outline-info">
                     <i class="fas fa-search"></i>
@@ -97,12 +89,12 @@
 
 {{-- @dd($subjects) --}}
     <!-- /.modal -->
-    <x-subjectForm :classs="$subjects[0]->classs_id" />
+    <x-subjectForm :classs="Request('classs_id')" />
         <!-- /.modal -->
 </x-newLayout>
 
 <!-- /.modal -->
-<x-subjectForm :classs="$subjects[0]->classs_id" method="Update" />
+<x-subjectForm :classs="Request('classs_id')" method="Update" />
 <!-- /.modal -->
 
 

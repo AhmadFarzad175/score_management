@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Attendance;
 use App\Traits\ChangeStates;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AttendanceRequest;
 
 class AttendanceController extends Controller
@@ -21,15 +22,17 @@ class AttendanceController extends Controller
     {
         $classes = Classs::all();
 
+        $years = Attendance::select(DB::raw('year'))->distinct()->orderBy('year','desc')->get();
         // Fetch attendances only if a class ID is provided
         if ($request->filled('classs_id')) {
             $attendances = Attendance::with('student')
                 ->where('classs_id', $request->classs_id)
-                ->get(); // Execute the query to fetch results
+                ->where('year', $request->year)
+                ->get();
         } else {
             $attendances = []; // If class ID is not provided, return an empty array
         }
-        return view('attendances.allAttendance', compact('attendances', 'classes'));
+        return view('attendances.allAttendance', compact('attendances', 'classes', 'years'));
     }
 
     /** 
@@ -52,6 +55,7 @@ class AttendanceController extends Controller
      */
     public function store(AttendanceRequest $request)
     {
+
         $validated = $request->validated();
 
         // Loop through the validated attendance data
@@ -63,6 +67,7 @@ class AttendanceController extends Controller
                 'year' => $validated['year'],
                 'total_educational_year' => $validated['total_year'],
                 'student_id' => $studentId,
+                'classs_id' => Request('classs_id'),
                 'present' => $attendance['present'],
                 'absent' => $attendance['absent'],
                 'sick' => $attendance['sick'],
@@ -77,7 +82,7 @@ class AttendanceController extends Controller
         }
 
         // Redirect back with a success message or any other action you desire
-        return redirect()->route('attendances.index', ['classs_id' => $request['classs_id']])->with('success', 'Attendance inserted successfully.');
+        return redirect()->route('attendances.index', ['classs_id' => $request->classs_id, 'year' => $validated['year']])->with('success', 'Attendance inserted successfully.');
     }
 
 

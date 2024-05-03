@@ -55,7 +55,7 @@
                     @endforeach
 
             </table>
-            <div class="    -flex justify-content-between mt-3">
+            <div class="d-flex justify-content-between mt-3">
                 <a href=""></a>
                 <a href="{{route('students.index')}}" class="btn btn-info">Next</a>
             </div>

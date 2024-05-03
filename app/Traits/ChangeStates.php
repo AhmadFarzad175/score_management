@@ -12,6 +12,6 @@ trait ChangeStates
     {
         $student = Student::find($studentId);
         
-        $student->update(['state' => 'Mahroom']);
+        $student->update(['status' => 'Mahroom']);
     }
 }

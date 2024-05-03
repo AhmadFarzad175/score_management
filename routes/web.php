@@ -30,7 +30,7 @@ Route::get('/classsProvince', [StudentController::class, 'classsProvince']);
 
 
 Route::get('/test', function () {
-    return view('test');
+    return view('authentications.login');
 });
 
 // addEventListener in each button

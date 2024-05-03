@@ -13,7 +13,7 @@
                     <label for="classs">Class</label>
                     <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
                         @foreach ($classes as $class)
-                            <option {{$attendances[0]->classs_id ? 'selected' : '' }}
+                            <option {{request('classs_id') == $class->id ? 'selected' : ''}}
                                 value="{{ $class->id }}">{{ $class->name }}</option>
                         @endforeach
                     </select>
@@ -23,8 +23,10 @@
                 <label for="classs">Year</label>
                 <div class="form-group">
                     <select class="form-control select2" name="year" style="width: 100%;">
-                        <option selected="selected">dsfasdf</option>
-                        <option>dsfa</option>
+                        @foreach ($years as $year)
+                            <option {{request('year') == $year->year ? 'selected' : ''}}
+                                value="{{ $year->year }}">{{ $year->year }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -104,7 +106,7 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('students.index') }}" class="btn btn-info">Back</a>
-                <a href="{{ route('subjects.index', ['classs_id' => $attendances[0]->classs_id]) }}" class="btn btn-info">Next</a>
+                <a href="{{ route('subjects.index', ['classs_id' => Request('classs_id')]) }}" class="btn btn-info">Next</a>
             </div>
 
         </div>

@@ -19766,7 +19766,7 @@ html.maximized-card {
 .login-box,
 .register-box {
     margin: 7% auto;
-    width: 360px;
+    width: 800px;
 }
 @media (max-width: 576px) {
     .login-box,

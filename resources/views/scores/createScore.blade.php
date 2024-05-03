@@ -39,7 +39,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-between mt-3">
-                    <a href="{{ route('scores.index') }}" class="btn btn-info">back</a>
+                    <a href="{{ route('attendances.index') }}" class="btn btn-info">back</a>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
 

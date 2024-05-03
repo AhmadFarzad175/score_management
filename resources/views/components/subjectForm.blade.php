@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <!-- Form -->
                 <!-- form start -->
-                <form action="{{ isset($method) ? route('subjects.update', ) : route('subjects.store') }}"
+                <form action="{{ isset($method) ? route('subjects.update', 1) : route('subjects.store') }}"
                     method="POST">
                     @if (isset($method))
                         @method('PUT')

@@ -18,7 +18,7 @@ class StudentController extends Controller
         
         $classes = Classs::all();
         if($request['classs_id']){
-            $students = Student::with(['classs', 'mainResidence'])->where('classs_id', $request['classs_id'])->latest()->get();
+            $students = Student::with(['classs', 'mainResidence'])->where('classs_id', $request->classs_id)->latest()->get();
             return view('flows.students', compact('students', 'classes'));
         }
         $students = [];
