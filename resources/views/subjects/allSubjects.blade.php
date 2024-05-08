@@ -1,4 +1,4 @@
-<x-newLayout>
+<x-newLayout page="4">
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
             <h4>Home | Subjects</h4>
@@ -11,7 +11,7 @@
     </div>
     <form action="{{ route('subjects.index') }}">
         @csrf
-        <div class="card d-flex flex-row pt-3 justify-content-around flex-wrap">
+        <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
             <div class="col-12 col-sm-4 col-md-3">
                 <div class="form-group">
                     <label for="classs">Class</label>

@@ -10155,7 +10155,7 @@ html {
     }
 }
 .content-wrapper {
-    background: #f4f6f9;
+    /* background: #f4f6f9; */
 }
 .content-wrapper > .content {
     padding: 0 0.5rem;

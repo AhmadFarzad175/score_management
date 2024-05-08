@@ -1,6 +1,6 @@
 @props(['method'])
-<div class="modal fade" id="modal-lg{{isset($method) ? 'Update' : ''}}">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="modal-default{{isset($method) ? 'Update' : ''}}">
+    <div class="modal-dialog modal-default">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{isset($method) ? 'Update' : 'Add New'}} Class</h4>
@@ -19,18 +19,26 @@
                         @method('PUT')
                     @endif
 
-                    <div class="form-group col-12">
-                        <input type="hidden" name="method">
+                    <div class="form-group" style="display:flex; flex-wrap:wrap">
+                        {{-- <input type="hidden" name="method"> --}}
                         {{-- FIRSTNAME --}}
-                        <div class="name mb-3">
+                        <div class="name mb-3 col-md-12">
                             <label for="name">Class Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" id="name" class="form-control"
                                 placeholder="12B1">
 
                         </div>
 
+                        {{-- FIRSTNAME --}}
+                        <div class="name mb-3 col-md-12">
+                            <label for="year">Year <span class="text-danger">*</span></label>
+                            <input type="text" name="year" id="year" class="form-control"
+                                placeholder="1403">
+
+                        </div>
+
                         {{-- LASTNAME --}}
-                        <div class="negaran">
+                        <div class="negaran col-md-12">
                             <label for="negaran">Negaran Name <span class="text-danger">*</span></label>
                             <input type="text" name="negaran" id="negaran" class="form-control"
                                 placeholder="Abdul Rahman">

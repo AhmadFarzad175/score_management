@@ -34,6 +34,7 @@ class ClasssController extends Controller
         Classs::create($validated);
 
 
+
         return redirect()->route('classes.index')->with('success', "Class inserted successfully");
     }
 
@@ -56,11 +57,9 @@ class ClasssController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ClasssRequest $request, Classs $classs)
+    public function update(ClasssRequest $request, Classs $class)
     {
-        dd($classs);
-        $validated = $request->validated();
-        $classs->update();
+        $class->update($request->validated());
         
         return redirect()->back()->with('success', "Class updated successfully");
     }
@@ -71,6 +70,6 @@ class ClasssController extends Controller
     public function destroy(Classs $class)
     {
         $class->delete();
-        return redirect()->route('classes.index')->with('success', 'Class deleted successfully');
+        return redirect()->route('classes.index')->with('success', "Class deleted successfully");
     }
 }

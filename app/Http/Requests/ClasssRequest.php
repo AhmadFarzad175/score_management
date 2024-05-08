@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\UpdateRequestRules;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClasssRequest extends FormRequest
-{
+{ 
+    use UpdateRequestRules;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -21,9 +23,14 @@ class ClasssRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string|max:255',
+            'year' => 'required|integer',
             'negaran' => 'required|string|max:255',
         ];
+
+        $this->isMethod('PUT') ? $this->applyUpdateRules($rules) : null;
+
+        return $rules;
     }
 }

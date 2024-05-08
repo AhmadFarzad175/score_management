@@ -1,4 +1,4 @@
-<x-newLayout>
+<x-newLayout page="2">
 
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
@@ -17,7 +17,7 @@
                     <label for="classs">Class</label>
                     <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
                         @foreach($classes as $class)
-                            <option {{request('classs_id') == $class->id ? 'selected' : ''}} value="{{$class->id}}">{{$class->name}}</option>
+                            <option {{request('classs_id') == $class->id ? 'selected' : ''}} value="{{$class->id}}">{{$class->name . ' ' . $class->year}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -81,6 +81,7 @@
                         </div>
 
                         <div class="form-group col-3" style="position: relative">
+                            <i class="fas fa-user-edit text-secondary text-sm"></i> 
                             <div class="best-shadow" id="headImageContainer" onclick="showFileInput()">
                                 <img id="headImage" class="img-fluid" src="{{ asset('imge/default_image.jpeg') }}"
                                     alt="Default Image">

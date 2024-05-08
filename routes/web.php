@@ -2,6 +2,7 @@
 
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\ClasssController;
 use App\Http\Controllers\StudentController;
@@ -26,13 +27,9 @@ Route::resource('/attendances', AttendanceController::class);
 Route::resource('/classes', ClasssController::class);
 Route::resource('/students', StudentController::class);
 Route::get('/classsProvince', [StudentController::class, 'classsProvince']);
-// Route::resource('/newStudents', NewStudentController::class);
 
 
-Route::get('/test', function () {
-    return view('authentications.login');
-});
-
-// addEventListener in each button
-// upddate method
-// 
+Route::get('/register', [AuthController::class, 'register']);
+Route::get('/loginPage', [AuthController::class, 'index']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');

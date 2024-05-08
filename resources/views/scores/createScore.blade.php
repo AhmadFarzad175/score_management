@@ -1,4 +1,4 @@
-<x-newLayout header="Create Score">
+<x-newLayout page="5">
     <!-- /.card -->
 
     <form action="{{ route('scores.store') }}" method="POST">
@@ -20,7 +20,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @dd($student) --}}
                         @foreach ($students as $student)
                             <tr style="overflow: auto">
                                 <td>{{ $loop->iteration }}</td>

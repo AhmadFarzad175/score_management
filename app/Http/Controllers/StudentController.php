@@ -47,8 +47,8 @@ class StudentController extends Controller
 
         // Create the listing with the validated data
         Student::create($validated);
-
-        return redirect()->route('students.index', ['classs_id' => $validated['classs_id']])->with('success', "Student inserted successfully");
+        session()->flash('success', "Student inserted successfully");
+        return redirect()->route('students.index', ['classs_id' => $validated['classs_id']]);
     }
 
     /**
@@ -82,7 +82,9 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
-        return redirect()->route('students.index')->with('success', 'Student deleted successfully');
+        session()->flash('success', "Student deleted successfully");
+
+        return redirect()->route('students.index');
     }
 
     public function classsProvince()

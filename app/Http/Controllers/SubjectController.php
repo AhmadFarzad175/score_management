@@ -53,8 +53,9 @@ class SubjectController extends Controller
             'classs_id' => "required",
         ]);
         Subject::create($validated);
+        session()->flash('success', "Subject inserted successfully");
 
-        return redirect()->route('subjects.index', ['classs_id' => $request->classs_id])->with('success', "subject inserted successfully");
+        return redirect()->route('subjects.index', ['classs_id' => $request->classs_id]);
     }
 
     /**
@@ -85,7 +86,9 @@ class SubjectController extends Controller
         ]);
         $subject->update($validated);
 
-        return redirect()->route('subjects.index')->with('success', "subject updated successfully");
+        session()->flash('success', "Subject updated successfully");
+
+        return redirect()->route('subjects.index');
     
     }
 
@@ -95,6 +98,9 @@ class SubjectController extends Controller
     public function destroy(Subject $subject)
     {
         $subject->delete();
-        return redirect()->route('subjects.index', ['classs_id' => $subject->classs_id])->with('success', 'Subject deleted successfully');
+
+        session()->flash('success', "Subject deleted successfully");
+
+        return redirect()->route('subjects.index', ['classs_id' => $subject->classs_id]);
     }
 }

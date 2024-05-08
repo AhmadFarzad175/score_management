@@ -1,3 +1,4 @@
+@props(['page'])
 <!DOCTYPE html>
 <html>
 
@@ -16,8 +17,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
@@ -34,18 +33,22 @@
     {{-- <link rel="stylesheet" href="{{ asset('assets/plugins/feather/feather.css') }}"> --}}
 
     <link rel="stylesheet" href="{{ asset('assets/plugins/twitter-bootstrap-wizard/form-wizard.css') }}" />
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("{{ asset('imge/bg6.jpg') }}") !important;
+            background-size: cover;
+        }
+    </style>
 </head>
 
 
 
 
-<body class="hold-transition layout-fixed layout-navbar-fixed">
+<body class="hold-transition">
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white best-shadow">
+        <nav class="navbar navbar-expand-md navbar-light bg-white best-shadow">
             <img src="{{ asset('imge/softelino-logo.png') }}" style="width: 80px; margin-left: 20px">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,22 +57,22 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <a class="nav-link {{$page== 0 ? 'active' : ''}}" href="#">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{route('classes.index')}}">Class</a>
+                        <a class="nav-link {{$page== 1 ? 'active' : ''}}" href="{{route('classes.index')}}">Class</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('students.index')}}">Student</a>
+                        <a class="nav-link {{$page== 2 ? 'active' : ''}}" href="{{route('students.index')}}">Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('attendances.index')}}">Attendance</a>
+                        <a class="nav-link {{$page== 3 ? 'active' : ''}}" href="{{route('attendances.index')}}">Attendance</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('subjects.index')}}">Subject</a>
+                        <a class="nav-link {{$page== 4 ? 'active' : ''}}" href="{{route('subjects.index')}}">Subject</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('scores.index')}}">Score</a>
+                        <a class="nav-link {{$page== 5 ? 'active' : ''}}" href="{{route('scores.index')}}">Score</a>
                     </li>
                 </ul>
             </div>

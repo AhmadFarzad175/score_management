@@ -1,4 +1,4 @@
-<x-newLayout>
+<x-newLayout page="3">
 
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
