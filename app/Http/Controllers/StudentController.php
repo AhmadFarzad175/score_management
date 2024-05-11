@@ -44,11 +44,9 @@ class StudentController extends Controller
             $validated['image'] = $request->file('image')->store('images', 'public');
         }
 
-
         // Create the listing with the validated data
         Student::create($validated);
-        session()->flash('success', "Student inserted successfully");
-        return redirect()->route('students.index', ['classs_id' => $validated['classs_id']]);
+        return redirect()->route('students.index', ['classs_id' => $validated['classs_id']])->with('success', "Student inserted successfully");
     }
 
     /**

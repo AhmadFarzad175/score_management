@@ -14,4 +14,12 @@ trait ChangeStates
         
         $student->update(['status' => 'Mahroom']);
     }
+
+
+    public function ChangeTheStateToNull($studentId)
+    {
+        $student = Student::find($studentId);
+        
+        $student->update(['status' => null]);
+    }
 }

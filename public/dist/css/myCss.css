@@ -127,6 +127,15 @@ td {
     width: 110px;
 }
 
+.attendanceYear{
+    border:none !important; 
+    height: 45px !important;
+    border-radius: 0.25rem;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
 input:focus{
     outline: none !important;
 }
@@ -161,4 +170,8 @@ input:focus{
 .default_img{
     width: 130px;
     margin-top: 10px;
+}
+
+body {
+    color: black !important;
 }

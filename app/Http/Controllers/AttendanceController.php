@@ -21,8 +21,8 @@ class AttendanceController extends Controller
     public function index(Request $request)
     {
         $classes = Classs::all();
+        $class = Classs::find($request->classs_id);
 
-        $years = Attendance::select(DB::raw('year'))->distinct()->orderBy('year','desc')->get();
         // Fetch attendances only if a class ID is provided
         if ($request->filled('classs_id')) {
             $attendances = Attendance::with('student')
@@ -32,7 +32,8 @@ class AttendanceController extends Controller
         } else {
             $attendances = []; // If class ID is not provided, return an empty array
         }
-        return view('attendances.allAttendance', compact('attendances', 'classes', 'years'));
+
+        return view('attendances.allAttendance', compact('attendances', 'classes'));
     }
 
     /** 
@@ -40,13 +41,29 @@ class AttendanceController extends Controller
      */
     public function create(Request $request)
     {
+        $students = collect();
+        $class = Classs::find($request->classs_id);
         $classes = Classs::all();
-        if ($request['classs_id']) {
-            $students = Student::where('classs_id', $request['classs_id'])->orderBy('first_name')->orderBy('father_name')->get();
-            return view('attendances.createAttendance', compact('classes', 'students'));
+        if ($request->classs_id) {
+            $students = student::with('attendances')
+                ->join('attendances', 'students.id', '=', 'attendances.student_id')
+                ->where('attendances.classs_id', $request->classs_id)
+                ->where('attendances.year', $class->year)
+                ->orderBy('first_name')
+                ->orderBy('father_name')
+                ->get();
+        }
+        if (!$students->isEmpty()) {
+            //
+        } else {
+            $students = student::where('classs_id', $request->classs_id)
+                ->orderBy('first_name')
+                ->orderBy('father_name')
+                ->get();
         }
 
-        $students = [];
+        // dd($attendances);
+
         return view('attendances.createAttendance', compact('classes', 'students'));
     }
 
@@ -55,26 +72,43 @@ class AttendanceController extends Controller
      */
     public function store(AttendanceRequest $request)
     {
-
         $validated = $request->validated();
+        // dd($validated);
 
         // Loop through the validated attendance data
         foreach ($validated['attendances'] as $studentId => $attendance) {
 
-
-            // Create new attendance record if not found
-            Attendance::create([
+            $attendanceData = [
                 'year' => $validated['year'],
                 'total_educational_year' => $validated['total_year'],
                 'student_id' => $studentId,
-                'classs_id' => Request('classs_id'),
+                'classs_id' => $request->classs_id,
                 'present' => $attendance['present'],
                 'absent' => $attendance['absent'],
                 'sick' => $attendance['sick'],
                 'leave' => $attendance['leave'],
-            ]);
+            ];
 
-            //CHECK IF THE STUDENT IS MAHROOM OR NOT
+
+            // Check if the attendance record exists for the student and year
+            $existingAttendance = Attendance::where('student_id', $studentId)
+                ->where('classs_id', $request->classs_id)
+                ->where('year', $validated['year'])
+                ->first();
+
+                if ($existingAttendance) {
+                    // Update existing attendance record
+                    $existingAttendance->update($attendanceData);
+                    $this->ChangeTheStateToNull($studentId);
+
+
+            } else {
+                // Create new attendance record
+                Attendance::create($attendanceData);
+            }
+            // dd($existingAttendance);
+
+            // Check if the student is Mahroom or not
             $status = intval($attendance['absent']) > intval($validated['total_year']) * 0.25;
             if ($status) {
                 $this->ChangeTheStateToMahroom($studentId);
@@ -84,6 +118,7 @@ class AttendanceController extends Controller
         // Redirect back with a success message or any other action you desire
         return redirect()->route('attendances.index', ['classs_id' => $request->classs_id, 'year' => $validated['year']])->with('success', 'Attendance inserted successfully.');
     }
+
 
 
 

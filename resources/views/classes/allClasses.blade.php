@@ -12,12 +12,11 @@
     
 
     <!-- /.modal -->
-
-
-    <x-classForm method='Update' />
+    <x-class-form method='Update' />
     
-    <x-classForm />
+    <x-class-form />
     <!-- /.modal -->
+    
     <!-- /.card -->
     <div class="card">
         <!-- /.card-header -->
@@ -101,7 +100,6 @@
                 return response.json();
             })
             .then(classData => {
-                console.log(classData);
                 // Populate form fields with the received class data
                 document.getElementById('name').value = classData.name;
                 document.getElementById('year').value = classData.year;

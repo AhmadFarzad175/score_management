@@ -7,26 +7,15 @@
     </div>
     <form action="{{ route('attendances.index') }}">
         @csrf
-        <div class="card d-flex flex-row pt-3 justify-content-around flex-wrap">
+        <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
             <div class="col-12 col-sm-4 col-md-3">
                 <div class="form-group">
                     <label for="classs">Class</label>
                     <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
                         @foreach ($classes as $class)
-                            <option {{request('classs_id') == $class->id ? 'selected' : ''}}
-                                value="{{ $class->id }}">{{ $class->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col-12 col-sm-4 col-md-3">
-                <label for="classs">Year</label>
-                <div class="form-group">
-                    <select class="form-control select2" name="year" style="width: 100%;">
-                        @foreach ($years as $year)
-                            <option {{request('year') == $year->year ? 'selected' : ''}}
-                                value="{{ $year->year }}">{{ $year->year }}</option>
-                        @endforeach
+                        <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
+                            value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
+                    @endforeach
                     </select>
                 </div>
             </div>
@@ -37,16 +26,20 @@
                 </button>
             </div>
         </div>
-    </form>
+    </form><br>
 
 
     <!-- /.card -->
     @if (isset($attendances[0]))
-        <div class="text-right">
-            <b>Year </b><span class="year">{{ $attendances[0]->year }}</span><br><br>
-            <b>Total Educational Year </b><span class="year">{{ $attendances[0]->total_educational_year }}
-                Days</span><br><br>
+    {{-- <div class="text-right d-flex col-12 text-left" style="width: 100%">
+        <div class="col-6 text-left">
+            <b>Year</b><input type="number" value="{{isset($students['0']->year) ? $students['0']->year : ''}}" name="year" class="attendanceYear col-12 best-shadow"><br><br>
         </div>
+        <div class="col-6 text-left">
+            <b>Total Educational year</b><input type="number" value="{{isset($students['0']->total_educational_year) ? $students['0']->total_educational_year : ''}}" name="total_year"
+                class="attendanceYear col-12 best-shadow">
+        </div>
+    </div> --}}
     @endif
     <div class="card">
         <!-- /.card-header -->

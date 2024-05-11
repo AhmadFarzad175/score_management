@@ -1,4 +1,4 @@
-@props(['method','classs'])
+@props(['method'])
 <div class="modal fade" id="modal-default{{ isset($method) ? 'Update' : '' }}">
     <div class="modal-dialog modal-default">
         <div class="modal-content">
