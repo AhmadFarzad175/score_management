@@ -19,7 +19,7 @@
                     @csrf
                     {{-- SUBJECT NAME --}}
                     <div class="form-group col-12">
-                        <input type="hidden" name="classs_id" value="{{$classs}}">
+                        <input type="hidden" name="classs_id">
                         <label for="name">Subject Name <span class="text-danger">*</span></label>
                         <input type="text" name="name" id="{{isset($method) ? 'subjectName' : ''}}" class="form-control" placeholder="Dari">
                     </div>

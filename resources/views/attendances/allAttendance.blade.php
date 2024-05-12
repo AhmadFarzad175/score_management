@@ -1,5 +1,5 @@
 <x-newLayout page="3">
-
+    {{-- @dd($students) --}}
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
             <h4>Home | Class Attendance</h4>
@@ -13,9 +13,9 @@
                     <label for="classs">Class</label>
                     <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
                         @foreach ($classes as $class)
-                        <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                            value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
-                    @endforeach
+                            <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
+                                value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -30,16 +30,18 @@
 
 
     <!-- /.card -->
-    @if (isset($attendances[0]))
-    {{-- <div class="text-right d-flex col-12 text-left" style="width: 100%">
-        <div class="col-6 text-left">
-            <b>Year</b><input type="number" value="{{isset($students['0']->year) ? $students['0']->year : ''}}" name="year" class="attendanceYear col-12 best-shadow"><br><br>
-        </div>
-        <div class="col-6 text-left">
-            <b>Total Educational year</b><input type="number" value="{{isset($students['0']->total_educational_year) ? $students['0']->total_educational_year : ''}}" name="total_year"
-                class="attendanceYear col-12 best-shadow">
-        </div>
-    </div> --}}
+    @if (isset($students[0]))
+        <div class="text-right d-flex col-12 text-left" style="width: 100%">
+            <div class="col-6 text-left">
+                <b>Year</b>
+                <div type="number" name="year"
+                    class="attendanceDisabled col-12 best-shadow">{{ $students[0]->year }}</div>
+            </div>
+            <div class="col-6 text-left">
+                <b>Total Educational year</b><div type="number"
+                    name="total_year" class="attendanceDisabled col-12 best-shadow">{{$students['0']->total_educational_year}}</div>
+            </div>
+        </div><br>
     @endif
     <div class="card">
         <!-- /.card-header -->
@@ -60,29 +62,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($attendances as $attendance)
+                    @foreach ($students as $student)
                         <tr>
-                            {{-- @dd($student->attendances) --}}
+                            {{-- @dd($student->students) --}}
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $attendance->student->first_name }}</td>
-                            <td>{{ $attendance->student->father_name }}</td>
+                            <td>{{ $student->first_name }}</td>
+                            <td>{{ $student->father_name }}</td>
 
-                            <td>{{ $attendance->present }}</td>
-                            <td>{{ $attendance->absent }}</td>
-                            <td>{{ $attendance->sick }}</td>
-                            <td>{{ $attendance->leave }}</td>
+                            <td>{{ $student->present }}</td>
+                            <td>{{ $student->absent }}</td>
+                            <td>{{ $student->sick }}</td>
+                            <td>{{ $student->leave }}</td>
                             <td><span
-                                    class="badge badge-{{ $attendance->student->status ? 'danger' : 'success' }}">{{ $attendance->student->status ?? 'Include' }}</span>
+                                    class="badge badge-{{ $student->status ? 'danger' : 'success' }}">{{ $student->status ?? 'Include' }}</span>
                             </td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
-                                        title="Edit" data-toggle="modal" data-target="#modal-lg">
+                                        title="Edit" data-toggle="modal" data-attendance-id="{{ $student->id }}"
+                                        data-target="#modal-default">
                                         <i class="mt-2 fa fa-thermometer" style="font-size: 16px"></i>
                                     </button>
 
 
-                                    <form action="{{ route('attendances.destroy', $attendance->id) }}" method="post">
+                                    <form action="{{ route('attendances.destroy', $student->student_id) }}"
+                                        method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit"
@@ -99,12 +103,15 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('students.index') }}" class="btn btn-info">Back</a>
-                <a href="{{ route('subjects.index', ['classs_id' => Request('classs_id')]) }}" class="btn btn-info">Next</a>
+                <a href="{{ route('subjects.index', ['classs_id' => Request('classs_id')]) }}"
+                    class="btn btn-info">Next</a>
             </div>
 
         </div>
         <!-- /.card-body -->
     </div>
+
+    <x-attendance-form />
 </x-newLayout>
 <script>
     $(function() {
@@ -119,67 +126,44 @@
     });
 </script>
 
+{{-- FETCHING DATA FOR UPDATING MODAL --}}
+<script>
+    // Function to fetch and populate class data
+    function populateClassData(attendanceId) {
+        // Fetch class data from the server
+        fetch(`/attendances/${attendanceId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(attendanceData => {
+                console.log(attendanceData);
+                // Populate form fields with the received class data
+                document.getElementById('first_name').value = attendanceData.student.first_name;
+                document.getElementById('present').value = attendanceData.present;
+                document.getElementById('absent').value = attendanceData.absent;
+                document.getElementById('sick').value = attendanceData.sick;
+                document.getElementById('leave').value = attendanceData.leave;
 
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                // Handle error if necessary
+            });
+    }
 
+    // Function to handle the click event for all edit buttons
+    document.addEventListener('click', function(event) {
+        let element = event.target.closest('.editBtn');
+        if (element) {
+            // Get the student ID from the data attribute
+            const attendanceId = element.dataset.attendanceId;
+            console.log(attendanceId);
+            document.querySelector('.updateBtn').action = "attendances/" + attendanceId;
 
-{{-- TO SHOW THE UPADTE MODAL --}}
-<div class="modal fade" id="modal-lg">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Update Attendance</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Form -->
-                <!-- form start -->
-                {{-- <form action="{{ route('attendances.update', $attendances->id) }}" method="POST"
-                    style="display: flex; flex-wrap: wrap;">
-                    @csrf
-                    @method('PUT')
-                    <div class="d-flex flex-wrap">
-
-                        <div class="form-group col-md-6">
-                            {{-- FIRSTNAME --}}
-                            {{-- <div class="name mb-3">
-                                <label for="name">Class Name <span class="text-danger">*</span></label>
-                                <input type="text" name="name" id="name" class="form-control"
-                                    placeholder="12B1">
-
-                            </div>
-                        </div>
-
-                        <div class="form-group col-12 col-md-6">
-                            <label for="present">Present <span class="text-danger">*</span></label>
-                            <input name="present" type="text" id="present" class="form-control">
-                        </div>
-                        <div class="form-group col-12 col-md-6">
-                            <label for="absent">Absent <span class="text-danger">*</span></label>
-                            <input name="absent" type="text" id="absent" class="form-control">
-                        </div>
-                        <div class="form-group col-12 col-md-6">
-                            <label for="sick">Sick <span class="text-danger">*</span></label>
-                            <input name="sick" type="text" id="sick" class="form-control">
-                        </div>
-                        <div class="form-group col-12 col-md-6">
-                            <label for="leave">Leave <span class="text-danger">*</span></label>
-                            <input name="leave" type="text" id="leave" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="modal-footer ">
-                        <div class="student-submit text-left">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </div>
-                    </div> --}}
-
-
-                {{-- </form> --}}
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-</div>
+            populateClassData(attendanceId);
+        }
+    });
+</script>

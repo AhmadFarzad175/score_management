@@ -135,6 +135,16 @@ td {
     padding-right: 15px;
 }
 
+.attendanceDisabled {
+    height: 45px !important;
+    line-height: 45px !important;
+    border-radius: 0.25rem;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: white;
+    
+}
+
 
 input:focus{
     outline: none !important;
