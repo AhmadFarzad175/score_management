@@ -117,7 +117,7 @@
         let element = event.target.closest('.editBtn');
         if (element) {
             // Get the student ID from the data attribute
-            const classId = element.dataset.classId; 
+            const classId = element.dataset.classId;
             document.querySelector('.updateBtn').action = "classes/" + classId;
 
             populateClassData(classId);

@@ -13,7 +13,7 @@ class SubjectController extends Controller
      */
     public function index(Request $request)
     {
-        $ordinary = [
+        $ordinaries = [
             '1' => 'اول',
             '2' => 'دوم',
             '3' => 'سوم',
@@ -32,7 +32,7 @@ class SubjectController extends Controller
         $classes = Classs::all();
 
         // Pass the data to the view
-        return view('subjects.allSubjects', compact('subjects', 'classes', 'ordinary'));
+        return view('subjects.allSubjects', compact('subjects', 'classes', 'ordinaries'));
     }
 
     /**
@@ -82,13 +82,10 @@ class SubjectController extends Controller
     {
         $validated = $request->validate([
             'name' => "sometimes|string|max:255",
-            // 'classs' => "sometimes|string|max:255",
         ]);
         $subject->update($validated);
 
-        session()->flash('success', "Subject updated successfully");
-
-        return redirect()->route('subjects.index');
+        return redirect()->back()->with('success', "Subject updated successfully");
     
     }
 
@@ -102,5 +99,14 @@ class SubjectController extends Controller
         session()->flash('success', "Subject deleted successfully");
 
         return redirect()->route('subjects.index', ['classs_id' => $subject->classs_id]);
+    }
+
+
+    public function subjects(Request $request)
+    {
+        $subjects = Subject::Where('classs_id', $request->classs_id)->get();
+
+        // Pass the data to the view
+        return $subjects;
     }
 }

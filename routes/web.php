@@ -27,6 +27,7 @@ Route::resource('/attendances', AttendanceController::class);
 Route::resource('/classes', ClasssController::class);
 Route::resource('/students', StudentController::class);
 Route::get('/classsProvince', [StudentController::class, 'classsProvince']);
+Route::get('/allSubjects', [SubjectController::class, 'subjects']);
 
 
 Route::get('/register', [AuthController::class, 'register']);

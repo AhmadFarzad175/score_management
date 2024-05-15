@@ -117,13 +117,6 @@ class AttendanceController extends Controller
         // Redirect back with a success message or any other action you desire
         return redirect()->route('attendances.index', ['classs_id' => $request->classs_id, 'year' => $validated['year']])->with('success', 'Attendance inserted successfully');
 
-
-        // $students = student::join('attendances', 'students.id', '=', 'attendances.student_id')
-        // ->where('attendances.classs_id', $request->classs_id)
-        // ->where('attendances.year', $class->year)
-        // ->orderBy('students.first_name')
-        // ->orderBy('students.father_name')
-        // ->get();
     }
 
 

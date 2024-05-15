@@ -13,8 +13,9 @@ class Score extends Model
     protected $fillable = [
         'student_id',
         'subject_id',
-        'class_id',
-        'score'
+        'classs_id',
+        'mark',
+        'exam_type',
     ];
 
     public function classs()

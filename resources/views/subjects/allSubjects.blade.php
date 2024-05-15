@@ -3,11 +3,6 @@
         <div class="align-self-end">
             <h4>Home | Subjects</h4>
         </div>
-        <button type="button" class="btn btn-dark createBtn" data-toggle="modal" data-target="#modal-default">
-            <i class="fas fa-plus"></i>
-            Create
-        </button>
-
     </div>
     <form action="{{ route('subjects.index') }}">
         @csrf
@@ -16,16 +11,16 @@
                 <div class="form-group">
                     <label for="classs">Class</label>
                     <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
-                        @foreach ($classes as $class)
-                            <option {{ $subjects ?? ([0])->classs_id == $class->id ? 'selected' : '' }}
-                                value="{{ $class->id }}">{{ $class->name }}</option>
+                        @foreach ($ordinaries as $ordinary)
+                            <option {{ $loop->iteration == request('classs_id') ? 'selected' : '' }}
+                                value="{{ $loop->iteration }}">{{ $ordinary }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-            
+
             <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
-                <button type="sbmit" class="btn btn-outline-info">
+                <button type="sbmit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i>
                     Search
                 </button>
@@ -53,13 +48,13 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $subject->name }}</td>
-                            <td>{{ $ordinary[$subject->classs_id] }}</td>
+                            <td>{{ $ordinaries[$subject->classs_id] }}</td>
                             <td class="text-right py-0 align-middle">
                                 {{-- EDIT BTTON --}}
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
                                         title="Edit" data-subject-id="{{ $subject->id }}" data-toggle="modal"
-                                        data-target="#modal-defaultUpdate">
+                                        data-target="#modal-default">
                                         <i class="mt-2 fa fa-thermometer" style="font-size: 16px"></i>
                                     </button>
 
@@ -80,24 +75,18 @@
 
             </table>
             <div class="d-flex justify-content-between mt-3">
-                <a href="{{ route('attendances.index') }}" class="btn btn-info">Back</a>
-                <a href="{{ route('scores.index') }}" class="btn btn-info">Next</a>
+                <a href="{{ route('attendances.index') }}" class="btn btn-primary">Back</a>
+                <a href="{{ route('scores.index') }}" class="btn btn-primary">Next</a>
             </div>
         </div>
         <!-- /.card-body -->
     </div>
 
-{{-- @dd($subjects) --}}
-    <!-- /.modal -->
-    <x-subjectForm :classs="Request('classs_id')" />
-        <!-- /.modal -->
+
+    <x-subject-form/>
+
+
 </x-newLayout>
-
-<!-- /.modal -->
-<x-subjectForm :classs="Request('classs_id')" method="Update" />
-<!-- /.modal -->
-
-
 
 <script>
     $(function() {
@@ -127,9 +116,9 @@
                 return response.json();
             })
             .then(subjectData => {
+                console.log(subjectData);
                 // Populate form fields with the received class data
-                document.getElementById('subjectName').value = subjectData.name;
-                document.querySelector('#modal-defaultUpdate form').action = `/subjects/${subjectData.id}`;
+                document.getElementById('name').value = subjectData.name;
 
             })
             .catch(error => {
@@ -144,7 +133,10 @@
         if (element) {
             // If the clicked element has the class 'editBtn'
             const subjectId = element.dataset.subjectId; // Get the student ID from the data attribute
+            console.log(subjectId);
+            document.getElementById('updateBtn').action = "subjects/" + subjectId;
+
             populateSubjectData(subjectId); // Fetch and populate student data
-        }   
+        }
     });
 </script>

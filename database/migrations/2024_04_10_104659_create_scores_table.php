@@ -19,8 +19,10 @@ return new class extends Migration
             $table->foreignIdFor(Student::class);
             $table->foreignIdFor(Subject::class);
             $table->foreignIdFor(Classs::class);
-            $table->integer('score');
+            $table->integer('mark');
+            $table->boolean('exam_type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
