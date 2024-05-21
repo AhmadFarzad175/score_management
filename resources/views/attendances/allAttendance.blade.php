@@ -4,23 +4,30 @@
         <div class="align-self-end">
             <h4>Home | Class Attendance</h4>
         </div>
+        <a href="{{ route('attendances.create') }}" type="button" class="btn btn-primary createBtn">
+            <i class="fas fa-plus"></i>
+            Create
+        </a>
     </div>
     <form action="{{ route('attendances.index') }}">
         @csrf
         <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
             <div class="col-12 col-sm-4 col-md-3">
-                <div class="form-group">
-                    <label for="classs">Class</label>
-                    <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
-                        @foreach ($classes as $class)
-                            <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                                value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
-                        @endforeach
-                    </select>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left" style="">Class</button>
+                        <select class="form-control select2 input_radious_none" name="classs_id" id="classs"
+                            style="width: 250px;">
+                            @foreach ($classes as $class)
+                                <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
+                                    value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
-                <button type="sbmit" class="btn btn-outline-info">
+                <button type="sbmit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i>
                     Search
                 </button>
@@ -31,21 +38,27 @@
 
     <!-- /.card -->
     @if (isset($students[0]))
-        <div class="text-right d-flex col-12 text-left" style="width: 100%">
-            <div class="col-6 text-left">
-                <b>Year</b>
-                <div type="number" name="year"
-                    class="attendanceDisabled col-12 best-shadow">{{ $students[0]->year }}</div>
+        <div class="d-flex col-12 text-left justify-content-around" style="width: 100%">
+            <div class="input-group col-5 mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary h50px best-shadow">Educational Year</button>
+                </div>
+                <div class="attendanceDisabled col-12 best-shadow form-control h50px">{{ $students[0]->year }}
+                </div>
             </div>
-            <div class="col-6 text-left">
-                <b>Total Educational year</b><div type="number"
-                    name="total_year" class="attendanceDisabled col-12 best-shadow">{{$students['0']->total_educational_year}}</div>
+            <div class="input-group col-5 mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary h50px best-shadow">Total Educational Year</button>
+                </div>
+                <div class="attendanceDisabled col-12 best-shadow form-control h50px">
+                    {{ $students[0]->total_educational_year }}
+                </div>
             </div>
-        </div><br>
+        </div>
     @endif
     <div class="card">
         <!-- /.card-header -->
-
+        {{-- attendanceDisabled --}}
         <div class="card-body">
             <table id="example2" class="table table-hover">
                 <thead>
@@ -102,9 +115,9 @@
             </table>
 
             <div class="d-flex justify-content-between mt-3">
-                <a href="{{ route('students.index') }}" class="btn btn-info">Back</a>
+                <a href="{{ route('students.index') }}" class="btn btn-primary">Back</a>
                 <a href="{{ route('subjects.index', ['classs_id' => Request('classs_id')]) }}"
-                    class="btn btn-info">Next</a>
+                    class="btn btn-primary">Next</a>
             </div>
 
         </div>

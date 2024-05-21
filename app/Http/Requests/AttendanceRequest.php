@@ -24,6 +24,16 @@ class AttendanceRequest extends FormRequest
      */
     public function rules()
     {
+        // dd(Request());  
+        if($this->isMethod('PUT')){
+            $rules=[
+            'present' => 'required|numeric|integer|min:0',
+            'absent' => 'required|numeric|integer|min:0',
+            'sick' => 'required|numeric|integer|min:0',
+            'leave' => 'required|numeric|integer|min:0',
+            ];
+        }
+        else{
         $rules = [
             'year' => 'required|numeric|integer',
             'total_year' => 'required|numeric|integer',
@@ -32,15 +42,9 @@ class AttendanceRequest extends FormRequest
             'attendances.*.sick' => 'required|numeric|integer|min:0',
             'attendances.*.leave' => 'required|numeric|integer|min:0',
         ];
-
-        if($this->isMethod('PUT')){
-            $rules=[
-            'present' => 'required|numeric|integer|min:0',
-            'absent' => 'required|numeric|integer|min:0',
-            'sick' => 'required|numeric|integer|min:0',
-            'leave' => 'required|numeric|integer|min:0',
-            ];
     }
+
+        
 
         return $rules;
     }

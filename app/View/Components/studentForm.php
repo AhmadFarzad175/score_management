@@ -24,7 +24,7 @@ class studentForm extends Component
     public function render(): View|Closure|string
     {
         return view('components.student-form',[
-            'classes' => Classs::all(),
+            'classes' => Classs::orderBy('id', 'desc')->get(),
             'provinces' => Province::all()
         ]);
     }

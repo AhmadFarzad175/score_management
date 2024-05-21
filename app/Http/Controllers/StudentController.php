@@ -16,7 +16,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         
-        $classes = Classs::all();
+        $classes = Classs::latest()->get();
         if($request['classs_id']){
             $students = Student::with(['classs', 'mainResidence'])->where('classs_id', $request->classs_id)->latest()->get();
             return view('flows.students', compact('students', 'classes'));
@@ -80,14 +80,12 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
-        session()->flash('success', "Student deleted successfully");
-
-        return redirect()->route('students.index');
+        return redirect()->route('students.index',['classs_id' => $student->classs_id])->with('success', "Student deleted successfully");
     }
 
     public function classsProvince()
     {
-        $classes = Classs::all();
+        $classes = Classs::latest()->get();
         $provinces = Province::all();
         return response()->json(['classes' => $classes, 'provinces' => $provinces]);
     }

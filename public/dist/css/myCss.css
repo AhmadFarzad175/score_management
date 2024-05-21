@@ -21,8 +21,6 @@
     margin-bottom: 40px;
 }
 
-
-
 @media (min-width: 576px) {
     .content-wrapper {
         margin-left: 10px !important;
@@ -118,8 +116,8 @@ td {
     margin-left: 250px;
 }
 
-.attendanceInput{
-    border:none !important; 
+.attendanceInput {
+    border: none !important;
     height: 35px !important;
     border-radius: 0.25rem;
     padding-left: 15px;
@@ -127,37 +125,32 @@ td {
     width: 110px;
 }
 
-.attendanceYear{
-    border:none !important; 
-    height: 45px !important;
-    border-radius: 0.25rem;
+.attendanceYear {
     padding-left: 15px;
     padding-right: 15px;
 }
 
 .attendanceDisabled {
-    height: 45px !important;
-    line-height: 45px !important;
+    height: 50px !important;
+    line-height: 45px !important ;
     border-radius: 0.25rem;
     padding-left: 15px;
     padding-right: 15px;
     background-color: white;
-    
 }
 
-
-input:focus{
+input:focus {
     outline: none !important;
 }
 
 .year {
     background-color: white;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     padding: 10px;
 }
 
-.scoreInput{
-    border:none !important; 
+.scoreInput {
+    border: none !important;
     height: 35px !important;
     border-radius: 0.25rem;
     padding-left: 10px;
@@ -166,22 +159,53 @@ input:focus{
 }
 
 .newShadow {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+        rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
 .h400 {
     height: 400px;
 }
 
-.login_default_img{
+.login_default_img {
     border-radius: 50% !important;
 }
 
-.default_img{
+.default_img {
     width: 130px;
     margin-top: 10px;
 }
 
 body {
     color: black !important;
+}
+
+.input_radious_none {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
+.input_radious_left {
+    border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important;
+}
+
+.user_edit {
+    position: absolute !important;
+    right: -7px !important;
+    top: -5px !important;
+    background-color: #ffffff;
+    color: #b3b3b3 !important;
+    padding: 10px;
+    border-radius: 50%;
+    /* border: 1px solid #ccc !important; */
+}
+
+.h50px {
+    height: 50px;
+}
+
+.w-200{
+    width: 200px;
 }

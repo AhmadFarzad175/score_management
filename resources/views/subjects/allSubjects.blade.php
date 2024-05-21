@@ -7,17 +7,22 @@
     <form action="{{ route('subjects.index') }}">
         @csrf
         <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
+
             <div class="col-12 col-sm-4 col-md-3">
-                <div class="form-group">
-                    <label for="classs">Class</label>
-                    <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
-                        @foreach ($ordinaries as $ordinary)
-                            <option {{ $loop->iteration == request('classs_id') ? 'selected' : '' }}
-                                value="{{ $loop->iteration }}">{{ $ordinary }}</option>
-                        @endforeach
-                    </select>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left" style="">Class</button>
+                        <select class="form-control select2 input_radious_none" name="classs_id" id="classs"
+                            style="width: 250px;">
+                            @foreach ($ordinaries as $ordinary)
+                                <option {{ $loop->iteration == request('classs_id') ? 'selected' : '' }}
+                                    value="{{ $loop->iteration }}">{{ $ordinary }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
+
 
             <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
                 <button type="sbmit" class="btn btn-outline-primary">
@@ -83,7 +88,7 @@
     </div>
 
 
-    <x-subject-form/>
+    <x-subject-form />
 
 
 </x-newLayout>

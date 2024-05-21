@@ -39,8 +39,8 @@
                     </div>
 
                     <div class="form-group col-3" style="position: relative">
-                        <i class="fas fa-user-edit text-secondary text-sm"></i>
                         <div class="best-shadow" id="headImageContainer" onclick="showFileInput()">
+                            <i class="fas fa-user-edit text-white text-sm user_edit best-shadow"></i>
                             <img id="headImage" class="img-fluid{{isset($method) ? '1' : ''}}" src="{{ asset('imge/default_image.jpeg') }}"
                                 alt="Default Image">
                         </div>

@@ -3,20 +3,24 @@
         <div class="align-self-end">
             <h4>Home | Classes</h4>
         </div>
-        <button type="button" class="btn btn-success createBtn" data-toggle="modal" data-target="#modal-default">
-            <i class="fas fa-plus"> </i>
-            Create
+        <button type="button" class="btn btn-primary createBtn" data-toggle="modal" data-target="#modal-default">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
+                <line x1="256" y1="112" x2="256" y2="400"
+                    style="fill:none;stroke:#ffffff;stroke-linecap:square;stroke-linejoin:round;stroke-width:32px" />
+                <line x1="400" y1="256" x2="112" y2="256"
+                    style="fill:none;stroke:#ffffff;stroke-linecap:square;stroke-linejoin:round;stroke-width:32px" />
+            </svg> Create
         </button>
 
     </div>
-    
+
 
     <!-- /.modal -->
     <x-class-form method='Update' />
-    
+
     <x-class-form />
     <!-- /.modal -->
-    
+
     <!-- /.card -->
     <div class="card">
         <!-- /.card-header -->
@@ -64,7 +68,7 @@
             </table>
             <div class="d-flex justify-content-between mt-3">
                 <a href=""></a>
-                <a href="{{route('students.index')}}" class="btn btn-primary">Next</a>
+                <a href="{{ route('students.index') }}" class="btn btn-primary">Next</a>
             </div>
         </div>
         <!-- /.card-body -->
@@ -83,7 +87,7 @@
             autoWidth: true,
         });
     });
-</script> 
+</script>
 
 
 

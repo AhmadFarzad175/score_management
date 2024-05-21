@@ -20,7 +20,7 @@ class AttendanceController extends Controller
 
     public function index(Request $request)
     {
-        $classes = Classs::all();
+        $classes = Classs::latest()->get();
         $class = Classs::find($request->classs_id);
 
         // Fetch attendances only if a class ID is provided
@@ -45,21 +45,28 @@ class AttendanceController extends Controller
     {
         $students = collect();
         $class = Classs::find($request->classs_id);
-        $classes = Classs::all();
+        $classes = Classs::latest()->get();
         if ($request->classs_id) {
+            // dump('if');
             $students = student::join('attendances', 'students.id', '=', 'attendances.student_id')
                 ->where('attendances.classs_id', $request->classs_id)
                 ->where('attendances.year', $class->year)
                 ->orderBy('first_name')
                 ->orderBy('father_name')
+                // ->select('students.id AS student_id', 'first_name', 'father_name', 'image','students.classs_id', 'attendances.id AS attendances_id', 'present', 'absent', 'sick', 'leave')
                 ->get();
+                // dd($students);
         }
         if (!$students->isEmpty()) {
             //
         } else {
+            // dump('else');
+
             $students = student::where('classs_id', $request->classs_id)
                 ->orderBy('first_name')
                 ->orderBy('father_name')
+                ->select('students.id AS student_id', 'first_name', 'father_name', 'image', 'classs_id')
+
                 ->get();
         }
 
@@ -74,7 +81,7 @@ class AttendanceController extends Controller
     public function store(AttendanceRequest $request)
     {
         $validated = $request->validated();
-        // dd($validated);
+        // dd($request->classs_id);
 
         // Loop through the validated attendance data
         foreach ($validated['attendances'] as $studentId => $attendance) {
@@ -116,7 +123,6 @@ class AttendanceController extends Controller
 
         // Redirect back with a success message or any other action you desire
         return redirect()->route('attendances.index', ['classs_id' => $request->classs_id, 'year' => $validated['year']])->with('success', 'Attendance inserted successfully');
-
     }
 
 
@@ -151,12 +157,11 @@ class AttendanceController extends Controller
         $status = intval($attendance['absent']) > $attendance['total_educational_year'] * 0.25;
         if ($status) {
             $this->ChangeTheStateToMahroom($attendance->student_id);
-        }else{
+        } else {
             $this->ChangeTheStateToNull($attendance->student_id);
         }
 
         return redirect()->back()->with('success', "attendance updated successfully");
-
     }
 
     /**

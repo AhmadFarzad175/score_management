@@ -29,7 +29,7 @@ class SubjectController extends Controller
         ];
         // Retrieve class with id = 4 and relevant student attributes using eager loading
         $subjects = Subject::Where('classs_id', $request->classs_id)->get();
-        $classes = Classs::all();
+        $classes = Classs::latest()->get();
 
         // Pass the data to the view
         return view('subjects.allSubjects', compact('subjects', 'classes', 'ordinaries'));

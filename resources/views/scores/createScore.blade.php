@@ -6,59 +6,129 @@
         </div>
 
     </div>
-    <form action="{{ route('scores.create') }}">
+    {{-- <form action="{{ route('scores.create') }}">
         @csrf
-        <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
+        <div class="card d-flex flex-row pt-3 justify-content-between  flex-wrap">
             <div class="col-12 col-sm-4 col-md-2">
-                <div class="form-group">
-                    <label for="classs">Class</label>
-                    <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
-                        @foreach ($classes as $class)
-                            <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                                value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
-                        @endforeach
-                    </select>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left" style="">Class</button>
+                        <select class="form-control select2 input_radious_none" name="classs_id" id="classs">
+                            @foreach ($classes as $class)
+                                <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
+                                    value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="col-12 col-sm-4 col-md-2">
-                <div class="form-group">
-                    <label for="terms">Terms</label>
-                    <select class="form-control select2" name="term_id" id="terms" style="width: 100%;">
-                        @foreach ($ordinaries as $ordinary)
-                            <option value="{{ $loop->iteration }}"
-                                {{ request('term_id') == $loop->iteration ? 'selected' : '' }}>{{ $ordinary }}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+
+                        <button type="button" class="btn-primary input_radious_left" style="">Terms</button>
+                        <select class="form-control select2" name="term_id" id="terms" style="width: 250px;">
+                            @foreach ($ordinaries as $ordinary)
+                                <option value="{{ $loop->iteration }}"
+                                    {{ request('term_id') == $loop->iteration ? 'selected' : '' }}>{{ $ordinary }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left" style="">Subjects</button>
+                        <select class="form-control select2" name="subject_id" id="subjects" style="width: 250px;">
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">Exam Type</button>
+                        <select class="form-control" name="exam_type" id="exam_type" style="width: 250px;">
+                            <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term
                             </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col-12 col-sm-4 col-md-2">
-                <div class="form-group">
-                    <label for="subjects">Subjects</label>
-                    <select class="form-control select2" name="subject_id" id="subjects" style="width: 100%;">
-
-                    </select>
+                            <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-12 col-sm-4 col-md-2">
-                <div class="form-group">
-                    <label for="exam_type">Exam Type</label>
-                    <select class="form-control" name="exam_type" id="exam_type" style="width: 100%;">
-                        <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term</option>
-                        <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
+            <div class="col-12 col-sm-4 col-md-2 text-right mb-3 align-self-end">
                 <button type="sbmit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i>
                     Search
                 </button>
             </div>
         </div>
+    </form> --}}
+    <form action="{{ route('scores.create') }}">
+        @csrf
+        <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
+            <div class="col-12 col-sm-4 col-md-2 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left">Class</button>
+                        <select class="form-control select2 input_radious_none w-200" name="classs_id" id="classs">
+                            @foreach ($classes as $class)
+                                <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
+                                    value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-2 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left">Terms</button>
+                        <select class="form-control select2 w-200" name="term_id" id="terms">
+                            @foreach ($ordinaries as $ordinary)
+                                <option value="{{ $loop->iteration }}"
+                                    {{ request('term_id') == $loop->iteration ? 'selected' : '' }}>{{ $ordinary }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-2 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left">Subjects</button>
+                        <select class="form-control select2 w-200" name="subject_id" id="subjects">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-2 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">Exam Type</button>
+                        <select class="form-control w-200" name="exam_type" id="exam_type">
+                            <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term</option>
+                            <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-2 mb-3 text-right align-self-end">
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+        </div>
     </form>
+    
 
 
     <form action="{{ route('scores.store') }}" method="POST">
@@ -81,11 +151,12 @@
                     </thead>
                     <tbody>
                         @foreach ($students as $student)
-                        @dump($student)
+                            {{-- @dump($student) --}}
                             <tr style="overflow: auto">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $student->image) }}" class="img-circle best-shadow w-40">
+                                    <img src="{{ asset('storage/' . $student->image) }}"
+                                        class="img-circle best-shadow w-40">
                                 </td>
                                 <td>{{ $student->first_name }}</td>
                                 <td>{{ $student->father_name }}</td>
@@ -94,15 +165,15 @@
                                     <input type="hidden" name="subject_id" value="{{ request('subject_id') }}">
                                     <input type="hidden" name="classs_id" value="{{ $student->classs_id }}">
                                     <input type="hidden" name="exam_type" value="{{ request('exam_type') }}">
-                                    <input type="number" name="students[{{ $student->id }}][mark]" min="0"
-                                        class="scoreInput best-shadow"
-                                        {{ request('exam_type') == 1 ? 'max=100' : 'max=40' }}
+                                    <input type="number" name="students[{{ $student->student_id }}][mark]"
+                                        min="0" class="scoreInput best-shadow"
+                                        {{ request('exam_type') == 1 ? 'max=60' : 'max=40' }}
                                         value="{{ $student->mark }}">
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
-                    
+
                 </table>
                 <div class="d-flex justify-content-between mt-3">
                     <a href="{{ route('attendances.index') }}" class="btn btn-primary">Back</a>

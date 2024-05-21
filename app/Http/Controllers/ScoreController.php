@@ -7,6 +7,7 @@ use App\Models\Classs;
 use App\Models\Student;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ScoreRequest;
 
 class ScoreController extends Controller
@@ -14,13 +15,84 @@ class ScoreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $students = [];
+        $classes = Classs::latest()->get();
+        $class = Classs::find($request->classs_id);
 
-        $students = Student::where('status', null)->latest()->get();
-        $subjects = Subject::all();
-        $classes = Classs::all();
-        return view('scores.createScore', compact('students', 'subjects', 'classes'));
+        if($class){
+        $studentsData = DB::table('students')
+            ->select(
+                'students.id AS student_id',
+                'students.first_name',
+                'students.father_name',
+                'students.image',
+                'scores.id AS score_id',
+                'scores.mark',
+                'scores.classs_id',
+                'subjects.id AS subject_id',
+                'subjects.name AS subject_name'
+            )
+            ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
+            ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
+            ->whereNull('students.status')
+            ->where('scores.classs_id', $request->classs_id)
+            ->where('scores.exam_type', $request->exam_type)
+            ->get()
+            ->groupBy('student_id');
+        // dd($studentsData);
+
+        
+        foreach ($studentsData as $studentId => $records) {
+            $student = [
+                'student_id' => $records[0]->student_id,
+                'first_name' => $records[0]->first_name,
+                'father_name' => $records[0]->father_name,
+                'image' => $records[0]->image,
+                'subjects' => []
+            ];
+
+            foreach ($records as $record) {
+                if ($record->subject_id !== null) {
+                    $student['subjects'][] = [
+                        'subject_id' => $record->subject_id,
+                        'subject_name' => $record->subject_name,
+                        'score_id' => $record->score_id,
+                        'mark' => $record->mark,
+                    ];
+                }
+            }
+            $students[] = $student;
+        }
+    }
+        // dd($students);
+
+
+
+        // $studentsData = DB::table('students')
+        // ->select(
+        //     'students.id AS student_id',
+        //     'students.first_name',
+        //     'students.father_name',
+        //     'students.image',
+        //     'scores.id AS score_id',
+        //     'scores.mark',
+        //     'scores.classs_id',
+        //     'subjects.id AS subject_id',
+        //     'subjects.name AS subject_name'
+        // )
+        // ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
+        // ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
+        // ->whereNull('students.status')
+        // ->where('scores.classs_id', $request->classs_id)
+        // ->orderBy('students.id', 'asc')
+        // ->get()
+        // ->groupBy('student_id');
+        // dd($studentsData);
+
+
+        return view('scores.allScores', compact('students', 'classes'));
     }
 
     /**
@@ -29,7 +101,7 @@ class ScoreController extends Controller
     public function create(Request $request)
     {
         $students = collect();
-        $classes = Classs::all();
+        $classes = Classs::latest()->get();
         $subject = Subject::find(Request('subject_id'));
 
         $ordinaries = [
@@ -62,7 +134,8 @@ class ScoreController extends Controller
         } else {
             $students = Student::where('status', null)
                 ->where('classs_id', $request->classs_id)
-                ->orderBy('first_name')->orderBy('father_name')->get();
+                ->orderBy('first_name')->orderBy('father_name')
+                ->select('id as student_id', 'first_name', 'father_name', 'image', 'classs_id')->get();
         }
 
         return view('scores.createScore', compact('students', 'classes', 'subject', 'ordinaries'));
@@ -71,7 +144,7 @@ class ScoreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(scoreRequest $request)
+    public function store(ScoreRequest $request)
     {
         $validated = $request->validated();
 
@@ -92,7 +165,7 @@ class ScoreController extends Controller
                 ->first();
             $score ? $score->update($scoreData) : Score::create($scoreData);
         }
-        return redirect()->route('scores.create')->with('success', 'score inserted successfully');
+        return redirect()->route('scores.index', ['classs_id' => $validated['classs_id'], 'subject_id' => $validated['subject_id'], 'exam_type' => $validated['exam_type']])->with('success', 'score inserted successfully');
     }
 
 
@@ -101,25 +174,60 @@ class ScoreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Score $score)
+    public function show(Request $request, Score $score)
     {
-        //
+        // dd($request);
+        $class = Classs::find($request->classs_id);
+        $studentsData = DB::table('students')
+            ->select(
+                'students.id AS student_id',
+                'students.first_name',
+                'scores.id AS score_id',
+                'scores.mark',
+                'subjects.id AS subject_id',
+                'subjects.name AS subject_name'
+
+            )
+            ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
+            ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
+            ->whereNull('students.status')
+            ->where('scores.student_id', $score->student_id)
+            ->where('scores.classs_id', $score->classs_id)
+            ->where('scores.exam_type', $score->exam_type)
+            ->get();
+
+        return $studentsData;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Score $score)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Score $score)
     {
-        //
+        $messages = [
+            'subjects.*.required' => 'The mark for each subject is required.',
+            // 'subjects.*.numeric' => 'The mark for each subject must be a number.',
+            // 'subjects.*.min' => 'The mark for each subject must be at least :min.',
+            // 'subjects.*.max' => 'The mark for each subject must not be greater than :max.',
+        ];
+        // Validate the incoming request data
+            $request->validate([
+                'subjects.*' => 'required|numeric|min:0|max:100',
+            ], $messages);
+
+
+        // Loop through the subjects and update each score
+        foreach ($request->input('subjects') as $scoreId => $mark) {
+            $score = Score::find($scoreId);
+            if ($score) {
+                $score->mark = $mark;
+                $score->save();
+            }
+        }
+
+        return redirect()->route('scores.index', ['classs_id' => $score->classs_id, 'exam_type'=>$score->exam_type])->with('success', 'Scores updated successfully');
+
     }
 
     /**
