@@ -9,31 +9,7 @@
             Create
         </a>
     </div>
-    <form action="{{ route('attendances.index') }}">
-        @csrf
-        <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
-            <div class="col-12 col-sm-4 col-md-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left" style="">Class</button>
-                        <select class="form-control select2 input_radious_none" name="classs_id" id="classs"
-                            style="width: 250px;">
-                            @foreach ($classes as $class)
-                                <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                                    value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
-                <button type="sbmit" class="btn btn-outline-primary">
-                    <i class="fas fa-search"></i>
-                    Search
-                </button>
-            </div>
-        </div>
-    </form><br>
+    <x-attendance-header route="index"/>
 
 
     <!-- /.card -->
@@ -41,16 +17,16 @@
         <div class="d-flex col-12 text-left justify-content-around" style="width: 100%">
             <div class="input-group col-5 mb-3">
                 <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary h50px best-shadow">Educational Year</button>
+                    <button type="button" class="btn btn-primary h45px best-shadow">Educational Year</button>
                 </div>
-                <div class="attendanceDisabled col-12 best-shadow form-control h50px">{{ $students[0]->year }}
+                <div class="attendanceDisabled col-12 best-shadow form-control h45px">{{ $students[0]->year }}
                 </div>
             </div>
             <div class="input-group col-5 mb-3">
                 <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary h50px best-shadow">Total Educational Year</button>
+                    <button type="button" class="btn btn-primary h45px best-shadow">Total Educational Year</button>
                 </div>
-                <div class="attendanceDisabled col-12 best-shadow form-control h50px">
+                <div class="attendanceDisabled col-12 best-shadow form-control h45px">
                     {{ $students[0]->total_educational_year }}
                 </div>
             </div>

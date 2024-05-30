@@ -2,37 +2,47 @@
     {{-- @dd($students) --}}
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <h4>Home | students' Score</h4>
+        <div>
+            <a href="{{'/export?classs_id='. request('classs_id') .'&exam_type=' .request('exam_type')}}" type="button" class="btn btn-primary createBtn">
+                <i class="fas fa-plus"></i>
+                Excel
+            </a>
 
-        <a href="{{ route('scores.create') }}" type="button" class="btn btn-primary createBtn">
-            <i class="fas fa-plus"></i>
-            Create
-        </a>
+            <a href="{{ route('scores.create') }}" type="button" class="btn btn-primary createBtn">
+                <i class="fas fa-plus"></i>
+                Create
+            </a>
+
+        </div>
     </div>
     <form action="{{ route('scores.index') }}">
         @csrf
         <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
-            <div class="col-12 col-sm-4 col-md-3">
-                <div class="form-group">
-                    <label for="classs">Class</label>
-                    <select class="form-control select2" name="classs_id" id="classs" style="width: 100%;">
-                        @foreach ($classes as $class)
-                            <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                                value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
-                        @endforeach
-                    </select>
+            <div class="col-12 col-sm-4 col-md-3 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left">Class</button>
+                        <select class="form-control select2 input_radious_none w-200" name="classs_id" id="classs">
+                            @foreach ($classes as $class)
+                                <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
+                                    value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
 
             <div class="col-12 col-sm-4 col-md-3">
-                <div class="form-group">
-                    <label for="exam_type">Exam Type</label>
-                    <select class="form-control" name="exam_type" id="exam_type" style="width: 100%;">
-                        <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term</option>
-                        <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term</option>
-                    </select>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left">Exam Type</button>
+                        <select class="form-control w-200" name="exam_type" id="exam_type">
+                            <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term</option>
+                            <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-
 
             <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
                 <button type="sbmit" class="btn btn-outline-primary">
@@ -116,8 +126,9 @@
 
     <x-score-form />
 
-
 </x-newLayout>
+
+
 <script>
     $(function() {
         $("#example2").DataTable({

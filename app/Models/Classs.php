@@ -9,13 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Classs extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['name', 'negaran', 'year'];
+    protected $fillable = ['name', 'negaran'];
 
-
-    // public function negaran()
-    // {
-    //     return $this->belongsTo(Teacher::class, 'negaran_id');
-    // }
 
     public function students()
     {

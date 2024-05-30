@@ -7,7 +7,6 @@ use App\Models\Student;
 use App\Models\Attendance;
 use App\Traits\ChangeStates;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AttendanceRequest;
 
 class AttendanceController extends Controller
@@ -20,14 +19,12 @@ class AttendanceController extends Controller
 
     public function index(Request $request)
     {
-        $classes = Classs::latest()->get();
-        $class = Classs::find($request->classs_id);
-
         // Fetch attendances only if a class ID is provided
         if ($request->classs_id) {
             $students = student::join('attendances', 'students.id', '=', 'attendances.student_id')
                 ->where('attendances.classs_id', $request->classs_id)
-                ->where('attendances.year', $class->year)
+                ->where('attendances.year', $request->year)
+                ->where('attendances.attendance_type', $request->attendance_type)
                 ->orderBy('first_name')
                 ->orderBy('father_name')
                 ->get();
@@ -35,7 +32,7 @@ class AttendanceController extends Controller
             $students = []; // If class ID is not provided, return an empty array
         }
 
-        return view('attendances.allAttendance', compact('students', 'classes'));
+        return view('attendances.allAttendance', compact('students'));
     }
 
     /** 
@@ -44,24 +41,19 @@ class AttendanceController extends Controller
     public function create(Request $request)
     {
         $students = collect();
-        $class = Classs::find($request->classs_id);
-        $classes = Classs::latest()->get();
         if ($request->classs_id) {
-            // dump('if');
             $students = student::join('attendances', 'students.id', '=', 'attendances.student_id')
                 ->where('attendances.classs_id', $request->classs_id)
-                ->where('attendances.year', $class->year)
+                ->where('attendances.year', $request->year)
+                ->where('attendances.attendance_type', $request->attendance_type)
                 ->orderBy('first_name')
                 ->orderBy('father_name')
                 // ->select('students.id AS student_id', 'first_name', 'father_name', 'image','students.classs_id', 'attendances.id AS attendances_id', 'present', 'absent', 'sick', 'leave')
                 ->get();
-                // dd($students);
         }
         if (!$students->isEmpty()) {
             //
         } else {
-            // dump('else');
-
             $students = student::where('classs_id', $request->classs_id)
                 ->orderBy('first_name')
                 ->orderBy('father_name')
@@ -72,7 +64,7 @@ class AttendanceController extends Controller
 
         // dd($attendances);
 
-        return view('attendances.createAttendance', compact('classes', 'students'));
+        return view('attendances.createAttendance', compact('students'));
     }
 
     /**
@@ -80,6 +72,7 @@ class AttendanceController extends Controller
      */
     public function store(AttendanceRequest $request)
     {
+        // dd($request);
         $validated = $request->validated();
         // dd($request->classs_id);
 
@@ -88,6 +81,7 @@ class AttendanceController extends Controller
 
             $attendanceData = [
                 'year' => $validated['year'],
+                'attendance_type' => $validated['attendance_type'],
                 'total_educational_year' => $validated['total_year'],
                 'student_id' => $studentId,
                 'classs_id' => $request->classs_id,

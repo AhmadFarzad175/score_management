@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('year');
             $table->integer('total_educational_year');
+            $table->boolean('attendance_type');
             $table->foreignIdFor(Student::class);
             $table->foreignIdFor(Classs::class);
             $table->integer('present');

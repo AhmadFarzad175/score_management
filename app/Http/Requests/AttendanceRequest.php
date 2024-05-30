@@ -37,12 +37,14 @@ class AttendanceRequest extends FormRequest
         $rules = [
             'year' => 'required|numeric|integer',
             'total_year' => 'required|numeric|integer',
+            'attendance_type' => 'required',
             'attendances.*.present' => 'required|numeric|integer|min:0',
             'attendances.*.absent' => 'required|numeric|integer|min:0',
             'attendances.*.sick' => 'required|numeric|integer|min:0',
             'attendances.*.leave' => 'required|numeric|integer|min:0',
         ];
     }
+    
 
         
 

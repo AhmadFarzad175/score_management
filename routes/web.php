@@ -8,6 +8,7 @@ use App\Http\Controllers\ClasssController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::resource('/classes', ClasssController::class);
 Route::resource('/students', StudentController::class);
 Route::get('/classsProvince', [StudentController::class, 'classsProvince']);
 Route::get('/allSubjects', [SubjectController::class, 'subjects']);
+
+Route::get('/export', [TeacherController::class, 'export']);
 
 
 Route::get('/register', [AuthController::class, 'register']);

@@ -31,7 +31,6 @@
                     <tr>
                         <th>#</th>
                         <th>Class</th>
-                        <th>Year</th>
                         <th>Negaran</th>
                         <th class="text-right">Action</th>
                     </tr>
@@ -41,7 +40,6 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $class->name }}</td>
-                            <td>{{ $class->year }}</td>
                             <td>{{ $class->negaran }}</td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
@@ -106,7 +104,6 @@
             .then(classData => {
                 // Populate form fields with the received class data
                 document.getElementById('name').value = classData.name;
-                document.getElementById('year').value = classData.year;
                 document.getElementById('negaran').value = classData.negaran;
 
             })

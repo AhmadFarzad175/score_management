@@ -25,7 +25,6 @@ class ClasssRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|string|max:255',
-            'year' => 'required|integer',
             'negaran' => 'required|string|max:255',
         ];
 

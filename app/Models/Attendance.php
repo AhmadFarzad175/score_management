@@ -10,7 +10,7 @@ class Attendance extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'year','total_educational_year','student_id', 'classs_id','present','absent','sick','leave',
+        'year','total_educational_year','attendance_type', 'student_id', 'classs_id','present','absent','sick','leave',
     ];
 
     public function student(){

@@ -18,7 +18,6 @@ class ClasssFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word,
-            'year' => $this->faker->year(),
             'negaran' => $this->faker->name,
         ];
     }
