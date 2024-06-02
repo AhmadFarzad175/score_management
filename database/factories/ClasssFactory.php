@@ -19,6 +19,7 @@ class ClasssFactory extends Factory
         return [
             'name' => $this->faker->unique()->word,
             'negaran' => $this->faker->name,
+            'term_id' => rand(1,12)
         ];
     }
 }

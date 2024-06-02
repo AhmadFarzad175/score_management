@@ -104,8 +104,9 @@ class SubjectController extends Controller
 
     public function subjects(Request $request)
     {
-        $subjects = Subject::Where('classs_id', $request->classs_id)->get();
-
+        $subjects = Subject::where('classs_id', $request->classs_id)
+        ->select('id', 'name')
+        ->get();
         // Pass the data to the view
         return $subjects;
     }

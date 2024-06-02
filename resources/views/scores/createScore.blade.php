@@ -1,3 +1,4 @@
+{{-- @dd($classes) --}}
 <x-newLayout page="5">
 
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
@@ -6,70 +7,6 @@
         </div>
 
     </div>
-    {{-- <form action="{{ route('scores.create') }}">
-        @csrf
-        <div class="card d-flex flex-row pt-3 justify-content-between  flex-wrap">
-            <div class="col-12 col-sm-4 col-md-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left" style="">Class</button>
-                        <select class="form-control select2 input_radious_none" name="classs_id" id="classs">
-                            @foreach ($classes as $class)
-                                <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                                    value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-4 col-md-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-
-                        <button type="button" class="btn-primary input_radious_left" style="">Terms</button>
-                        <select class="form-control select2" name="term_id" id="terms" style="width: 250px;">
-                            @foreach ($ordinaries as $ordinary)
-                                <option value="{{ $loop->iteration }}"
-                                    {{ request('term_id') == $loop->iteration ? 'selected' : '' }}>{{ $ordinary }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-4 col-md-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left" style="">Subjects</button>
-                        <select class="form-control select2" name="subject_id" id="subjects" style="width: 250px;">
-
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-4 col-md-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">Exam Type</button>
-                        <select class="form-control" name="exam_type" id="exam_type" style="width: 250px;">
-                            <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term
-                            </option>
-                            <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-4 col-md-2 text-right mb-3 align-self-end">
-                <button type="sbmit" class="btn btn-outline-primary">
-                    <i class="fas fa-search"></i>
-                    Search
-                </button>
-            </div>
-        </div>
-    </form> --}}
     <form action="{{ route('scores.create') }}">
         @csrf
         <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
@@ -79,27 +16,22 @@
                         <button type="button" class="btn-primary input_radious_left">Class</button>
                         <select class="form-control select2 input_radious_none w-200" name="classs_id" id="classs">
                             @foreach ($classes as $class)
-                                <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                                    value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
+                                <option data-term-id="{{ $class->term_id }}"
+                                    {{ request('classs_id') == $class->id ? 'selected' : '' }}
+                                    value="{{ $class->id }}">{{ $class->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-4 col-md-2 mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left">Terms</button>
-                        <select class="form-control select2 w-200" name="term_id" id="terms">
-                            @foreach ($ordinaries as $ordinary)
-                                <option value="{{ $loop->iteration }}"
-                                    {{ request('term_id') == $loop->iteration ? 'selected' : '' }}>{{ $ordinary }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+            <div class="input-group col-12 col-sm-4 col-md-2 mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn-primary input_radious_left h45px">Year</button>
+                    <select class="form-control select2 input_radious_none w-200 h45px" name="year" id="year-picker">
+                    </select>
                 </div>
             </div>
+            
             <div class="col-12 col-sm-4 col-md-2 mb-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -112,10 +44,13 @@
             <div class="col-12 col-sm-4 col-md-2 mb-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">Exam Type</button>
+                        <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">Exam
+                            Type</button>
                         <select class="form-control w-200" name="exam_type" id="exam_type">
-                            <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term</option>
-                            <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term</option>
+                            <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term
+                            </option>
+                            <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -128,7 +63,7 @@
             </div>
         </div>
     </form>
-    
+
 
 
     <form action="{{ route('scores.store') }}" method="POST">
@@ -190,14 +125,12 @@
 
 
 <script>
-    // Function to fetch subjects based on the selected class ID
+    // Function to fetch subjects based on the selected term ID
     function fetchSubjects(termId) {
-        // Make an AJAX request to the server to fetch subjects
-        // Replace 'subjects-route' with the actual route that returns subjects based on class ID
         fetch('/allSubjects?classs_id=' + termId)
             .then(response => response.json())
             .then(data => {
-                // Populate the subjects dropdown with the fetched subjects
+                console.log(data);
                 var subjectsSelect = document.getElementById('subjects');
                 subjectsSelect.innerHTML = ''; // Clear previous options
 
@@ -210,23 +143,29 @@
             .catch(error => console.error('Error fetching subjects:', error));
     }
 
+    // Function to get term ID of the selected class
+    function getSelectedTermId() {
+        var selectedClass = document.getElementById('classs').selectedOptions[0];
+        return selectedClass.getAttribute('data-term-id');
+    }
 
     // Wait for the DOM to be ready
     document.addEventListener('DOMContentLoaded', function() {
-        // Get the selected class ID when the page loads
-        var selectedTermId = document.getElementById('terms').value;
+        // Get the selected term ID when the page loads
+        var selectedTermId = getSelectedTermId();
+        console.log(selectedTermId);
 
-        // Call a function to fetch subjects based on the selected class ID
+        // Fetch subjects based on the selected term ID
         fetchSubjects(selectedTermId);
     });
 
+    // Onchange event for the class select input
+    document.getElementById('classs').onchange = function() {
+        // Get the selected term ID
+        var selectedTermId = getSelectedTermId();
+        console.log(selectedTermId);
 
-    //onchange event for selected input
-    document.getElementById('terms').onchange = function() {
-        // Get the selected class ID
-        var selectedTermId = this.value;
-
-        // Call the function to fetch subjects based on the selected class ID
+        // Fetch subjects based on the selected term ID
         fetchSubjects(selectedTermId);
     };
 </script>

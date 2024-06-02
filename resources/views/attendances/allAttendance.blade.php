@@ -9,25 +9,25 @@
             Create
         </a>
     </div>
-    <x-attendance-header route="index"/>
+    <x-attendance-header route="index" page="attendance" />
 
 
     <!-- /.card -->
     @if (isset($students[0]))
         <div class="d-flex col-12 text-left justify-content-around" style="width: 100%">
-            <div class="input-group col-5 mb-3">
+            {{-- <div class="input-group col-5 mb-3">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary h45px best-shadow">Educational Year</button>
                 </div>
                 <div class="attendanceDisabled col-12 best-shadow form-control h45px">{{ $students[0]->year }}
                 </div>
-            </div>
+            </div> --}}
             <div class="input-group col-5 mb-3">
                 <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary h45px best-shadow">Total Educational Year</button>
+                    <button type="button" class="btn btn-primary best-shadow">Total Year</button>
                 </div>
                 <div class="attendanceDisabled col-12 best-shadow form-control h45px">
-                    {{ $students[0]->total_educational_year }}
+                    {{ $students[0]->total_year }}
                 </div>
             </div>
         </div>

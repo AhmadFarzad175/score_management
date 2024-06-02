@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('negaran');
+            $table->integer('term_id');
             $table->timestamps();
             $table->softDeletes();
 

@@ -26,6 +26,7 @@ class ClasssRequest extends FormRequest
         $rules = [
             'name' => 'required|string|max:255',
             'negaran' => 'required|string|max:255',
+            'term_id' => 'required',
         ];
 
         $this->isMethod('PUT') ? $this->applyUpdateRules($rules) : null;

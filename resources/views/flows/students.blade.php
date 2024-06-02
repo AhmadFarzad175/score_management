@@ -16,15 +16,29 @@
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <button type="button" class="btn-primary input_radious_left" style="">Class</button>
-                        <select class="form-control select2 input_radious_none" name="classs_id" id="classs" style="width: 250px;">
+                        <select class="form-control select2 input_radious_none" name="classs_id" id="classs"
+                            style="width: 250px;">
+                            @var_dump($classes)
                             @foreach ($classes as $class)
-                            <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                                value="{{ $class->id }}">{{ $class->name . ' ' . $class->year }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                                <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
+                                    value="{{ $class->id }}">{{ $class->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-12 col-sm-4 col-md-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn-primary input_radious_left h45px">Year</button>
+                        <select class="form-control select2 input_radious_none w-200 h45px" name="year"
+                            id="year-picker">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
                 <button type="sbmit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i>

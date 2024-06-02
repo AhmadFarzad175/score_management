@@ -25,7 +25,6 @@ class AttendanceHeader extends Component
     {
         return view('components.attendance-header',[
             'classes' =>  Classs::latest()->get(),
-            'years' => Attendance::selectRaw('YEAR as year')->distinct()->orderBy('year', 'desc')->pluck('year')
         ]);
     }
 }

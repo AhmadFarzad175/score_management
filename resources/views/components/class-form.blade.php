@@ -1,9 +1,9 @@
-@props(['method'])
-<div class="modal fade" id="modal-default{{isset($method) ? 'Update' : ''}}">
+@props(['method', 'ordinaries'])
+<div class="modal fade" id="modal-default{{ isset($method) ? 'Update' : '' }}">
     <div class="modal-dialog modal-default">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{{isset($method) ? 'Update' : 'Add New'}} Class</h4>
+                <h4 class="modal-title">{{ isset($method) ? 'Update' : 'Add New' }} Class</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,9 +11,8 @@
             <div class="modal-body">
                 <!-- Form -->
                 <!-- form start -->
-                <form
-                    action="{{ route('classes.store') }}"
-                    method="POST" style="display: flex; flex-wrap: wrap;" class="updateBtn">
+                <form action="{{ route('classes.store') }}" method="POST" style="display: flex; flex-wrap: wrap;"
+                    class="updateBtn">
                     @csrf
                     @if (isset($method))
                         @method('PUT')
@@ -22,11 +21,22 @@
                     <div class="form-group" style="display:flex; flex-wrap:wrap">
                         {{-- <input type="hidden" name="method"> --}}
                         {{-- FIRSTNAME --}}
-                        <div class="name mb-3 col-md-12">
+                        <div class="name mb-3 col-md-6">
                             <label for="name">Class Name <span class="text-danger">*</span></label>
-                            <input type="text" name="name" id="name" class="form-control"
-                                placeholder="12B1">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="12B1">
+                        </div>
 
+                        {{-- term --}}
+                        <div class="mb-3 col-md-6">
+                            <label for="terms">Term <span class="text-danger">*</span></label>
+                            <select class="form-control" name="term_id" id="terms">
+                                @foreach ($ordinaries as $ordinary)
+                                    <option value="{{ $loop->iteration }}"
+                                        {{ request('term_id') == $loop->iteration ? 'selected' : '' }}>
+                                        {{ $ordinary }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         {{-- Negaran --}}
@@ -42,8 +52,7 @@
             </div>
             <div class="modal-footer ">
                 <div class="student-submit text-left">
-                    <button type="submit"
-                        class="btn btn-primary">{{ isset($method) ? 'Update' : 'Create' }}</button>
+                    <button type="submit" class="btn btn-primary">{{ isset($method) ? 'Update' : 'Create' }}</button>
                 </div>
             </div>
 

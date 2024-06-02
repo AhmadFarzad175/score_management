@@ -57,22 +57,27 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link {{$page== 0 ? 'active' : ''}}" href="#">Dashboard</a>
+                        <a class="nav-link {{ $page == 0 ? 'active' : '' }}" href="#">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{$page== 1 ? 'active' : ''}}" href="{{route('classes.index')}}">Class</a>
+                        <a class="nav-link {{ $page == 1 ? 'active' : '' }}"
+                            href="{{ route('classes.index') }}">Class</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{$page== 2 ? 'active' : ''}}" href="{{route('students.index')}}">Student</a>
+                        <a class="nav-link {{ $page == 2 ? 'active' : '' }}"
+                            href="{{ route('students.index') }}">Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{$page== 3 ? 'active' : ''}}" href="{{route('attendances.index')}}">Attendance</a>
+                        <a class="nav-link {{ $page == 3 ? 'active' : '' }}"
+                            href="{{ route('attendances.index') }}">Attendance</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{$page== 4 ? 'active' : ''}}" href="{{route('subjects.index')}}">Subject</a>
+                        <a class="nav-link {{ $page == 4 ? 'active' : '' }}"
+                            href="{{ route('subjects.index') }}">Subject</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{$page== 5 ? 'active' : ''}}" href="{{route('scores.index')}}">Score</a>
+                        <a class="nav-link {{ $page == 5 ? 'active' : '' }}"
+                            href="{{ route('scores.index') }}">Score</a>
                     </li>
                 </ul>
             </div>
@@ -165,6 +170,23 @@
             })
         });
     </script>
+
+    @if ($page == 2 || $page == 3 || $page == 5)
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYear = new Date().getFullYear();
+            const startYear = currentYear - 20; // Adjust as necessary
+            const endYear = currentYear + 10; // Adjust as necessary
+            let select = document.getElementById('year-picker');
+            let selectedYear = "{{ request('year') }}"; // Assuming this value is set by your server-side logic
+    
+            for (let year = startYear; year <= endYear; year++) {
+                let isSelected = year == selectedYear ? 'selected' : '';
+                select.innerHTML += `<option ${isSelected} value="${year}">${year}</option>`;
+            }
+        });
+    </script>
+    @endif
 
 
 </body>

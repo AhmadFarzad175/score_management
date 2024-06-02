@@ -16,9 +16,9 @@
 
 
     <!-- /.modal -->
-    <x-class-form method='Update' />
+    <x-class-form method='Update' :ordinaries="$ordinaries" />
 
-    <x-class-form />
+    <x-class-form :ordinaries="$ordinaries"/>
     <!-- /.modal -->
 
     <!-- /.card -->
@@ -32,15 +32,18 @@
                         <th>#</th>
                         <th>Class</th>
                         <th>Negaran</th>
+                        <th>Term</th>
                         <th class="text-right">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($classes as $class)
                         <tr>
+                            {{-- @dd($class->term_id) --}}
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $class->name }}</td>
                             <td>{{ $class->negaran }}</td>
+                            <td>{{ $ordinaries[$class->term_id] }}</td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
@@ -105,6 +108,7 @@
                 // Populate form fields with the received class data
                 document.getElementById('name').value = classData.name;
                 document.getElementById('negaran').value = classData.negaran;
+                document.getElementById('terms').value = classData.term_id;
 
             })
             .catch(error => {

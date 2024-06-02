@@ -18,8 +18,8 @@ class AttendanceFactory extends Factory
     {
         return [
             'year' => $this->faker->year,
-            'total_educational_year' => $this->faker->numberBetween(100, 150),
-            'attendance_type' => rand(0,1),
+            'total_year' => $this->faker->numberBetween(100, 150),
+            'attendance_type' => rand(0, 1),
             'student_id' => $this->faker->numberBetween(0, 10),
             'classs_id' => $this->faker->numberBetween(0, 10),
             'present' => $this->faker->numberBetween(0, 100),

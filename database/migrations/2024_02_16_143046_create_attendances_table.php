@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->string('year');
-            $table->integer('total_educational_year');
+            $table->integer('total_year');
             $table->boolean('attendance_type');
             $table->foreignIdFor(Student::class);
             $table->foreignIdFor(Classs::class);

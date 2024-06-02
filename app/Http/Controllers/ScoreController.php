@@ -41,7 +41,6 @@ class ScoreController extends Controller
             ->where('scores.exam_type', $request->exam_type)
             ->get()
             ->groupBy('student_id');
-        // dd($studentsData);
 
         
         foreach ($studentsData as $studentId => $records) {
@@ -66,58 +65,22 @@ class ScoreController extends Controller
             $students[] = $student;
         }
     }
-        // dd($students);
-
-
-
-        // $studentsData = DB::table('students')
-        // ->select(
-        //     'students.id AS student_id',
-        //     'students.first_name',
-        //     'students.father_name',
-        //     'students.image',
-        //     'scores.id AS score_id',
-        //     'scores.mark',
-        //     'scores.classs_id',
-        //     'subjects.id AS subject_id',
-        //     'subjects.name AS subject_name'
-        // )
-        // ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
-        // ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
-        // ->whereNull('students.status')
-        // ->where('scores.classs_id', $request->classs_id)
-        // ->orderBy('students.id', 'asc')
-        // ->get()
-        // ->groupBy('student_id');
-        // dd($studentsData);
-
 
         return view('scores.allScores', compact('students', 'classes'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(Request $request)
     {
+        // dd($request);
         $students = collect();
         $classes = Classs::latest()->get();
         $subject = Subject::find(Request('subject_id'));
 
-        $ordinaries = [
-            '1' => 'اول',
-            '2' => 'دوم',
-            '3' => 'سوم',
-            '4' => 'چهارم',
-            '5' => 'پنجم',
-            '6' => 'ششم',
-            '7' => 'هفتم',
-            '8' => 'هشتم',
-            '9' => 'نهم',
-            '10' => 'دهم',
-            '11' => 'یازدهم',
-            '12' => 'دوازدهم',
-        ];
+        
         if ($request->classs_id) {
             $students = student::join('scores', 'students.id', '=', 'scores.student_id')
                 ->where('scores.classs_id', $request->classs_id)
@@ -138,7 +101,7 @@ class ScoreController extends Controller
                 ->select('id as student_id', 'first_name', 'father_name', 'image', 'classs_id')->get();
         }
 
-        return view('scores.createScore', compact('students', 'classes', 'subject', 'ordinaries'));
+        return view('scores.createScore', compact('students', 'classes', 'subject'));
     }
 
     /**

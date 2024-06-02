@@ -15,7 +15,21 @@ class ClasssController extends Controller
     public function index()
     {
         $classes = Classs::latest()->get();
-        return view('classes.allClasses', compact('classes'));
+        $ordinaries = [
+            '1' => 'اول',
+            '2' => 'دوم',
+            '3' => 'سوم',
+            '4' => 'چهارم',
+            '5' => 'پنجم',
+            '6' => 'ششم',
+            '7' => 'هفتم',
+            '8' => 'هشتم',
+            '9' => 'نهم',
+            '10' => 'دهم',
+            '11' => 'یازدهم',
+            '12' => 'دوازدهم',
+        ];
+        return view('classes.allClasses', compact('classes', 'ordinaries'));
     }
 
     /**
