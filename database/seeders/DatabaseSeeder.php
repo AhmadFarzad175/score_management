@@ -5,13 +5,10 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\User;
-use App\Models\Score;
 use App\Models\Classs;
 use App\Models\Student;
-use App\Models\Subject;
-use App\Models\Teacher;
 use App\Models\Attendance;
-use App\Models\StudentCategory;
+use App\Models\StudentDetails;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,6 +30,7 @@ class DatabaseSeeder extends Seeder
         Classs::factory(10)->create();
         Student::factory(10)->create();
         Attendance::factory(10)->create();
+        StudentDetails::factory(10)->create();
         $this->call(SubjectSeeder::class);
     }
 }

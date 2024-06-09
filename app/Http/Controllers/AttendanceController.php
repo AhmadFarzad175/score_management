@@ -117,6 +117,7 @@ class AttendanceController extends Controller
             $existingAttendance = Attendance::where('student_id', $studentId)
                 ->where('classs_id', $request->classs_id)
                 ->where('year', $validated['year'])
+                ->where('attendance_type', $validated['exam_type'])
                 ->first();
 
             if ($existingAttendance) {

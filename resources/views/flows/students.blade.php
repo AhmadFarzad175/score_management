@@ -18,7 +18,6 @@
                         <button type="button" class="btn-primary input_radious_left" style="">Class</button>
                         <select class="form-control select2 input_radious_none" name="classs_id" id="classs"
                             style="width: 250px;">
-                            @var_dump($classes)
                             @foreach ($classes as $class)
                                 <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
                                     value="{{ $class->id }}">{{ $class->name }}</option>
@@ -31,9 +30,8 @@
             <div class="col-12 col-sm-4 col-md-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left h45px">Year</button>
-                        <select class="form-control select2 input_radious_none w-200 h45px" name="year"
-                            id="year-picker">
+                        <button type="button" class="btn-primary input_radious_left ">Year</button>
+                        <select class="form-control select2 input_radious_none w-200 " name="year" id="year-picker">
                         </select>
                     </div>
                 </div>
@@ -214,16 +212,17 @@
                 document.getElementById('lastname').value = studentData.last_name;
                 document.getElementById('fathername').value = studentData.father_name;
                 document.getElementById('dob').value = studentData.dob;
-                // Set the value of the select element to studentData.class_id
-                console.log(document.querySelector('.img-fluid1'));
-                document.querySelector('.img-fluid1').src = "storage/" + studentData.image;
-                console.log(document.querySelector('.img-fluid1').src);
                 document.getElementById('class').value = studentData.class_id;
                 document.getElementById('base').value = studentData.base_number;
                 document.getElementById('tazkira').value = studentData.tazkira_number;
                 document.getElementById('current').value = studentData.current_residence_id;
                 document.getElementById('main').value = studentData.main_residence_id;
 
+                // Set the image src
+                let imagePath = studentData.image ? `/storage/${studentData.image}` :
+                    '{{ asset('imge/default_image.jpeg') }}';
+                document.querySelector('.img-fluid1').src = imagePath;
+                console.log(document.querySelector('.img-fluid1').src);
             })
 
             .catch(error => {

@@ -66,7 +66,6 @@ class TeacherController extends Controller
     {
         //
     }
-
     public function export(Request $request)
     {
         $row = ['K','O', 'S', 'X'];

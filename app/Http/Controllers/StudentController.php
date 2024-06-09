@@ -38,6 +38,7 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
+        // dd($request->method());
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {

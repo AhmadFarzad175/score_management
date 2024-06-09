@@ -29,6 +29,11 @@ class Student extends Model
         return $this->belongsTo(Classs::class);
     }
 
+    public function studentDetails()
+    {
+        return $this->hasMany(StudentDetails::class);
+    }
+
 
     public function currentResidence()
     {

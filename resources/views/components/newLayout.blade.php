@@ -172,20 +172,27 @@
     </script>
 
     @if ($page == 2 || $page == 3 || $page == 5)
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentYear = new Date().getFullYear();
-            const startYear = currentYear - 20; // Adjust as necessary
-            const endYear = currentYear + 10; // Adjust as necessary
-            let select = document.getElementById('year-picker');
-            let selectedYear = "{{ request('year') }}"; // Assuming this value is set by your server-side logic
-    
-            for (let year = startYear; year <= endYear; year++) {
-                let isSelected = year == selectedYear ? 'selected' : '';
-                select.innerHTML += `<option ${isSelected} value="${year}">${year}</option>`;
-            }
-        });
-    </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const currentYear = new Date().getFullYear();
+                const startYear = currentYear - 20; // Adjust as necessary
+                const endYear = currentYear + 10; // Adjust as necessary
+                let select = document.getElementById('year-picker');
+
+                // Assuming this value is set by your server-side logic
+                let selectedYear = "{{ request('year') }}";
+
+                for (let year = startYear; year <= endYear; year++) {
+                    let isSelected = year == selectedYear ? 'selected' : '';
+                    select.innerHTML += `<option ${isSelected} value="${year}">${year}</option>`;
+                }
+
+                // Select the current year by default if no year is selected
+                if (!selectedYear) {
+                    select.value = currentYear;
+                }
+            });
+        </script>
     @endif
 
 
