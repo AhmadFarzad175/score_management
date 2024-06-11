@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ScoreRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -21,11 +22,13 @@ class ScoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        return  [
             'students' => 'required|array',
             'subject_id' => 'required|integer',
             'classs_id' => 'required|integer',
             'exam_type' => 'required|integer|in:0,1',
         ];
+
+        
     }
 }

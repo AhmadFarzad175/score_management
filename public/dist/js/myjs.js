@@ -1,11 +1,11 @@
-function showFileInput() {
+function showFileInput(fileInputId) {
     // Trigger the file input when the head image is clicked
-    document.getElementById("fileInput").click();
+    document.getElementById(fileInputId).click();
 }
 
-function handleFileSelect() {
-    const fileInput = document.getElementById("fileInput");
-    const headImage = document.getElementById("headImage");
+function handleFileSelect(fileInputId, headImageId) {
+    const fileInput = document.getElementById(fileInputId);
+    const headImage = document.getElementById(headImageId);
 
     // Check if a file is selected
     if (fileInput.files && fileInput.files[0]) {

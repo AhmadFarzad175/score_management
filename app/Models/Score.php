@@ -16,6 +16,7 @@ class Score extends Model
         'classs_id',
         'mark',
         'exam_type',
+        'year'
     ];
 
     public function classs()

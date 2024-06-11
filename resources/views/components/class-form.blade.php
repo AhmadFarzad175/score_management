@@ -23,7 +23,7 @@
                         {{-- FIRSTNAME --}}
                         <div class="name mb-3 col-md-6">
                             <label for="name">Class Name <span class="text-danger">*</span></label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="12B1">
+                            <input type="text" name="name" id="name" class="form-control" >
                         </div>
 
                         {{-- term --}}
@@ -43,7 +43,7 @@
                         <div class="negaran col-md-12">
                             <label for="negaran">Negaran Name <span class="text-danger">*</span></label>
                             <input type="text" name="negaran" id="negaran" class="form-control"
-                                placeholder="Abdul Rahman">
+                                >
 
                         </div>
                     </div>

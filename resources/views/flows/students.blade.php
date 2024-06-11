@@ -51,8 +51,8 @@
 
     <!-- /.modal -->
 
+    <x-student-update-form />
     <x-student-form />
-    <x-student-form method='update' />
     <!-- /.modal -->
     <!-- /.card -->
     <div class="card">
@@ -91,12 +91,12 @@
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
                                         title="Edit" data-student-id="{{ $student->id }}" data-toggle="modal"
-                                        data-target="#modal-lg">
+                                        data-target="#modal-lg-update">
                                         <i class="mt-2 fa fa-thermometer" style="font-size: 16px"></i>
                                     </button>
 
 
-                                    <form action="{{ route('students.destroy', $student->id) }}" method="post">
+                                    <form action="students/{{$student->id .'?year=' .request('year')}}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit"
@@ -136,56 +136,6 @@
 {{-- IMAGE SELECT IMPLEMENTATION --}}
 <script src="{{ asset('dist/js/myjs.js') }}"></script>
 
-{{-- FETCHING DATA TO SHOW IN CLASS AND MAIN_RESIDANCE AND CURRENT_RECIDANCE --}}
-{{-- <script>
-    document.querySelector('.createBtn').addEventListener('click', function() {
-        // Fetch data from getData route
-        fetch('/classsProvince')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Populate select options with the received data for classes
-                const classSelect = document.querySelector('.classSelect');
-                classSelect.innerHTML = ''; // Clear existing options
-                data.classes.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.id;
-                    option.textContent = item.name;
-                    classSelect.appendChild(option);
-                });
-
-                // Populate select options with the received data for provinces
-                const mainSelect = document.querySelector('.mainSelect');
-                mainSelect.innerHTML = ''; // Clear existing options
-                data.provinces.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.id;
-                    option.textContent = item.name;
-                    mainSelect.appendChild(option);
-                });
-
-                // Populate select options with the received data for provinces
-                const currentSelect = document.querySelector('.currentSelect');
-                currentSelect.innerHTML = ''; // Clear existing options
-                data.provinces.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.id;
-                    option.textContent = item.name;
-                    currentSelect.appendChild(option);
-                });
-
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-                // Handle error if necessary
-            });
-    });
-</script> --}}
-
 
 
 
@@ -195,6 +145,7 @@
 
 {{-- FETCHING DATA FOR UPDATING MODAL --}}
 <script>
+    // Function to fetch and populate student data
     // Function to fetch and populate student data
     function populateStudentData(studentId) {
         // Fetch student data from the server
@@ -206,25 +157,41 @@
                 return response.json();
             })
             .then(studentData => {
-                console.log(studentData);
+
+                // Set the image src
+                let imagePath = studentData.image ? `/storage/${studentData.image}` :
+                    '{{ asset('imge/default_image.jpeg') }}';
+                document.getElementById('headImageUpdate').src = imagePath;
+
                 // Populate form fields with the received student data
                 document.getElementById('firstname').value = studentData.first_name;
                 document.getElementById('lastname').value = studentData.last_name;
                 document.getElementById('fathername').value = studentData.father_name;
                 document.getElementById('dob').value = studentData.dob;
-                document.getElementById('class').value = studentData.class_id;
                 document.getElementById('base').value = studentData.base_number;
                 document.getElementById('tazkira').value = studentData.tazkira_number;
-                document.getElementById('current').value = studentData.current_residence_id;
-                document.getElementById('main').value = studentData.main_residence_id;
 
-                // Set the image src
-                let imagePath = studentData.image ? `/storage/${studentData.image}` :
-                    '{{ asset('imge/default_image.jpeg') }}';
-                document.querySelector('.img-fluid1').src = imagePath;
-                console.log(document.querySelector('.img-fluid1').src);
+                // Get all select elements
+                const classSelect = document.getElementById('class');
+                const currentSelect = document.getElementById('current');
+                const mainSelect = document.getElementById('main');
+
+                // Function to set the selected option
+                function setSelectedOption(selectElement, value) {
+                    for (let i = 0; i < selectElement.options.length; i++) {
+                        if (selectElement.options[i].value == value) {
+                            selectElement.options[i].selected = true;
+                            break;
+                        }
+                    }
+                }
+
+                // Set the selected options
+                setSelectedOption(classSelect, studentData.classs_id);
+                setSelectedOption(currentSelect, studentData.current_residence);
+                setSelectedOption(mainSelect, studentData.main_residence);
+
             })
-
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
                 // Handle error if necessary
@@ -232,14 +199,54 @@
     }
 
 
-
     // Function to handle the click event for all edit buttons
     document.addEventListener('click', function(event) {
-
         if (event.target.classList.contains('editBtn')) {
             // If the clicked element has the class 'editBtn'
             const studentId = event.target.dataset.studentId; // Get the student ID from the data attribute
+            document.getElementById('udpateForm').action = "students/" + studentId;
+
             populateStudentData(studentId); // Fetch and populate student data
+            get_year('update');
         }
     });
+
+
+
+
+
+
+
+
+
+
+
+
+    //  show the year in create select tag 
+    document.querySelector('.createBtn').addEventListener('click', function() {
+        get_year('create');
+    });
+
+    function get_year(type) {
+        const currentYear = new Date().getFullYear();
+        const startYear = currentYear - 10;
+        const endYear = currentYear + 10;
+        let select = document.getElementById(`year-picker-${type}`);
+
+        // Assuming this value is set by your server-side logic
+        let selectedYear = "{{ request('year') }}";
+
+        let options = '';
+        for (let year = startYear; year <= endYear; year++) {
+            let isSelected = year == selectedYear ? 'selected' : '';
+            options += `<option ${isSelected} value="${year}">${year}</option>`;
+        }
+        select.innerHTML = options;
+        // console.log(select);
+
+        // Select the current year by default if no year is selected
+        if (!selectedYear) {
+            select.value = currentYear;
+        }
+    }
 </script>

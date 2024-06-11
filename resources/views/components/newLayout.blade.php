@@ -175,7 +175,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const currentYear = new Date().getFullYear();
-                const startYear = currentYear - 20; // Adjust as necessary
+                const startYear = currentYear - 10; // Adjust as necessary
                 const endYear = currentYear + 10; // Adjust as necessary
                 let select = document.getElementById('year-picker');
 

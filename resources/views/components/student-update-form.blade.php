@@ -1,9 +1,8 @@
-
-<div class="modal fade" id="modal-lg">
+<div class="modal fade" id="modal-lg-update">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add New Student</h4>
+                <h4 class="modal-title">Update Student</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,12 +10,9 @@
             <div class="modal-body">
                 <!-- Form -->
                 <!-- form start -->
-                <form action="{{ route('students.store') }}" enctype="multipart/form-data" method="POST"
-                    style="display: flex; flex-wrap: wrap;">
+                <form action="#" enctype="multipart/form-data" method="POST"style="display: flex; flex-wrap: wrap;" id="udpateForm">
                     @csrf
-                    @if (isset($method))
-                        @method('PUT')
-                    @endif
+                    @method('PUT')
                     <div class="form-group col-8">
                         {{-- FIRSTNAME --}}
                         <div class="firstname mb-3">
@@ -38,16 +34,15 @@
 
 
                     <div class="form-group col-3" style="position: relative">
-                        <div class="best-shadow headImageContainer" id="headImageContainerCreate"
-                            onclick="showFileInput('fileInputCreate')">
+                        <div class="best-shadow headImageContainer" id="headImageContainerUpdate"
+                            onclick="showFileInput('fileInputUpdate')">
                             <i class="fas fa-user-edit text-white text-sm user_edit best-shadow"></i>
-                            <img id="headImageCreate" class="img-fluid headImage" src="{{ asset('imge/default_image.jpeg') }}">
+                            <img id="headImageUpdate" class="img-fluid headImage" src="{{ asset('imge/default_image.jpeg') }}">
                         </div>
-                        <input type="file" name="image" id="fileInputCreate" style="display: none;"
-                            onchange="handleFileSelect('fileInputCreate', 'headImageCreate')"
+                        <input type="file" name="image" id="fileInputUpdate" style="display: none;"
+                            onchange="handleFileSelect('fileInputUpdate', 'headImageUpdate')"
                             value="{{ 'imge/default_image.jpeg' }}">
                     </div>
-                    
 
 
 
@@ -75,7 +70,7 @@
 
                     <div class="form-group col-12 col-md-6">
                         <label for="base">Year <span class="text-danger">*</span></label>
-                        <select class="form-control" name="year" id="year-picker-create">
+                        <select class="form-control" name="year" id="year-picker-update">
                         </select>
                     </div>
 
@@ -113,7 +108,7 @@
             </div>
             <div class="modal-footer ">
                 <div class="student-submit text-left">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </div>
 

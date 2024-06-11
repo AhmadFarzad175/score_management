@@ -5,20 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Classs;
 use App\Models\Student;
 use App\Models\Province;
+use App\Traits\ImageManipulation;
 use Illuminate\Http\Request;
+use App\Models\StudentDetails;
 use App\Http\Requests\StudentRequest;
 
 class StudentController extends Controller
 {
+    use ImageManipulation;
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        
+
         $classes = Classs::latest()->get();
-        if($request['classs_id']){
-            $students = Student::with(['classs', 'mainResidence'])->where('classs_id', $request->classs_id)->latest()->get();
+        if ($request['classs_id']) {
+            $students = Student::with(['classs', 'mainResidence'])
+                ->where('classs_id', $request->classs_id)
+                ->whereHas('studentDetails', function ($query) use ($request) {
+                    $query->where('year', $request->year);
+                })
+                ->latest()
+                ->get();
             return view('flows.students', compact('students', 'classes'));
         }
         $students = [];
@@ -41,13 +50,17 @@ class StudentController extends Controller
         // dd($request->method());
         $validated = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('images', 'public');
-        }
+        $request->hasFile('image') ? $this->storeImage($request, $validated, 'images') : null;
+
 
         // Create the listing with the validated data
-        Student::create($validated);
-        return redirect()->route('students.index', ['classs_id' => $validated['classs_id']])->with('success', "Student inserted successfully");
+        $student = Student::create($validated);
+        StudentDetails::create([
+            'student_id' => $student->id,
+            'classs_id' => $student->classs_id,
+            'year' => $validated['year']
+        ]);
+        return redirect()->route('students.index', ['classs_id' => $validated['classs_id'], 'year' => $validated['year']])->with('success', "Student inserted successfully");
     }
 
     /**
@@ -70,9 +83,13 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(StudentRequest $request, Student $student)
     {
-        //
+        $validated = $request->validated();
+        $this->updateImage($student, $request, $validated, 'images');
+
+        $student->update($validated);
+        return redirect()->back();
     }
 
     /**
@@ -80,8 +97,13 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        StudentDetails::where('student_id', $student->id)
+            ->where('classs_id', $student->classs_id)
+            ->where('year', request('year'))
+            ->delete();
+
         $student->delete();
-        return redirect()->route('students.index',['classs_id' => $student->classs_id])->with('success', "Student deleted successfully");
+        return redirect()->route('students.index', ['classs_id' => $student->classs_id, 'year' => request('year')])->with('success', "Student deleted successfully");
     }
 
     public function classsProvince()

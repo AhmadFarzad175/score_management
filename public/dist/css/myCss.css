@@ -85,7 +85,7 @@ td {
     margin-bottom: 50px;
 }
 
-#headImageContainer {
+.headImageContainer {
     position: relative;
     top: 31px;
     width: 150px;
@@ -94,7 +94,7 @@ td {
     overflow: hidden; /* Hide any overflow */
 }
 
-#headImage {
+.headImage {
     width: 100%;
     height: auto;
     object-fit: cover; /* Ensure the image covers the entire container */

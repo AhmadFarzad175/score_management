@@ -21,9 +21,29 @@ class ScoreController extends Controller
         $classes = Classs::latest()->get();
         $class = Classs::find($request->classs_id);
 
-        if($class){
-        $studentsData = DB::table('students')
-            ->select(
+        if ($class) {
+            // $studentsData = DB::table('students')
+            //     ->select(
+            //         'students.id AS student_id',
+            //         'students.first_name',
+            //         'students.father_name',
+            //         'students.image',
+            //         'scores.id AS score_id',
+            //         'scores.mark',
+            //         'scores.classs_id',
+            //         'subjects.id AS subject_id',
+            //         'subjects.name AS subject_name'
+            //     )
+            //     ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
+            //     ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
+            //     ->whereNull('students.status')
+            //     ->where('scores.classs_id', $request->classs_id)
+            //     ->where('scores.exam_type', $request->exam_type)
+
+            //     ->get()
+            //     ->groupBy('student_id');
+
+            $studentsData = Student::select(
                 'students.id AS student_id',
                 'students.first_name',
                 'students.father_name',
@@ -34,37 +54,41 @@ class ScoreController extends Controller
                 'subjects.id AS subject_id',
                 'subjects.name AS subject_name'
             )
-            ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
-            ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
-            ->whereNull('students.status')
-            ->where('scores.classs_id', $request->classs_id)
-            ->where('scores.exam_type', $request->exam_type)
-            ->get()
-            ->groupBy('student_id');
+                ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
+                ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
+                ->whereNull('students.status')
+                ->where('scores.classs_id', $request->classs_id)
+                ->where('scores.exam_type', $request->exam_type)
+                ->whereHas('studentDetails', function ($query) use ($request) {
+                    $query->where('year', $request->year);
+                })
+                ->get()
+                ->groupBy('student_id');
 
-        
-        foreach ($studentsData as $studentId => $records) {
-            $student = [
-                'student_id' => $records[0]->student_id,
-                'first_name' => $records[0]->first_name,
-                'father_name' => $records[0]->father_name,
-                'image' => $records[0]->image,
-                'subjects' => []
-            ];
 
-            foreach ($records as $record) {
-                if ($record->subject_id !== null) {
-                    $student['subjects'][] = [
-                        'subject_id' => $record->subject_id,
-                        'subject_name' => $record->subject_name,
-                        'score_id' => $record->score_id,
-                        'mark' => $record->mark,
-                    ];
+
+            foreach ($studentsData as $studentId => $records) {
+                $student = [
+                    'student_id' => $records[0]->student_id,
+                    'first_name' => $records[0]->first_name,
+                    'father_name' => $records[0]->father_name,
+                    'image' => $records[0]->image,
+                    'subjects' => []
+                ];
+
+                foreach ($records as $record) {
+                    if ($record->subject_id !== null) {
+                        $student['subjects'][] = [
+                            'subject_id' => $record->subject_id,
+                            'subject_name' => $record->subject_name,
+                            'score_id' => $record->score_id,
+                            'mark' => $record->mark,
+                        ];
+                    }
                 }
+                $students[] = $student;
             }
-            $students[] = $student;
         }
-    }
 
         return view('scores.allScores', compact('students', 'classes'));
     }
@@ -80,12 +104,15 @@ class ScoreController extends Controller
         $classes = Classs::latest()->get();
         $subject = Subject::find(Request('subject_id'));
 
-        
+
         if ($request->classs_id) {
             $students = student::join('scores', 'students.id', '=', 'scores.student_id')
                 ->where('scores.classs_id', $request->classs_id)
                 ->where('scores.subject_id', $request->subject_id)
                 ->where('scores.exam_type', $request->exam_type)
+                ->whereHas('studentDetails', function ($query) use ($request) {
+                    $query->where('year', $request->year);
+                })
                 ->orderBy('first_name')
                 ->orderBy('father_name')
                 ->get();
@@ -97,6 +124,9 @@ class ScoreController extends Controller
         } else {
             $students = Student::where('status', null)
                 ->where('classs_id', $request->classs_id)
+                ->whereHas('studentDetails', function ($query) use ($request) {
+                    $query->where('year', $request->year);
+                })
                 ->orderBy('first_name')->orderBy('father_name')
                 ->select('id as student_id', 'first_name', 'father_name', 'image', 'classs_id')->get();
         }
@@ -128,7 +158,7 @@ class ScoreController extends Controller
                 ->first();
             $score ? $score->update($scoreData) : Score::create($scoreData);
         }
-        return redirect()->route('scores.index', ['classs_id' => $validated['classs_id'], 'subject_id' => $validated['subject_id'], 'exam_type' => $validated['exam_type']])->with('success', 'score inserted successfully');
+        return redirect()->route('scores.index', ['classs_id' => $validated['classs_id'], 'subject_id' => $validated['subject_id'], 'exam_type' => $validated['exam_type'], 'year' => $validated['year']])->with('success', 'score inserted successfully');
     }
 
 
@@ -175,9 +205,9 @@ class ScoreController extends Controller
             // 'subjects.*.max' => 'The mark for each subject must not be greater than :max.',
         ];
         // Validate the incoming request data
-            $request->validate([
-                'subjects.*' => 'required|numeric|min:0|max:100',
-            ], $messages);
+        $request->validate([
+            'subjects.*' => 'required|numeric|min:0|max:100',
+        ], $messages);
 
 
         // Loop through the subjects and update each score
@@ -189,8 +219,7 @@ class ScoreController extends Controller
             }
         }
 
-        return redirect()->route('scores.index', ['classs_id' => $score->classs_id, 'exam_type'=>$score->exam_type])->with('success', 'Scores updated successfully');
-
+        return redirect()->route('scores.index', ['classs_id' => $score->classs_id, 'exam_type' => $score->exam_type])->with('success', 'Scores updated successfully');
     }
 
     /**

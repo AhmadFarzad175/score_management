@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(Classs::class)->constrained();
             $table->integer('mark');
             $table->boolean('exam_type');
+            $table->integer('year');
             $table->timestamps();
             $table->softDeletes();
         });

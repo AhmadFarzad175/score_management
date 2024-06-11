@@ -54,6 +54,9 @@ class AttendanceController extends Controller
                     ->where('attendances.attendance_type', '=', $request->exam_type);
             })
                 ->where('students.classs_id', $request->classs_id)
+                ->whereHas('studentDetails', function ($query) use ($request) {
+                    $query->where('year', $request->year);
+                })
                 ->orderBy('first_name')
                 ->orderBy('father_name')
                 ->select(
@@ -77,6 +80,9 @@ class AttendanceController extends Controller
             //
         } else {
             $students = student::where('classs_id', $request->classs_id)
+                ->whereHas('studentDetails', function ($query) use ($request) {
+                    $query->where('year', $request->year);
+                })
                 ->orderBy('first_name')
                 ->orderBy('father_name')
                 ->select('students.id AS student_id', 'first_name', 'father_name', 'image', 'classs_id')
@@ -128,7 +134,6 @@ class AttendanceController extends Controller
                 // Create new attendance record
                 Attendance::create($attendanceData);
             }
-            // dd($existingAttendance);
 
             // Check if the student is Mahroom or not
             $status = intval($attendance['absent']) > intval($validated['total_year']) * 0.25;
@@ -137,7 +142,6 @@ class AttendanceController extends Controller
             }
         }
 
-        // Redirect back with a success message or any other action you desire
         return redirect()->route('attendances.index', ['classs_id' => $validated['classs_id'], 'year' => $validated['year'], 'exam_type' => $validated['exam_type']])->with('success', 'Attendance inserted successfully');
     }
 
