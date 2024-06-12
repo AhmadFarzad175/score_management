@@ -3,10 +3,10 @@
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
             <h4>Home | Create Attendance</h4>
-        </div>
+        </div>  
     </div>
 
-    <x-attendance-header route='create' page="attendance" />
+    <x-attendance-header page="attendances" />
 
     <!-- /.card -->
     <form action="{{ route('attendances.store') }}" method="POST">

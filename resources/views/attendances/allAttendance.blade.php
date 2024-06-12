@@ -9,7 +9,7 @@
             Create
         </a>
     </div>
-    <x-attendance-header route="index" page="attendance" />
+    <x-attendance-header page="attendances" />
 
 
     <!-- /.card -->

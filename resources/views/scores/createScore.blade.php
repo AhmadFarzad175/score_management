@@ -97,13 +97,14 @@
                                 <td>{{ $student->father_name }}</td>
                                 <td>{{ $subject->name }}</td>
                                 <td>
+                                    <input type="hidden" name="year" value="{{ request('year') }}">
                                     <input type="hidden" name="subject_id" value="{{ request('subject_id') }}">
                                     <input type="hidden" name="classs_id" value="{{ $student->classs_id }}">
                                     <input type="hidden" name="exam_type" value="{{ request('exam_type') }}">
                                     <input type="number" name="students[{{ $student->student_id }}][mark]"
                                         min="0" class="scoreInput best-shadow"
                                         {{ request('exam_type') == 1 ? 'max=60' : 'max=40' }}
-                                        value="{{ $student->mark }}">
+                                        value="{{ $student->mark }}" required>
                                 </td>
                             </tr>
                         @endforeach

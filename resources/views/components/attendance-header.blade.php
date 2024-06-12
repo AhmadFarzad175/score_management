@@ -1,5 +1,5 @@
-@props(['route', 'page'])
-<form action="{{ route($page.'s.'.$route) }}">
+@props([ 'page'])
+<form action="{{ $page }}">
     @csrf
     <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
         <div class="col-12 col-sm-8 col-md-18 d-flex justify-content-between">

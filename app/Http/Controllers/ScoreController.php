@@ -140,11 +140,12 @@ class ScoreController extends Controller
     public function store(ScoreRequest $request)
     {
         $validated = $request->validated();
-
+        // dd($validated);
         foreach ($validated['students'] as $studentId => $studentData) {
             $scoreData = [
                 'student_id' => $studentId,
                 'subject_id' => $validated['subject_id'],
+                'year' => $validated['year'],
                 'classs_id' => $validated['classs_id'],
                 'exam_type' => $validated['exam_type'],
                 'mark' => $studentData['mark'],

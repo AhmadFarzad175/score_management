@@ -79,6 +79,10 @@
                         <a class="nav-link {{ $page == 5 ? 'active' : '' }}"
                             href="{{ route('scores.index') }}">Score</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ $page == 6 ? 'active' : '' }}"
+                            href="results">Result</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -171,7 +175,7 @@
         });
     </script>
 
-    @if ($page == 2 || $page == 3 || $page == 5)
+    @if ($page == 2 || $page == 3 || $page == 5 || $page == 6)
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const currentYear = new Date().getFullYear();

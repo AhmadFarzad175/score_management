@@ -24,6 +24,7 @@ class ScoreRequest extends FormRequest
     {
         return  [
             'students' => 'required|array',
+            'year' => 'required|integer',
             'subject_id' => 'required|integer',
             'classs_id' => 'required|integer',
             'exam_type' => 'required|integer|in:0,1',

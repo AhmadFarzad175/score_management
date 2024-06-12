@@ -1,4 +1,4 @@
-<x-newLayout page="5">
+<x-newLayout page="">
     {{-- @dd($students) --}}
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <h4>Home | students' Score</h4>
@@ -15,7 +15,8 @@
 
         </div>
     </div>
-    <x-attendance-header page="scores" />
+    <x-student-search  menu="results"/>
+
 
 
 
@@ -29,17 +30,13 @@
                         <th>Image</th>
                         <th>Firstname</th>
                         <th>Fathername</th>
-                        @if (isset($students[0]['subjects']))
-                            @foreach ($students[0]['subjects'] as $subject)
-                                <th>{{ $subject['subject_name'] }}</th>
-                            @endforeach
-                        @endif
+                        
 
                         <td class="text-right">Action</td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($students as $index => $student)
+                    {{-- @foreach ($students as $index => $student)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
@@ -49,40 +46,15 @@
                             <td>{{ $student['first_name'] }}</td>
                             <td>{{ $student['father_name'] }}</td>
 
-                            @foreach ($student['subjects'] as $subject)
-                                <td><span
-                                        class="bg-{{ $subject['mark'] < 16 ? 'danger' : '' }} p-2 round-2">{{ !empty($subject['mark']) ? $subject['mark'] : '-' }}</span>
-                                </td>
-                            @endforeach
 
-                            <td class="text-right py-0 align-middle">
-                                <div class="btn-group btn-group-sm">
-                                    <button class="editBtn best-shadow btn btn-outline-success border-transparent"
-                                        title="Edit" data-toggle="modal"
-                                        data-score-id="{{ isset($subject['score_id']) ? $subject['score_id'] : '' }}"
-                                        data-target="#modal-default">
-                                        <i class="mt-2 fa fa-thermometer" style="font-size: 16px"></i>
-                                    </button>
-
-                                    <form action="{{ route('scores.destroy', $student['student_id']) }}"
-                                        method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit"
-                                            class="btn del best-shadow btn-outline-danger border-transparent"
-                                            title="Delete"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </div>
-                            </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
 
             <div class="d-flex justify-content-between mt-3">
-                <a href="{{ route('students.index') }}" class="btn btn-primary">Back</a>
-                <a href="{{ route('subjects.index', ['classs_id' => Request('classs_id')]) }}"
-                    class="btn btn-primary">Next</a>
+                <a href="scores" class="btn btn-primary">Back</a>
+                
             </div>
         </div>
         <!-- /.card-body -->

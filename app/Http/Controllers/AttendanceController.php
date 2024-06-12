@@ -42,54 +42,55 @@ class AttendanceController extends Controller
      */
     public function create(Request $request)
     {
-        // dd($request);
         $students = collect();
         if ($request->classs_id) {
 
 
-            $students = student::leftJoin('attendances', function ($join) use ($request) {
+            $students = Student::leftJoin('attendances', function ($join) use ($request) {
                 $join->on('students.id', '=', 'attendances.student_id')
                     ->where('attendances.classs_id', '=', $request->classs_id)
-                    ->where('attendances.year', '=', $request->year)
-                    ->where('attendances.attendance_type', '=', $request->exam_type);
+                    ->where('attendances.year', '=', $request->year);
             })
+                ->where('attendances.attendance_type', $request->exam_type)
                 ->where('students.classs_id', $request->classs_id)
                 ->whereHas('studentDetails', function ($query) use ($request) {
-                    $query->where('year', $request->year);
+                    $query->where('year', 2024);
                 })
                 ->orderBy('first_name')
                 ->orderBy('father_name')
                 ->select(
                     'students.id AS student_id',
-                    'first_name',
-                    'father_name',
-                    'image',
+                    'students.first_name',
+                    'students.father_name',
+                    'students.image',
                     'students.classs_id',
                     'attendances.id AS attendances_id',
-                    'total_year',
-                    'present',
-                    'absent',
-                    'sick',
-                    'leave'
+                    'attendances.total_year',
+                    'attendances.present',
+                    'attendances.absent',
+                    'attendances.sick',
+                    'attendances.leave',
+                    'students.status'
                 )
                 ->get();
         }
 
-        // dd($students);
         if (!$students->isEmpty()) {
             //
         } else {
             $students = student::where('classs_id', $request->classs_id)
+                ->whereNull('status')
                 ->whereHas('studentDetails', function ($query) use ($request) {
                     $query->where('year', $request->year);
                 })
                 ->orderBy('first_name')
                 ->orderBy('father_name')
-                ->select('students.id AS student_id', 'first_name', 'father_name', 'image', 'classs_id')
+                ->select('students.id AS student_id', 'first_name', 'father_name', 'image', 'classs_id', 'status')
                 ->get();
         }
+        // dd($students);
 
-        // dd($attendances);
+
 
         return view('attendances.createAttendance', compact('students'));
     }
