@@ -21,7 +21,7 @@
 
     <div class="card">
         <!-- /.card-header -->
-        <div class="card-body">
+        <div class="card-body" style="overflow: auto">
             <table id="example2" class="table table-hover">
                 <thead>
                     <tr>
@@ -81,7 +81,7 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('students.index') }}" class="btn btn-primary">Back</a>
-                <a href="{{ route('subjects.index', ['classs_id' => Request('classs_id')]) }}"
+                <a href="results"
                     class="btn btn-primary">Next</a>
             </div>
         </div>

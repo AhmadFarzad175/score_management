@@ -15,7 +15,7 @@
                         <select class="form-control select2 input_radious_none" name="classs_id" id="classs"
                             style="width: 250px;">
                             @foreach ($ordinaries as $ordinary)
-                                <option {{ $loop->iteration == request('classs_id') ? 'selected' : '' }}
+                                <option {{ $loop->iteration == $classs_id ? 'selected' : '' }}
                                     value="{{ $loop->iteration }}">{{ $ordinary }}</option>
                             @endforeach
                         </select>

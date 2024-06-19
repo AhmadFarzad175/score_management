@@ -6,7 +6,7 @@
         </div>  
     </div>
 
-    <x-attendance-header page="attendances" />
+    <x-attendance-header page="create" />
 
     <!-- /.card -->
     <form action="{{ route('attendances.store') }}" method="POST">
@@ -20,7 +20,7 @@
                     class="attendanceYear col-12 best-shadow form-control ">
             </div> --}}
             <div class="input-group col-3 mb-3">
-                <div class="input-group-prepend">
+                <div class="input-group-prepend" >
                     <button type="button" class="btn btn-primary h45px best-shadow">Total Year</button>
                 </div>
                 <input type="number" value="{{ isset($students[0]->total_year) ? $students[0]->total_year : '' }}"
@@ -81,7 +81,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-between mt-3">
-                    <a href="{{ route('classes.index') }}" class="btn btn-primary best-shadow">Back</a>
+                    <a href="{{ route('students.index') }}" class="btn btn-primary best-shadow">Back</a>
                     <button type="submit" class="btn btn-primary best-shadow">Submit</button>
                 </div>
             </div>

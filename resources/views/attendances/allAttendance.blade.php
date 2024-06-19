@@ -92,7 +92,7 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('students.index') }}" class="btn btn-primary">Back</a>
-                <a href="{{ route('subjects.index', ['classs_id' => Request('classs_id')]) }}"
+                <a href="{{ route('subjects.index') }}"
                     class="btn btn-primary">Next</a>
             </div>
 

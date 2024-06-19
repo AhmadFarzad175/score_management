@@ -19,7 +19,11 @@ class StudentController extends Controller
     public function index(Request $request)
     {
 
-        $classes = Classs::latest()->get();
+        if(! $request['classs_id']){
+            $request['classs_id'] = Classs::latest()->first()->id;
+            $request['year'] = date('Y');
+        }
+
         if ($request['classs_id']) {
             $students = Student::with(['classs', 'mainResidence'])
                 ->where('classs_id', $request->classs_id)
@@ -28,10 +32,10 @@ class StudentController extends Controller
                 })
                 ->latest()
                 ->get();
-            return view('flows.students', compact('students', 'classes'));
+            return view('flows.students', compact('students'));
         }
         $students = [];
-        return view('flows.students', compact('classes', 'students'));
+        return view('flows.students', compact('students'));
     }
 
     /**

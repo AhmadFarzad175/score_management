@@ -12,14 +12,18 @@ class Student extends Model
 
     protected $fillable = [
         'first_name',
+        'first_name_en',
         'last_name',
+        'last_name_en',
         'father_name',
+        'father_name_en',
+        'grand_father',
         'image',
         'dob',
         'classs_id',
         'base_number',
         'tazkira_number',
-        'current_residence',
+        // 'current_residence',
         'main_residence',
         'status'
     ];
@@ -35,10 +39,10 @@ class Student extends Model
     }
 
 
-    public function currentResidence()
-    {
-        return $this->belongsTo(Province::class, 'current_residence', 'id');
-    }
+    // public function currentResidence()
+    // {
+    //     return $this->belongsTo(Province::class, 'current_residence', 'id');
+    // }
 
     public function mainResidence()
     {

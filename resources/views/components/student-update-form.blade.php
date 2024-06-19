@@ -85,15 +85,6 @@
                         <input name="tazkira_number" type="text" id="tazkira" class="form-control">
                     </div>
 
-                    <div class="form-group col-12 col-md-6">
-                        <label for="current">Current residence <span class="text-danger">*</span></label>
-                        <select name="current_residence" class="form-control currentSelect" id="current">
-                            @foreach ($provinces as $province)
-                                <option {{ request('classs_id') == $province->id ? 'selected' : '' }}
-                                    value="{{ $province->id }}">{{ $province->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
 
                     <div class="form-group col-12 col-md-6">
                         <label for="main">Main residence <span class="text-danger">*</span></label>

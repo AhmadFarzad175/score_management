@@ -18,30 +18,17 @@ class ScoreController extends Controller
     public function index(Request $request)
     {
         $students = [];
-        $classes = Classs::latest()->get();
+        // $classes = Classs::latest()->get();
+
+        if(! $request['year']){
+            $request['classs_id'] = Classs::latest()->first()->id;
+            $request['year'] = date('Y');
+            $request['exam_type'] = 0;
+        }
+        
         $class = Classs::find($request->classs_id);
 
         if ($class) {
-            // $studentsData = DB::table('students')
-            //     ->select(
-            //         'students.id AS student_id',
-            //         'students.first_name',
-            //         'students.father_name',
-            //         'students.image',
-            //         'scores.id AS score_id',
-            //         'scores.mark',
-            //         'scores.classs_id',
-            //         'subjects.id AS subject_id',
-            //         'subjects.name AS subject_name'
-            //     )
-            //     ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
-            //     ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
-            //     ->whereNull('students.status')
-            //     ->where('scores.classs_id', $request->classs_id)
-            //     ->where('scores.exam_type', $request->exam_type)
-
-            //     ->get()
-            //     ->groupBy('student_id');
 
             $studentsData = Student::select(
                 'students.id AS student_id',
@@ -90,7 +77,7 @@ class ScoreController extends Controller
             }
         }
 
-        return view('scores.allScores', compact('students', 'classes'));
+        return view('scores.allScores', compact('students'));
     }
 
 
@@ -102,6 +89,7 @@ class ScoreController extends Controller
         // dd($request);
         $students = collect();
         $classes = Classs::latest()->get();
+        
         $subject = Subject::find(Request('subject_id'));
 
 

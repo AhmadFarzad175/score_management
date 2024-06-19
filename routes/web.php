@@ -22,19 +22,23 @@ use App\Http\Controllers\AttendanceController;
 |
 */
 
-Route::resource('/scores', ScoreController::class);
-Route::resource('/subjects', SubjectController::class);
-Route::resource('/attendances', AttendanceController::class);
-Route::resource('/classes', ClasssController::class);
-Route::resource('/students', StudentController::class);
-Route::get('/results', [ResultController::class, 'index']);
-Route::get('/classsProvince', [StudentController::class, 'classsProvince']);
-Route::get('/allSubjects', [SubjectController::class, 'subjects']);
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::get('/export', [TeacherController::class, 'export']);
+    Route::resource('/scores', ScoreController::class);
+    Route::resource('/subjects', SubjectController::class);
+    Route::resource('/attendances', AttendanceController::class);
+    Route::resource('/classes', ClasssController::class);
+    Route::resource('/students', StudentController::class);
+    Route::get('/results', [ResultController::class, 'index']);
+    Route::get('/classsProvince', [StudentController::class, 'classsProvince']);
+    Route::get('/allSubjects', [SubjectController::class, 'subjects']);
+
+    Route::get('/export', [TeacherController::class, 'export']);
+});
 
 
-Route::get('/register', [AuthController::class, 'register']);
-Route::get('/loginPage', [AuthController::class, 'index']);
+Route::get('/register', [AuthController::class, 'registerPage']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');

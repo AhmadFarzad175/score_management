@@ -19,8 +19,12 @@ class AttendanceController extends Controller
 
     public function index(Request $request)
     {
-        // dd($request);
-        // Fetch attendances only if a class ID is provided
+        if(! $request['year']){
+            $request['classs_id'] = Classs::latest()->first()->id;
+            $request['year'] = date('Y');
+            $request['exam_type'] = 0;
+        }
+
         if ($request->classs_id) {
             $students = student::join('attendances', 'students.id', '=', 'attendances.student_id')
                 ->where('attendances.classs_id', $request->classs_id)
@@ -43,6 +47,13 @@ class AttendanceController extends Controller
     public function create(Request $request)
     {
         $students = collect();
+
+        if(! $request['year']){
+            $request['classs_id'] = Classs::latest()->first()->id;
+            $request['year'] = date('Y');
+            $request['exam_type'] = 0;
+        }
+
         if ($request->classs_id) {
 
 

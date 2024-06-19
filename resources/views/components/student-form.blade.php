@@ -1,5 +1,4 @@
-
-<div class="modal fade" id="modal-lg">
+<div class="modal" id="modal-lg" style="display: block">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -17,37 +16,55 @@
                     @if (isset($method))
                         @method('PUT')
                     @endif
-                    <div class="form-group col-8">
-                        {{-- FIRSTNAME --}}
-                        <div class="firstname mb-3">
-                            <label for="firstname">First name <span class="text-danger">*</span></label>
-                            <input type="text" name="first_name" id="firstname" class="form-control">
-
-                        </div>
-
-                        {{-- LASTNAME --}}
-                        <div class="lastname">
-                            <label for="lastname">Last name <span class="text-danger">*</span></label>
-                            <input type="text" name="last_name" id="lastname" class="form-control">
-
-                        </div>
-                    </div>
-
-                    <div class="d-none d-lg-block col-lg-1">
-                    </div>
-
-
+                    {{-- image --}}
                     <div class="form-group col-3" style="position: relative">
                         <div class="best-shadow headImageContainer" id="headImageContainerCreate"
                             onclick="showFileInput('fileInputCreate')">
                             <i class="fas fa-user-edit text-white text-sm user_edit best-shadow"></i>
-                            <img id="headImageCreate" class="img-fluid headImage" src="{{ asset('imge/default_image.jpeg') }}">
+                            <img id="headImageCreate" class="img-fluid headImage"
+                                src="{{ asset('imge/default_image.jpeg') }}">
                         </div>
                         <input type="file" name="image" id="fileInputCreate" style="display: none;"
                             onchange="handleFileSelect('fileInputCreate', 'headImageCreate')"
                             value="{{ 'imge/default_image.jpeg' }}">
                     </div>
-                    
+                    <div class="form-group col-12 d-flex flex-wrap">
+
+
+                       
+
+
+                        {{-- FIRSTNAME --}}
+                        <div class="form-group firstname mb-3 col-md-4">
+                            <label for="firstname">First name <span class="text-danger">*</span></label>
+                            <input type="text" name="first_name" id="firstname" class="form-control">
+
+                        </div>
+
+                        <div class="d-none d-md-block col-md-1">
+                        </div>
+
+                        <div class="firstname mb-3 col-md-4">
+                            <label for="firstname">En:First name <span class="text-danger">*</span></label>
+                            <input type="text" name="first_name" id="firstname" class="form-control">
+
+                        </div>
+
+                        {{-- LASTNAME --}}
+                        <div class="lastname col-md-4">
+                            <label for="lastname">Last name <span class="text-danger">*</span></label>
+                            <input type="text" name="last_name" id="lastname" class="form-control">
+
+                        </div>
+
+
+                        
+
+
+                        
+                    </div>
+
+
 
 
 
@@ -90,15 +107,6 @@
                         <input name="tazkira_number" type="text" id="tazkira" class="form-control">
                     </div>
 
-                    <div class="form-group col-12 col-md-6">
-                        <label for="current">Current residence <span class="text-danger">*</span></label>
-                        <select name="current_residence" class="form-control currentSelect" id="current">
-                            @foreach ($provinces as $province)
-                                <option {{ request('classs_id') == $province->id ? 'selected' : '' }}
-                                    value="{{ $province->id }}">{{ $province->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
 
                     <div class="form-group col-12 col-md-6">
                         <label for="main">Main residence <span class="text-danger">*</span></label>

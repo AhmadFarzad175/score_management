@@ -49,16 +49,12 @@
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-light bg-white best-shadow">
-            <img src="{{ asset('imge/softelino-logo.png') }}" style="width: 80px; margin-left: 20px">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link {{ $page == 0 ? 'active' : '' }}" href="#">Dashboard</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 1 ? 'active' : '' }}"
                             href="{{ route('classes.index') }}">Class</a>
@@ -81,7 +77,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 6 ? 'active' : '' }}"
-                            href="results">Result</a>
+                            href="/results">Result</a>
                     </li>
                 </ul>
             </div>

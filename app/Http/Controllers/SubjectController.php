@@ -27,12 +27,19 @@ class SubjectController extends Controller
             '11' => 'یازدهم',
             '12' => 'دوازدهم',
         ];
-        // Retrieve class with id = 4 and relevant student attributes using eager loading
+
+        if(! $request->classs_id) {
+            $request->classs_id = Classs::latest()->first()->term_id;
+
+            // dd($request->classs_id);
+        }
+
         $subjects = Subject::Where('classs_id', $request->classs_id)->get();
         $classes = Classs::latest()->get();
+        $classs_id = $request->classs_id;
 
         // Pass the data to the view
-        return view('subjects.allSubjects', compact('subjects', 'classes', 'ordinaries'));
+        return view('subjects.allSubjects', compact('subjects', 'classes', 'ordinaries', 'classs_id'));
     }
 
     /**

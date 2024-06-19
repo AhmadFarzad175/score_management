@@ -9,7 +9,7 @@
             Create
         </button>
     </div>
-    <x-student-search  menu="students"/>
+    <x-student-search menu="students" />
 
 
 
@@ -23,7 +23,7 @@
     <div class="card">
         <!-- /.card-header -->
 
-        <div class="card-body">
+        <div class="card-body" style="overflow: auto">
             <table id="example2" class="table table-hover">
                 <thead>
                     <tr>
@@ -43,7 +43,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <img src="{{ asset('storage/' . $student->image) }}"
+                                <img src="{{ $student->image ? asset('storage/' . $student->image) : public_path('imge/default_image.jpeg') }}"
                                     class="img-circle best-shadow w-40">
 
                             </td>
@@ -61,7 +61,8 @@
                                     </button>
 
 
-                                    <form action="students/{{$student->id .'?year=' .request('year')}}" method="post">
+                                    <form action="students/{{ $student->id . '?year=' . request('year') }}"
+                                        method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit"
@@ -76,8 +77,7 @@
             </table>
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('classes.index') }}" class="btn btn-primary">Back</a>
-                <a href="{{ route('attendances.create', ['classs_id' => Request('classs_id')]) }}"
-                    class="btn btn-primary">Next</a>
+                <a href="{{ route('attendances.create') }}" class="btn btn-primary">Next</a>
             </div>
         </div>
         <!-- /.card-body -->
@@ -85,7 +85,7 @@
 </x-newLayout>
 
 
-{{-- <script>
+<script>
     $(function() {
         $("#example2").DataTable({
             paging: true,
@@ -96,7 +96,7 @@
             autoWidth: true,
         });
     });
-</script> --}}
+</script>
 
 {{-- IMAGE SELECT IMPLEMENTATION --}}
 <script src="{{ asset('dist/js/myjs.js') }}"></script>
@@ -138,7 +138,6 @@
 
                 // Get all select elements
                 const classSelect = document.getElementById('class');
-                const currentSelect = document.getElementById('current');
                 const mainSelect = document.getElementById('main');
 
                 // Function to set the selected option
@@ -153,7 +152,6 @@
 
                 // Set the selected options
                 setSelectedOption(classSelect, studentData.classs_id);
-                setSelectedOption(currentSelect, studentData.current_residence);
                 setSelectedOption(mainSelect, studentData.main_residence);
 
             })
@@ -166,14 +164,17 @@
 
     // Function to handle the click event for all edit buttons
     document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('editBtn')) {
-            // If the clicked element has the class 'editBtn'
-            const studentId = event.target.dataset.studentId; // Get the student ID from the data attribute
+        let element = event.target.closest('.editBtn')
+        // If the clicked element has the class 'editBtn'
+        if(element){
+            const studentId = element.dataset.studentId; // Get the student ID from the data attribute
             document.getElementById('udpateForm').action = "students/" + studentId;
-
+    
             populateStudentData(studentId); // Fetch and populate student data
             get_year('update');
+
         }
+
     });
 
 

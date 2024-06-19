@@ -26,9 +26,13 @@ class StudentRequest extends FormRequest
     {
 
         $rules = [
-            'first_name' => 'required|string|max:255',  
+            'first_name' => 'required|string|max:255',
+            'first_name_en' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'last_name_en' => 'required|string|max:255',
             'father_name' => 'required|string|max:255',
+            'father_name_en' => 'required|string|max:255',
+            'grand_father' => 'required|string|max:255',
             'image' => 'nullable|image',
             'dob' => 'required|date',
             'year' => 'required',

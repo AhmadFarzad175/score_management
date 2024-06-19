@@ -1,21 +1,23 @@
-<x-newLayout page="">
+<x-newLayout page="6">
     {{-- @dd($students) --}}
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <h4>Home | students' Score</h4>
         <div>
+            <button type="button" class="btn btn-primary createBtn" data-toggle="modal" data-target="#modal-default-promote">
+                <i class="fas fa-plus"></i>
+                Promote
+            </button>
+
             <a href="{{'/export?classs_id='. request('classs_id') .'&exam_type=' .request('exam_type')}}" type="button" class="btn btn-primary createBtn">
                 <i class="fas fa-plus"></i>
                 Excel
             </a>
 
-            <a href="{{ route('scores.create') }}" type="button" class="btn btn-primary createBtn">
-                <i class="fas fa-plus"></i>
-                Create
-            </a>
 
         </div>
     </div>
     <x-student-search  menu="results"/>
+    <x-promote />
 
 
 
@@ -30,13 +32,17 @@
                         <th>Image</th>
                         <th>Firstname</th>
                         <th>Fathername</th>
+                        <th>مجموع نمرات</th>
+                        <th>اوسط نمرات</th>
+                        <th> درجه </th>
+                        <th> نتیجه </th>
                         
 
-                        <td class="text-right">Action</td>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($students as $index => $student)
+                    @foreach ($students as $index => $student)
+                    {{-- @dd($student) --}}
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
@@ -45,10 +51,16 @@
                             </td>
                             <td>{{ $student['first_name'] }}</td>
                             <td>{{ $student['father_name'] }}</td>
+                            <td>{{ $student['total_marks'] }}</td>
+                            <td>{{ $student['average_marks'] }}</td>
+                            <td>{{ $student['grade'] }}</td>
+                            <td class="badge badge-{{ $student->result== 'ارتقا صنف' || $student->result == 'موفق' ? 'success' : 'danger' }} mt-3">
+                                <span class="badge badge-warning">{{$student['marks_under_16'] > 0 ? $student['marks_under_16'] : ''}}</span>
+                                {{ $student['result'] }}</td>
 
 
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
 
@@ -79,71 +91,25 @@
     });
 </script>
 
-{{-- FETCHING DATA FOR UPDATING MODAL --}}
+
 <script>
-    // Function to fetch and populate class data
-    function populateClassData(scoreId) {
-        // Fetch class data from the server
-        fetch(`/scores/${scoreId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(scoreData => {
-                // Assuming the scoreData is an array of objects
-                if (scoreData.length > 0) {
-                    const studentData = scoreData[0]; // Taking the first entry to get the student info
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentYear = new Date().getFullYear();
+        const startYear = currentYear - 10; // Adjust as necessary
+        const endYear = currentYear + 10; // Adjust as necessary
+        let select = document.getElementById('year-picker-promote');
 
-                    // Get the container element where the form elements will be appended
-                    let container = document.querySelector('.form_div');
-                    console.log(scoreData);
-                    // Clear the container before adding new content
-                    container.innerHTML = '';
+        // Assuming this value is set by your server-side logic
+        let selectedYear = "{{ request('year') }}";
 
-                    // Populate the student name
-                    container.innerHTML += `
-                    <div class="form-group col-md-6">
-                        <div class="name mb-3">
-                            <label for="first_name">Student <span class="text-danger">*</span></label>
-                            <input type="text" name="first_name" id="first_name" class="form-control" value="${scoreData[0].first_name}" disabled>
-                            </div>
-                            </div>
-                            `;
+        for (let year = startYear; year <= endYear; year++) {
+            let isSelected = year == selectedYear ? 'selected' : '';
+            select.innerHTML += `<option ${isSelected} value="${year}">${year}</option>`;
+        }
 
-                    console.log(container);
-                    // Populate the subject marks
-                    scoreData.forEach(score => {
-                        console.log(score.score_id);
-                        container.innerHTML += `
-                            <div class="form-group col-md-6">
-                                <label>${score.subject_name}</label>
-                                <input type="number" class="form-control" name="subjects[${score.score_id}]" value="${score.mark}">
-                            </div>
-                        `;
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-                // Handle error if necessary
-            });
-    }
-
-    // Function to handle the click event for all edit buttons
-    document.addEventListener('click', function(event) {
-        let element = event.target.closest('.editBtn');
-        if (element) {
-            // Get the student ID from the data attribute
-            const scoreId = element.dataset.scoreId;
-            document.querySelector('.updateBtn').action = "scores/" + scoreId;
-
-            // Populate the modal with score data
-            populateClassData(scoreId);
-
-            // Show the modal (assuming you are using Bootstrap)
-            $('#modal-default').modal('show');
+        // Select the current year by default if no year is selected
+        if (!selectedYear) {
+            select.value = currentYear;
         }
     });
 </script>

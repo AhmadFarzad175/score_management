@@ -24,7 +24,7 @@ class studentUpdateForm extends Component
     public function render(): View|Closure|string
     {
         return view('components.student-update-form', [
-            'classes' => Classs::orderBy('id', 'desc')->get(),
+            'classes' =>  Classs::orderBy('id', 'desc')->get(),
             'provinces' => Province::all()
         ]);
     }

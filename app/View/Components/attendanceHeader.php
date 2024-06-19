@@ -24,7 +24,7 @@ class AttendanceHeader extends Component
     public function render(): View|Closure|string
     {
         return view('components.attendance-header',[
-            'classes' =>  Classs::latest()->get(),
+            'classes' =>  Classs::orderBy('id', 'desc')->get(),
         ]);
     }
 }

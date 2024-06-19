@@ -23,7 +23,7 @@ class studentSearch extends Component
     public function render(): View|Closure|string
     {
         return view('components.student-search',[
-            'classes' => Classs::orderBy('id', 'desc')->get(),
+            'classes' =>  Classs::orderBy('id', 'desc')->get(),
 
         ]);
     }

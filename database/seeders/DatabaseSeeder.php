@@ -10,6 +10,7 @@ use App\Models\Student;
 use App\Models\Attendance;
 use App\Models\StudentDetails;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'admin',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
         ]);
 
         //TO CALL THE PROVICE SEEDER FOR CREATING PROVINCES
