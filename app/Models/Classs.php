@@ -12,10 +12,10 @@ class Classs extends Model
     protected $fillable = ['name', 'negaran', 'term_id'];
 
 
-    public function students()
-    {
-        return $this->hasMany(Student::class);
-    }
+    // public function students()
+    // {
+    //     return $this->hasMany(Student::class);
+    // }
 
     public function classes()
     {

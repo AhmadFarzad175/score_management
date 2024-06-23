@@ -20,7 +20,7 @@ class Student extends Model
         'grand_father',
         'image',
         'dob',
-        'classs_id',
+        // 'classs_id',
         'base_number',
         'tazkira_number',
         // 'current_residence',
@@ -28,10 +28,10 @@ class Student extends Model
         'status'
     ];
 
-    public function classs()
-    {
-        return $this->belongsTo(Classs::class);
-    }
+    // public function classs()
+    // {
+    //     return $this->belongsTo(Classs::class);
+    // }
 
     public function studentDetails()
     {

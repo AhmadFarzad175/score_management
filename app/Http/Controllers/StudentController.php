@@ -25,10 +25,10 @@ class StudentController extends Controller
         }
 
         if ($request['classs_id']) {
-            $students = Student::with(['classs', 'mainResidence'])
-                ->where('classs_id', $request->classs_id)
-                ->whereHas('studentDetails', function ($query) use ($request) {
-                    $query->where('year', $request->year);
+            $students = Student::with(['studentDetails', 'mainResidence'])
+            ->whereHas('studentDetails', function ($query) use ($request) {
+                $query->where('year', $request->year)
+                ->where('classs_id', $request->classs_id);
                 })
                 ->latest()
                 ->get();

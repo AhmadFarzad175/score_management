@@ -1,4 +1,4 @@
-<div class="modal" id="modal-lg" style="display: block">
+<div class="modal fade" id="modal-lg" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

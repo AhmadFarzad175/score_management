@@ -3,7 +3,8 @@
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <h4>Home | students' Score</h4>
         <div>
-            <a href="{{'/export?classs_id='. request('classs_id') .'&exam_type=' .request('exam_type')}}" type="button" class="btn btn-primary createBtn">
+            <a href="{{ '/export?classs_id=' . request('classs_id') . '&exam_type=' . request('exam_type') }}"
+                type="button" class="btn btn-primary createBtn">
                 <i class="fas fa-plus"></i>
                 Excel
             </a>
@@ -49,11 +50,13 @@
                             <td>{{ $student['first_name'] }}</td>
                             <td>{{ $student['father_name'] }}</td>
 
+
                             @foreach ($student['subjects'] as $subject)
                                 <td><span
                                         class="bg-{{ $subject['mark'] < 16 ? 'danger' : '' }} p-2 round-2">{{ !empty($subject['mark']) ? $subject['mark'] : '-' }}</span>
                                 </td>
                             @endforeach
+
 
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
@@ -64,14 +67,14 @@
                                         <i class="mt-2 fa fa-thermometer" style="font-size: 16px"></i>
                                     </button>
 
-                                    <form action="{{ route('scores.destroy', $student['student_id']) }}"
+                                    {{-- <form action="{{ route('scores.destroy', $student['student_id']) }}"
                                         method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit"
-                                            class="btn del best-shadow btn-outline-danger border-transparent"
-                                            title="Delete"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                        class="btn del best-shadow btn-outline-danger border-transparent"
+                                        title="Delete"><i class="fas fa-trash"></i></button>
+                                    </form> --}}
                                 </div>
                             </td>
                         </tr>
@@ -81,8 +84,7 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('students.index') }}" class="btn btn-primary">Back</a>
-                <a href="results"
-                    class="btn btn-primary">Next</a>
+                <a href="results" class="btn btn-primary">Next</a>
             </div>
         </div>
         <!-- /.card-body -->
@@ -140,10 +142,8 @@
                             </div>
                             `;
 
-                    console.log(container);
                     // Populate the subject marks
                     scoreData.forEach(score => {
-                        console.log(score.score_id);
                         container.innerHTML += `
                             <div class="form-group col-md-6">
                                 <label>${score.subject_name}</label>

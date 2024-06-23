@@ -36,7 +36,7 @@ class StudentRequest extends FormRequest
             'image' => 'nullable|image',
             'dob' => 'required|date',
             'year' => 'required',
-            'classs_id' => 'required|integer|exists:classses,id',
+            'classs_id' => 'required|integer',
             'base_number' => 'required|string|max:30',
             'tazkira_number' => 'required|string|max:50',
             'current_residence' => 'required|string|max:255',

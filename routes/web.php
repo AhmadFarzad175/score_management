@@ -10,6 +10,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\PdfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/allSubjects', [SubjectController::class, 'subjects']);
 
     Route::get('/export', [TeacherController::class, 'export']);
+    Route::get('/parcha', [PdfController::class, 'generateParchaPdf']);
 });
 
 

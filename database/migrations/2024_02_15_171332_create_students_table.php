@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('grand_father');
             $table->string('image')->nullable();
             $table->date('dob');
-            $table->foreignIdFor(Classs::class)->constrained();
+            // $table->foreignIdFor(Classs::class)->constrained();
             $table->string('base_number');
             $table->string('tazkira_number');
             // $table->foreignId('current_residence')->references('id')->on('provinces');

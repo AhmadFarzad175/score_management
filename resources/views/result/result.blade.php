@@ -1,22 +1,23 @@
 <x-newLayout page="6">
-    {{-- @dd($students) --}}
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <h4>Home | students' Score</h4>
         <div>
-            <button type="button" class="btn btn-primary createBtn" data-toggle="modal" data-target="#modal-default-promote">
+            <button type="button" class="btn btn-primary createBtn" data-toggle="modal"
+                data-target="#modal-default-promote">
                 <i class="fas fa-plus"></i>
                 Promote
             </button>
 
-            <a href="{{'/export?classs_id='. request('classs_id') .'&exam_type=' .request('exam_type')}}" type="button" class="btn btn-primary createBtn">
-                <i class="fas fa-plus"></i>
-                Excel
+            <a href="{{ '/parcha?classs_id=' . request('classs_id') . '&exam_type=' . request('exam_type') . '&year=' . request('year')}}" type="button"
+                class="btn btn-primary createBtn">
+                <i class="fas fa-pdf"></i>
+                اطــــلاع نامـــه
             </a>
 
 
         </div>
     </div>
-    <x-student-search  menu="results"/>
+    <x-student-search menu="results" />
     <x-promote />
 
 
@@ -36,27 +37,34 @@
                         <th>اوسط نمرات</th>
                         <th> درجه </th>
                         <th> نتیجه </th>
-                        
+
 
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($students as $index => $student)
-                    {{-- @dd($student) --}}
+                    {{-- @dump($student) --}}
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <img src="{{ asset('storage/' . $student['image']) }}"
+                                <img src="{{ asset('storage/' . $student->image) }}"
                                     class="img-circle best-shadow w-40">
                             </td>
-                            <td>{{ $student['first_name'] }}</td>
-                            <td>{{ $student['father_name'] }}</td>
-                            <td>{{ $student['total_marks'] }}</td>
-                            <td>{{ $student['average_marks'] }}</td>
-                            <td>{{ $student['grade'] }}</td>
-                            <td class="badge badge-{{ $student->result== 'ارتقا صنف' || $student->result == 'موفق' ? 'success' : 'danger' }} mt-3">
-                                <span class="badge badge-warning">{{$student['marks_under_16'] > 0 ? $student['marks_under_16'] : ''}}</span>
-                                {{ $student['result'] }}</td>
+                            <td>{{ $student->first_name }}</td>
+                            <td>{{ $student->father_name }}</td>
+                            <td>{{ $student->total_marks }}</td>
+                            <td>{{ $student->average_marks}}</td>
+                            <td>{{ $student->grade}}</td>
+                            @if ($student->status == null)
+                                <td
+                                    class="badge badge-{{ $student->result == 'ارتقا صنف' || $student->result == 'موفق' ? 'success' : 'danger' }} mt-3">
+                                    <span
+                                        class="badge badge-warning">{{ $student->marks_under_16 > 0 ? $student->marks_under_16 : '' }}</span>
+                                    {{ $student->result }}
+                                </td>
+                            @else
+                                <td class="badge badge-warning mt-3">{{ $student->status }}</td>
+                            @endif
 
 
                         </tr>
@@ -66,14 +74,13 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="scores" class="btn btn-primary">Back</a>
-                
+
             </div>
         </div>
         <!-- /.card-body -->
     </div>
 
 
-    <x-score-form />
 
 </x-newLayout>
 

@@ -20,12 +20,12 @@ class ScoreController extends Controller
         $students = [];
         // $classes = Classs::latest()->get();
 
-        if(! $request['year']){
+        if (!$request['year']) {
             $request['classs_id'] = Classs::latest()->first()->id;
             $request['year'] = date('Y');
             $request['exam_type'] = 0;
         }
-        
+
         $class = Classs::find($request->classs_id);
 
         if ($class) {
@@ -43,14 +43,40 @@ class ScoreController extends Controller
             )
                 ->leftJoin('scores', 'students.id', '=', 'scores.student_id')
                 ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
-                ->whereNull('students.status')
                 ->where('scores.classs_id', $request->classs_id)
                 ->where('scores.exam_type', $request->exam_type)
                 ->whereHas('studentDetails', function ($query) use ($request) {
-                    $query->where('year', $request->year);
+                    $query->where('year', $request->year)
+                        ->where('classs_id', $request->classs_id);
                 })
                 ->get()
                 ->groupBy('student_id');
+
+
+            // {{ -- if you show the mahroom students  -- }}
+            // $studentsData = Student::select(
+            //     'students.id AS student_id',
+            //     'students.first_name',
+            //     'students.father_name',
+            //     'students.image',
+            //     'scores.id AS score_id',
+            //     'scores.mark',
+            //     'scores.classs_id',
+            //     'subjects.id AS subject_id',
+            //     'subjects.name AS subject_name'
+            // )
+            //     ->leftJoin('scores', function ($join) use ($request) {
+            //         $join->on('students.id', '=', 'scores.student_id')
+            //             ->where('scores.classs_id', $request->classs_id)
+            //             ->where('scores.exam_type', $request->exam_type);
+            //     })
+            //     ->leftJoin('subjects', 'scores.subject_id', '=', 'subjects.id')
+            //     ->whereHas('studentDetails', function ($query) use ($request) {
+            //         $query->where('year', $request->year);
+            //     })
+            //     ->get()
+            //     ->groupBy('student_id');
+
 
 
 
@@ -89,7 +115,7 @@ class ScoreController extends Controller
         // dd($request);
         $students = collect();
         $classes = Classs::latest()->get();
-        
+
         $subject = Subject::find(Request('subject_id'));
 
 
@@ -111,12 +137,23 @@ class ScoreController extends Controller
             //
         } else {
             $students = Student::where('status', null)
-                ->where('classs_id', $request->classs_id)
                 ->whereHas('studentDetails', function ($query) use ($request) {
-                    $query->where('year', $request->year);
+                    $query->where('year', $request->year)
+                        ->where('classs_id', $request->classs_id);
                 })
-                ->orderBy('first_name')->orderBy('father_name')
-                ->select('id as student_id', 'first_name', 'father_name', 'image', 'classs_id')->get();
+                ->join('student_details', 'students.id', '=', 'student_details.student_id')
+                ->where('student_details.year', $request->year)
+                ->where('student_details.classs_id', $request->classs_id)
+                ->orderBy('students.first_name')
+                ->orderBy('students.father_name')
+                ->select(
+                    'students.id as student_id',
+                    'students.first_name',
+                    'students.father_name',
+                    'students.image',
+                    'student_details.classs_id'
+                )
+                ->get();
         }
 
         return view('scores.createScore', compact('students', 'classes', 'subject'));
@@ -189,9 +226,9 @@ class ScoreController extends Controller
     {
         $messages = [
             'subjects.*.required' => 'The mark for each subject is required.',
-            // 'subjects.*.numeric' => 'The mark for each subject must be a number.',
-            // 'subjects.*.min' => 'The mark for each subject must be at least :min.',
-            // 'subjects.*.max' => 'The mark for each subject must not be greater than :max.',
+            'subjects.*.numeric' => 'The mark for each subject must be a number.',
+            'subjects.*.min' => 'The mark for each subject must be at least :min.',
+            'subjects.*.max' => 'The mark for each subject must not be greater than :max.',
         ];
         // Validate the incoming request data
         $request->validate([
@@ -216,6 +253,7 @@ class ScoreController extends Controller
      */
     public function destroy(Score $score)
     {
-        //
+        // $score->delete();
+
     }
 }

@@ -19,7 +19,7 @@ class AttendanceController extends Controller
 
     public function index(Request $request)
     {
-        if(! $request['year']){
+        if (!$request['year']) {
             $request['classs_id'] = Classs::latest()->first()->id;
             $request['year'] = date('Y');
             $request['exam_type'] = 0;
@@ -48,7 +48,7 @@ class AttendanceController extends Controller
     {
         $students = collect();
 
-        if(! $request['year']){
+        if (!$request['year']) {
             $request['classs_id'] = Classs::latest()->first()->id;
             $request['year'] = date('Y');
             $request['exam_type'] = 0;
@@ -60,21 +60,20 @@ class AttendanceController extends Controller
             $students = Student::leftJoin('attendances', function ($join) use ($request) {
                 $join->on('students.id', '=', 'attendances.student_id')
                     ->where('attendances.classs_id', '=', $request->classs_id)
-                    ->where('attendances.year', '=', $request->year);
+                    ->where('attendances.year', '=', $request->year)
+                    ->where('attendances.attendance_type', '=', $request->exam_type);
             })
-                ->where('attendances.attendance_type', $request->exam_type)
-                ->where('students.classs_id', $request->classs_id)
-                ->whereHas('studentDetails', function ($query) use ($request) {
-                    $query->where('year', 2024);
-                })
-                ->orderBy('first_name')
-                ->orderBy('father_name')
+                ->join('student_details', 'students.id', '=', 'student_details.student_id')
+                ->where('student_details.year', $request->year)
+                ->where('student_details.classs_id', $request->classs_id)
+                ->orderBy('students.first_name')
+                ->orderBy('students.father_name')
                 ->select(
                     'students.id AS student_id',
                     'students.first_name',
                     'students.father_name',
                     'students.image',
-                    'students.classs_id',
+                    'student_details.classs_id',
                     'attendances.id AS attendances_id',
                     'attendances.total_year',
                     'attendances.present',
@@ -89,14 +88,24 @@ class AttendanceController extends Controller
         if (!$students->isEmpty()) {
             //
         } else {
-            $students = student::where('classs_id', $request->classs_id)
-                ->whereNull('status')
+            $students = Student::whereNull('status')
                 ->whereHas('studentDetails', function ($query) use ($request) {
-                    $query->where('year', $request->year);
+                    $query->where('year', $request->year)
+                        ->where('classs_id', $request->classs_id);
                 })
-                ->orderBy('first_name')
-                ->orderBy('father_name')
-                ->select('students.id AS student_id', 'first_name', 'father_name', 'image', 'classs_id', 'status')
+                ->join('student_details', 'students.id', '=', 'student_details.student_id')
+                ->where('student_details.year', $request->year)
+                ->where('student_details.classs_id', $request->classs_id)
+                ->orderBy('students.first_name')
+                ->orderBy('students.father_name')
+                ->select(
+                    'students.id AS student_id',
+                    'students.first_name',
+                    'students.father_name',
+                    'students.image',
+                    'students.status',
+                    'student_details.classs_id'
+                )
                 ->get();
         }
         // dd($students);
@@ -136,6 +145,7 @@ class AttendanceController extends Controller
                 ->where('classs_id', $request->classs_id)
                 ->where('year', $validated['year'])
                 ->where('attendance_type', $validated['exam_type'])
+
                 ->first();
 
             if ($existingAttendance) {
@@ -202,8 +212,8 @@ class AttendanceController extends Controller
     public function destroy(Attendance $attendance)
     {
         $attendance->delete();
-        $attendance->student->status = "Deleted";
-        $attendance->student->save();
+        // $attendance->student->status = "Deleted";
+        // $attendance->student->save();
         return redirect()->route('attendances.index')->with('success', 'attendance deleted successfully');
     }
 }
