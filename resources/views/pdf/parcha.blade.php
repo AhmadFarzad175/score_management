@@ -38,9 +38,9 @@
             <th style="font-size: 20px">مدیریت مکتب : ( لیسه عالی حبیبیه )</th>
         </tr>
         <tr style="padding-top: 100px">
-            <td style="text-wrap: nowrap; font-size: 14px">اطــــلاع نامـــه صنف : ( دهم 15 )</td>
-            <td style="text-wrap: nowrap; font-size: 14px">مربوط نگران صنف : ( عبدالرحمن خان )</td>
-            <td style="text-wrap: nowrap; font-size: 14px">بابت سال تعلیمی : 1402</td>
+            <td style="text-wrap: nowrap; font-size: 14px">اطــــلاع نامـــه صنف : (  {{$classs_name}} )</td>
+            <td style="text-wrap: nowrap; font-size: 14px">مربوط نگران صنف : ( {{$negaran}} )</td>
+            <td style="text-wrap: nowrap; font-size: 14px">بابت سال تعلیمی : {{$year}}</td>
         </tr>
     </table>
 
@@ -56,53 +56,53 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">نام</td>
-            <td colspan="3" style="text-wrap: nowrap;border: 1px solid #000;">احمد ساحل</td>
+            <td colspan="3" style="text-wrap: nowrap;border: 1px solid #000;">{{$first_name}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">Name</td>
-            <td colspan="3" style="text-wrap: nowrap; border: 1px solid #000;">Ahmad Sahil</td>
+            <td colspan="3" style="text-wrap: nowrap; border: 1px solid #000;">{{$first_name_en}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">تخلص</td>
-            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">محمدی</td>
+            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">{{$last_name}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">L/Name</td>
-            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">Mohammadi</td>
+            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">{{$last_name_en}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">نام پدر</td>
-            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">احمد شکیب</td>
+            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">{{$father_name}}</td>
             <td style="border: 1px solid #000; width: 400px" rowspan="9" colspan="4"></td>
         </tr>
 
         <tr>
             <td style="border: 1px solid #000; width: 100px">F/Name</td>
-            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">Ahmad Shakib</td>
+            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">{{$father_name_en}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">نام پدرکلان</td>
-            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">حفیظ الدین</td>
+            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">{{$grand_father}}</td>
         </tr>
         <tr>
-            <td style="border: 1px solid #000; width: 100px">نمبر اساس</td>
+            <td style="border: 1px solid #000; width: 100px">{{$base_number}}</td>
             <td colspan="3" style="border: 1px solid #000;">435432</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">نمبر تذکره</td>
-            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">1402-23423-23232</td>
+            <td colspan="3" style="border: 1px solid #000;text-wrap: nowrap">{{$tazkira_number}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px; text-wrap: nowrap">تاریخ تولد شمسی</td>
-            <td colspan="3" style="border: 1px solid #000;">1403-01-01</td>
+            <td colspan="3" style="border: 1px solid #000;">{{$dob}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px; text-wrap: nowrap">تاریخ تولد میلادی</td>
-            <td colspan="3" style="border: 1px solid #000;">09-12-2024</td>
+            <td colspan="3" style="border: 1px solid #000;">{{$dob}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">سکونت اصلی</td>
-            <td colspan="3" style="border: 1px solid #000;">کابل</td>
+            <td colspan="3" style="border: 1px solid #000;">{{$main_residence}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">مضامین</td>
@@ -112,7 +112,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">تفسیر شریف</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub1) ? $sub1 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; width: 340px; font-size: 13px; text-wrap: nowrap; background-color: lightgray"
@@ -124,7 +124,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px; text-wrap: nowrap">عقاید،فقه،حدیث</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub2) ? $sub2 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " colspan="2">از 36 الی 40</td>
@@ -133,7 +133,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">لسان اول</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub3) ? $sub3 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " colspan="2">از 30 الی 35.99</td>
@@ -141,7 +141,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">لسان دوم</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub4) ? $sub4 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " colspan="2">از 24 الی 29.99</td>
@@ -157,7 +157,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">انگلیسی</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub5) ? $sub5 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " rowspan="2" colspan="2">
@@ -168,13 +168,13 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">ریاضی</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub6) ? $sub6 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">فزیک</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub7) ? $sub7 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; font-size: 13px; text-wrap: nowrap; background-color: lightgray"
@@ -186,7 +186,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">کیمیا</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub8) ? $sub8 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " colspan="2">از 90 الی 100</td>
@@ -195,7 +195,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">بیولوژی</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub9) ? $sub9 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " colspan="2">از 75 الی 89.99</td>
@@ -203,7 +203,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">جیولوژی</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub10) ? $sub10 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " colspan="2">از 60 الی 74.99</td>
@@ -211,7 +211,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">تاریخ</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub11) ? $sub11 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " colspan="2">از 50 الی 59.99</td>
@@ -219,7 +219,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">جغرافیه</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub12) ? $sub12 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " rowspan="2" colspan="2">
@@ -230,13 +230,13 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">تعلیمات مدنی</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub13) ? $sub13 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">کمپیوتر</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub14) ? $sub14 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " rowspan="2" colspan="2">
@@ -247,13 +247,13 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">فرهنگ</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub15) ? $sub15 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">سپورت</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub16) ? $sub16 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; background-color: lightgray; width: 200px;">محل امضاء</td>
@@ -262,7 +262,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">تهذیب</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000">{{ isset($sub17) ? $sub17 : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td rowspan="2" style="border: 1px solid #000;">امضاء نگران صنف</td>
@@ -271,13 +271,13 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">مجموع نمرات</td>
-            <td style="border:1px solid #000">431</td>
+            <td style="border:1px solid #000">{{$total_marks}}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">اوسط نمرات</td>
-            <td style="border:1px solid #000">25.55</td>
+            <td style="border:1px solid #000">{{$average_marks}}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td rowspan="2" style="border: 1px solid #000;">امضاء سر معلم</td>
@@ -286,12 +286,12 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">نتیجه</td>
-            <td style="border: 1px solid #000; text-wrap: nowrap">تلاش بیشتر</td>
+            <td style="border: 1px solid #000; text-wrap: nowrap">{{$result}}</td>
             <td colspan="2" style="border: 1px solid #000;text-wrap: nowrap"></td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">درجه</td>
-            <td style="border:1px solid #000">ه</td>
+            <td style="border:1px solid #000">{{$grade}}</td>
             <td colspan="2" style="border: 1px solid #000;"></td>
             <td rowspan="2" style="border: 1px solid #000;">امضاء مدیر لیسه</td>
             <td rowspan="2" style="border: 1px solid #000;"></td>
@@ -299,13 +299,13 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">ایام تعلیمی</td>
-            <td style="border:1px solid #000">76</td>
+            <td style="border:1px solid #000">{{ isset($total_year) ? $total_year : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">حاضر</td>
-            <td style="border:1px solid #000">70</td>
+            <td style="border:1px solid #000">{{ isset($present) ? $present : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td rowspan="2" style="border: 1px solid #000;">امضاء ولی شاگرد</td>
@@ -315,13 +315,13 @@
 
         <tr>
             <td style="border: 1px solid #000; width: 100px">غیر حاضر</td>
-            <td style="border:1px solid #000">76</td>
+            <td style="border:1px solid #000">{{ isset($absent) ? $absent : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">مریض</td>
-            <td style="border:1px solid #000">76</td>
+            <td style="border:1px solid #000">{{ isset($sick) ? $sick : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td rowspan="2" colspan="4" style="font-size: 14px; border: 1px solid #000;">
@@ -332,7 +332,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">رخصت</td>
-            <td style="border:1px solid #000">76</td>
+            <td style="border:1px solid #000">{{ isset($leave) ? $leave : '/' }}</td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
         </tr>

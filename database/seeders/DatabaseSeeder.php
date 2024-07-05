@@ -10,6 +10,7 @@ use App\Models\Student;
 use App\Models\Attendance;
 use App\Models\StudentDetails;
 use Illuminate\Database\Seeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -20,12 +21,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        User::factory()->create([
-            'name' => 'admin',
-            'password' => Hash::make('12345678'),
-        ]);
+        
 
-        //TO CALL THE PROVICE SEEDER FOR CREATING PROVINCES
+        //TO CALL THE PROVICE & User SEEDER FOR CREATING PROVINCES
+        $this->call(UserSeeder::class);
         $this->call(ProvinceSeeder::class);
         
         Classs::factory(10)->create();

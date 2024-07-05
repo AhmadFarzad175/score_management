@@ -39,7 +39,6 @@ class StudentRequest extends FormRequest
             'classs_id' => 'required|integer',
             'base_number' => 'required|string|max:30',
             'tazkira_number' => 'required|string|max:50',
-            'current_residence' => 'required|string|max:255',
             'main_residence' => 'required|string|max:255',
         ];
 

@@ -3,59 +3,53 @@
 
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
-            <h4>Home | Create Score</h4>
+            <h4>Create Score</h4>
         </div>
 
     </div>
     <form action="{{ route('scores.create') }}">
         @csrf
         <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
-            <div class="col-12 col-sm-4 col-md-2 mb-3">
+            <div class="col-12 col-sm-6 col-lg-3 col-xl-3 mb-3">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left">Class</button>
-                        <select class="form-control select2 input_radious_none w-200" name="classs_id" id="classs">
-                            @foreach ($classes as $class)
-                                <option data-term-id="{{ $class->term_id }}"
-                                    {{ request('classs_id') == $class->id ? 'selected' : '' }}
-                                    value="{{ $class->id }}">{{ $class->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="input-group col-12 col-sm-4 col-md-2 mb-3">
-                <div class="input-group-prepend">
-                    <button type="button" class="btn-primary input_radious_left h45px">Year</button>
-                    <select class="form-control select2 input_radious_none w-200 h45px" name="year" id="year-picker">
+                    <button type="button" class="btn-primary input_radious_left">Class</button>
+                    <select class="form-control select2 input_radious_none " name="classs_id" id="classs">
+                        @foreach ($classes as $class)
+                            <option data-term-id="{{ $class->term_id }}"
+                                {{ request('classs_id') == $class->id ? 'selected' : '' }} value="{{ $class->id }}">
+                                {{ $class->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
-            
-            <div class="col-12 col-sm-4 col-md-2 mb-3">
+            <div class="input-group col-12 col-sm-6 col-lg-3 col-xl-2 mb-3">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left">Subjects</button>
-                        <select class="form-control select2 w-200" name="subject_id" id="subjects">
-                        </select>
-                    </div>
+                    <button type="button" class="btn-primary input_radious_left">Year</button>
+                    <select class="form-control select2 input_radious_none " name="year" id="year-picker">
+                    </select>
                 </div>
             </div>
-            <div class="col-12 col-sm-4 col-md-2 mb-3">
+
+            <div class="col-12 col-sm-6 col-lg-3 col-xl-3 mb-3">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">Exam
-                            Type</button>
-                        <select class="form-control w-200" name="exam_type" id="exam_type">
-                            <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term
-                            </option>
-                            <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term
-                            </option>
-                        </select>
-                    </div>
+                    <button type="button" class="btn-primary input_radious_left">Subjects</button>
+                    <select class="form-control select2 " name="subject_id" id="subjects">
+                    </select>
                 </div>
             </div>
-            <div class="col-12 col-sm-4 col-md-2 mb-3 text-right align-self-end">
+            <div class="col-12 col-sm-6 col-lg-3 col-xl-3 mb-3">
+                <div class="input-group">
+                    <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">Exam
+                        Type</button>
+                    <select class="form-control " name="exam_type" id="exam_type">
+                        <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term
+                        </option>
+                        <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-xl-1 mb-3 text-right align-self-end">
                 <button type="submit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i>
                     Search

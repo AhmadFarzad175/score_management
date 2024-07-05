@@ -79,8 +79,13 @@
                         <a class="nav-link {{ $page == 6 ? 'active' : '' }}"
                             href="/results">Result</a>
                     </li>
+                    <ul class="nav nav-pills">
+    
+                        <li class="nav-item" style="position: absolute; right: 0;"><a href="/logout" class="nav-link">Logout</a></li>
+                    </ul>
                 </ul>
             </div>
+
         </nav>
         <!-- /.navbar -->
 

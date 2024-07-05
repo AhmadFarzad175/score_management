@@ -1,4 +1,5 @@
-<div class="modal fade" id="modal-lg" >
+{{-- <div class="modal" id="modal-lg" style="display: block"> --}}
+<div class="modal fade" id="modal-lg">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,13 +12,10 @@
                 <!-- Form -->
                 <!-- form start -->
                 <form action="{{ route('students.store') }}" enctype="multipart/form-data" method="POST"
-                    style="display: flex; flex-wrap: wrap;">
+                    class="d-flex justify-content-between col-12 flex-wrap">
                     @csrf
-                    @if (isset($method))
-                        @method('PUT')
-                    @endif
                     {{-- image --}}
-                    <div class="form-group col-3" style="position: relative">
+                    <div class="col-6 col-lg-4">
                         <div class="best-shadow headImageContainer" id="headImageContainerCreate"
                             onclick="showFileInput('fileInputCreate')">
                             <i class="fas fa-user-edit text-white text-sm user_edit best-shadow"></i>
@@ -28,51 +26,63 @@
                             onchange="handleFileSelect('fileInputCreate', 'headImageCreate')"
                             value="{{ 'imge/default_image.jpeg' }}">
                     </div>
-                    <div class="form-group col-12 d-flex flex-wrap">
 
-
-                       
-
-
+                    <div class="col-6 col-lg-4">
                         {{-- FIRSTNAME --}}
-                        <div class="form-group firstname mb-3 col-md-4">
+                        <div class="form-group mb-3">
                             <label for="firstname">First name <span class="text-danger">*</span></label>
                             <input type="text" name="first_name" id="firstname" class="form-control">
 
                         </div>
 
-                        <div class="d-none d-md-block col-md-1">
-                        </div>
-
-                        <div class="firstname mb-3 col-md-4">
-                            <label for="firstname">En:First name <span class="text-danger">*</span></label>
-                            <input type="text" name="first_name" id="firstname" class="form-control">
+                        {{-- En: firstname --}}
+                        <div class="form-group mb-3">
+                            <label for="firstname_en">En: First name <span class="text-danger">*</span></label>
+                            <input type="text" name="first_name_en" id="firstname_en" class="form-control">
 
                         </div>
 
+                    </div>
+
+                    <div class="col-12 justify-content-between col-lg-4 d-flex d-lg-block">
                         {{-- LASTNAME --}}
-                        <div class="lastname col-md-4">
+                        <div class="form-group mb-3" style="margin-right: 10px">
                             <label for="lastname">Last name <span class="text-danger">*</span></label>
                             <input type="text" name="last_name" id="lastname" class="form-control">
 
                         </div>
 
+                        {{-- EN:LASTNAME --}}
+                        <div class="form-group mb-3">
+                            <label for="lastname_en">En: Last name <span class="text-danger">*</span></label>
+                            <input type="text" name="last_name_en" id="lastname" class="form-control">
 
-                        
+                        </div>
 
-
-                        
                     </div>
 
 
 
 
 
-                    <div class="form-group col-12 col-md-6">
+
+
+                    <div class="form-group col-6 col-lg-4">
                         <label for="fathername">Father name <span class="text-danger">*</span></label>
                         <input type="text" name="father_name" id="fathername" class="form-control">
                     </div>
-                    <div class="form-group col-12 col-md-6">
+
+                    <div class="form-group col-6 col-lg-4">
+                        <label for="fathername_en">En: Father name <span class="text-danger">*</span></label>
+                        <input type="text" name="father_name_en" id="fathername_en" class="form-control">
+                    </div>
+
+                    <div class="form-group col-6 col-lg-4">
+                        <label for="grand_father">Grand Father name <span class="text-danger">*</span></label>
+                        <input type="text" name="grand_father" id="grand_father" class="form-control">
+                    </div>
+
+                    <div class="form-group col-6 col-lg-4">
                         <label for="dob">Date of Birth <span class="text-danger">*</span></label>
                         <input name="dob" type="date" id="dob" class="form-control">
                     </div>
@@ -80,7 +90,7 @@
 
 
 
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-6 col-lg-4">
                         <label>Class <span class="text-danger">*</span></label>
                         <select name="classs_id" class="form-control classSelect" id="class">
                             @foreach ($classes as $class)
@@ -90,25 +100,25 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-6 col-lg-4">
                         <label for="base">Year <span class="text-danger">*</span></label>
                         <select class="form-control" name="year" id="year-picker-create">
                         </select>
                     </div>
 
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-6 col-lg-4">
                         <label for="base">Base Number <span class="text-danger">*</span></label>
                         <input name="base_number" type="text" id="base" class="form-control">
                     </div>
 
 
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-6 col-lg-4">
                         <label for="tazkira">Tazkira Number <span class="text-danger">*</span></label>
                         <input name="tazkira_number" type="text" id="tazkira" class="form-control">
                     </div>
 
 
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-6 col-lg-4">
                         <label for="main">Main residence <span class="text-danger">*</span></label>
                         <select name="main_residence" class="form-control mainSelect" id="main">
                             @foreach ($provinces as $province)
@@ -118,17 +128,18 @@
                         </select>
                     </div>
 
-            </div>
-            <div class="modal-footer ">
-                <div class="student-submit text-left">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </div>
-            </div>
+                    <div class="modal-footer ">
+                        <div class="student-submit text-left">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </div>
 
-            </form>
+                </form>
 
+            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
+
 </div>

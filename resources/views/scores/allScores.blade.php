@@ -1,14 +1,8 @@
 <x-newLayout page="5">
     {{-- @dd($students) --}}
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
-        <h4>Home | students' Score</h4>
+        <h4>Students' Score</h4>
         <div>
-            <a href="{{ '/export?classs_id=' . request('classs_id') . '&exam_type=' . request('exam_type') }}"
-                type="button" class="btn btn-primary createBtn">
-                <i class="fas fa-plus"></i>
-                Excel
-            </a>
-
             <a href="{{ route('scores.create') }}" type="button" class="btn btn-primary createBtn">
                 <i class="fas fa-plus"></i>
                 Create
@@ -147,7 +141,7 @@
                         container.innerHTML += `
                             <div class="form-group col-md-6">
                                 <label>${score.subject_name}</label>
-                                <input type="number" class="form-control" name="subjects[${score.score_id}]" value="${score.mark}">
+                                <input type="number" max="${ examType == 1 ? 60 : 40}" class="form-control" name="subjects[${score.score_id}]" value="${score.mark}">
                             </div>
                         `;
                     });

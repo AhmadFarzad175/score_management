@@ -131,8 +131,8 @@ td {
 }
 
 .attendanceDisabled {
-    height: 50px !important;
-    line-height: 45px !important ;
+    /* height: 50px !important;
+    line-height: 45px !important ; */
     border-radius: 0.25rem;
     padding-left: 15px;
     padding-right: 15px;
@@ -202,15 +202,19 @@ body {
     /* border: 1px solid #ccc !important; */
 }
 
-.h45px {
-    height: 45px;
+.h38px {
+    height: 38px;
 }
 
-.w-200{
+.w-200 {
     width: 200px;
 }
 
 .bc_gray {
-    background-color: #B3B4BD;
+    background-color: #b3b4bd;
 }
 
+.next-btn {
+    position: absolute;
+    right: 20px;
+}

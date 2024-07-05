@@ -1,30 +1,28 @@
 <x-newLayout page="4">
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
-            <h4>Home | Subjects</h4>
+            <h4>Subjects</h4>
         </div>
     </div>
     <form action="{{ route('subjects.index') }}">
         @csrf
         <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
 
-            <div class="col-12 col-sm-4 col-md-3">
+            <div class="col-8 col-sm-5 col-md-4 col-lg-3">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn-primary input_radious_left" style="">Class</button>
-                        <select class="form-control select2 input_radious_none" name="classs_id" id="classs"
-                            style="width: 250px;">
-                            @foreach ($ordinaries as $ordinary)
-                                <option {{ $loop->iteration == $classs_id ? 'selected' : '' }}
-                                    value="{{ $loop->iteration }}">{{ $ordinary }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <button type="button" class="btn-primary input_radious_left" style="">Class</button>
+                    <select class="form-control select2 input_radious_none" name="classs_id" id="classs">
+                        @foreach ($ordinaries as $ordinary)
+                            <option {{ $loop->iteration == $classs_id ? 'selected' : '' }} value="{{ $loop->iteration }}">
+                                {{ $ordinary }}</option>
+                        @endforeach
+                    </select>
+
                 </div>
             </div>
 
 
-            <div class="col-12 col-sm-4 col-md-3 text-right mb-3 align-self-end">
+            <div class="col-4 col-sm-4 col-md-3 text-right mb-3 align-self-end">
                 <button type="sbmit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i>
                     Search

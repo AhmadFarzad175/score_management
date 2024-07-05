@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('abb',6);
             $table->tinyInteger('classs_id');
             $table->timestamps();
             $table->softDeletes();

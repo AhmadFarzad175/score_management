@@ -19,16 +19,16 @@ class StudentController extends Controller
     public function index(Request $request)
     {
 
-        if(! $request['classs_id']){
+        if (!$request['classs_id']) {
             $request['classs_id'] = Classs::latest()->first()->id;
             $request['year'] = date('Y');
         }
 
         if ($request['classs_id']) {
             $students = Student::with(['studentDetails', 'mainResidence'])
-            ->whereHas('studentDetails', function ($query) use ($request) {
-                $query->where('year', $request->year)
-                ->where('classs_id', $request->classs_id);
+                ->whereHas('studentDetails', function ($query) use ($request) {
+                    $query->where('year', $request->year)
+                        ->where('classs_id', $request->classs_id);
                 })
                 ->latest()
                 ->get();
@@ -51,7 +51,6 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
-        // dd($request->method());
         $validated = $request->validated();
 
         $request->hasFile('image') ? $this->storeImage($request, $validated, 'images') : null;
@@ -61,7 +60,7 @@ class StudentController extends Controller
         $student = Student::create($validated);
         StudentDetails::create([
             'student_id' => $student->id,
-            'classs_id' => $student->classs_id,
+            'classs_id' => $validated['classs_id'],
             'year' => $validated['year']
         ]);
         return redirect()->route('students.index', ['classs_id' => $validated['classs_id'], 'year' => $validated['year']])->with('success', "Student inserted successfully");
@@ -81,7 +80,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     }
 
     /**
@@ -90,8 +89,25 @@ class StudentController extends Controller
     public function update(StudentRequest $request, Student $student)
     {
         $validated = $request->validated();
-        $this->updateImage($student, $request, $validated, 'images');
+        
+        if (!$request['p_classs_id']) {
+            $request['p_classs_id'] = Classs::latest()->first()->id;
+            $request['p_year'] = date('Y');
+        }
+        
+        // finding the student details data for updating the class and year
+        $studentDetails = StudentDetails::where('student_id', $student->id)
+            ->where('classs_id', $request['p_classs_id'])
+            ->where('year', $request['p_year'])
+            ->first();
 
+        // dd($studentDetails);
+
+        $studentDetails->update([
+            'classs_id' => $request->classs_id,
+            'year' => $request->year,
+        ]);
+        $this->updateImage($student, $request, $validated, 'images');
         $student->update($validated);
         return redirect()->back();
     }

@@ -2,7 +2,7 @@
     {{-- @dd($students) --}}
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
-            <h4>Home | Class Attendance</h4>
+            <h4>Class Attendance</h4>
         </div>
         <a href="{{ route('attendances.create') }}" type="button" class="btn btn-primary createBtn">
             <i class="fas fa-plus"></i>
@@ -14,28 +14,17 @@
 
     <!-- /.card -->
     @if (isset($students[0]))
-        <div class="d-flex col-12 text-left justify-content-around" style="width: 100%">
-            {{-- <div class="input-group col-5 mb-3">
-                <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary h45px best-shadow">Educational Year</button>
-                </div>
-                <div class="attendanceDisabled col-12 best-shadow form-control h45px">{{ $students[0]->year }}
-                </div>
-            </div> --}}
-            <div class="input-group col-5 mb-3">
-                <div class="input-group-prepend">
+        
+            <div class="input-group col-6 col-sm-4 col-lg-2 mb-3">
                     <button type="button" class="btn btn-primary best-shadow">Total Year</button>
-                </div>
-                <div class="attendanceDisabled col-12 best-shadow form-control h45px">
+                <div class="attendanceDisabled col-12 best-shadow form-control">
                     {{ $students[0]->total_year }}
                 </div>
             </div>
-        </div>
     @endif
     <div class="card">
         <!-- /.card-header -->
-        {{-- attendanceDisabled --}}
-        <div class="card-body">
+        <div class="card-body" style="overflow: auto">
             <table id="example2" class="table table-hover">
                 <thead>
                     <tr>
@@ -92,8 +81,7 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('students.index') }}" class="btn btn-primary">Back</a>
-                <a href="{{ route('subjects.index') }}"
-                    class="btn btn-primary">Next</a>
+                <a href="{{ route('subjects.index') }}" class="btn btn-primary next-btn">Next</a>
             </div>
 
         </div>
@@ -105,7 +93,7 @@
 <script>
     $(function() {
         $("#example2").DataTable({
-            paging: true,
+            paging: false,
             lengthChange: true,
             searching: false,
             ordering: true,

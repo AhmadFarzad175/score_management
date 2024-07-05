@@ -1,16 +1,14 @@
 <x-newLayout page="6">
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
-        <h4>Home | students' Score</h4>
+        <h4>Students' Score</h4>
         <div>
             <button type="button" class="btn btn-primary createBtn" data-toggle="modal"
                 data-target="#modal-default-promote">
-                <i class="fas fa-plus"></i>
-                Promote
+                ارتقای صنف
             </button>
 
             <a href="{{ '/parcha?classs_id=' . request('classs_id') . '&exam_type=' . request('exam_type') . '&year=' . request('year')}}" type="button"
                 class="btn btn-primary createBtn">
-                <i class="fas fa-pdf"></i>
                 اطــــلاع نامـــه
             </a>
 

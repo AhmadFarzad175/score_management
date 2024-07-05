@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/classsProvince', [StudentController::class, 'classsProvince']);
     Route::get('/allSubjects', [SubjectController::class, 'subjects']);
 
+    Route::post('/promote', [ResultController::class, 'promote']);
     Route::get('/export', [TeacherController::class, 'export']);
     Route::get('/parcha', [PdfController::class, 'generateParchaPdf']);
 });

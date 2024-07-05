@@ -2,7 +2,7 @@
 
     <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
         <div class="align-self-end">
-            <h4>Home | Students</h4>
+            <h4>Students</h4>
         </div>
         <button type="button" class="btn btn-primary createBtn" data-toggle="modal" data-target="#modal-lg">
             <i class="fas fa-plus"></i>
@@ -75,9 +75,9 @@
                     @endforeach
 
             </table>
-            <div class="d-flex justify-content-between mt-3">
+            <div class="mt-3">
                 <a href="{{ route('classes.index') }}" class="btn btn-primary">Back</a>
-                <a href="{{ route('attendances.create') }}" class="btn btn-primary">Next</a>
+                <a href="{{ route('attendances.create') }}" class="btn btn-primary next-btn">Next</a>
             </div>
         </div>
         <!-- /.card-body -->
@@ -88,11 +88,11 @@
 <script>
     $(function() {
         $("#example2").DataTable({
-            paging: true,
+            paging: false,
             lengthChange: true,
             searching: true,
             ordering: true,
-            info: true,
+            info: false,
             autoWidth: true,
         });
     });
@@ -122,7 +122,7 @@
                 return response.json();
             })
             .then(studentData => {
-
+                console.log(studentData);
                 // Set the image src
                 let imagePath = studentData.image ? `/storage/${studentData.image}` :
                     '{{ asset('imge/default_image.jpeg') }}';
@@ -130,8 +130,12 @@
 
                 // Populate form fields with the received student data
                 document.getElementById('firstname').value = studentData.first_name;
+                document.getElementById('firstname_en').value = studentData.first_name_en;
                 document.getElementById('lastname').value = studentData.last_name;
+                document.getElementById('lastname_en').value = studentData.last_name_en;
                 document.getElementById('fathername').value = studentData.father_name;
+                document.getElementById('fathername_en').value = studentData.father_name_en;
+                document.getElementById('grand_father').value = studentData.grand_father;
                 document.getElementById('dob').value = studentData.dob;
                 document.getElementById('base').value = studentData.base_number;
                 document.getElementById('tazkira').value = studentData.tazkira_number;
@@ -166,10 +170,10 @@
     document.addEventListener('click', function(event) {
         let element = event.target.closest('.editBtn')
         // If the clicked element has the class 'editBtn'
-        if(element){
+        if (element) {
             const studentId = element.dataset.studentId; // Get the student ID from the data attribute
             document.getElementById('udpateForm').action = "students/" + studentId;
-    
+
             populateStudentData(studentId); // Fetch and populate student data
             get_year('update');
 

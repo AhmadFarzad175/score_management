@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('classes.store') }}" method="POST" style="display: flex; flex-wrap: wrap;"
+                <form action="/promote" method="POST" style="display: flex; flex-wrap: wrap;"
                     class="updateBtn">
                     @csrf
                     @if (isset($method))
@@ -18,8 +18,8 @@
                     @endif
 
                         <div class="form-group col-12 col-md-6">
-                            <label>From Class <span class="text-danger">*</span></label>
-                            <select name="classs_id" class="form-control classSelect" id="class">
+                            <label for="from">From Class <span class="text-danger">*</span></label>
+                            <select name="from" class="form-control classSelect" id="from">
                                 @foreach ($classes as $class)
                                     <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
                                         value="{{ $class->id }}">{{ $class->name }}</option>
@@ -27,14 +27,14 @@
                             </select>
                         </div>
                         <div class="form-group col-12 col-md-6">
-                            <label for="base">Year <span class="text-danger">*</span></label>
+                            <label for="year">Year <span class="text-danger">*</span></label>
                             <select class="form-control" name="year" id="year-picker-promote">
                             </select>
                         </div>
 
                         <div class="form-group col-12 ">
-                            <label>To Class <span class="text-danger">*</span></label>
-                            <select name="classs_id" class="form-control classSelect" id="class">
+                            <label for="to">To Class <span class="text-danger">*</span></label>
+                            <select name="to" class="form-control classSelect" id="to">
                                 @foreach ($classes as $class)
                                     <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
                                         value="{{ $class->id }}">{{ $class->name }}</option>
