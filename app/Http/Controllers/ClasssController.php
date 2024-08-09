@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classs;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClasssRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
 class ClasssController extends Controller
@@ -44,6 +45,8 @@ class ClasssController extends Controller
      */
     public function store(ClasssRequest $request)
     {
+        // dd($request);
+        $user = Auth::user();
         $validated = $request->validated();
         Classs::create($validated);
 
@@ -73,6 +76,7 @@ class ClasssController extends Controller
      */
     public function update(ClasssRequest $request, Classs $class)
     {
+        $user = Auth::user();
         $class->update($request->validated());
         
         return redirect()->back()->with('success', "Class updated successfully");

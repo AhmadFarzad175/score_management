@@ -3,8 +3,8 @@
     <div class="modal-dialog modal-default">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{{ isset($method) ? 'Update' : 'Add New' }} Class</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title">{{ isset($method) ? 'Update Class' : 'Add New Class' }}</h4>
+                <button type="button" class="close" data-dismiss="modal" style="direction: ltr">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -22,13 +22,13 @@
                         {{-- <input type="hidden" name="method"> --}}
                         {{-- FIRSTNAME --}}
                         <div class="name mb-3 col-md-6">
-                            <label for="name">Class Name <span class="text-danger">*</span></label>
+                            <label for="name">َ@lang('message.Class Name') <span class="text-danger">*</span></label>
                             <input type="text" name="name" id="name" class="form-control" >
                         </div>
 
                         {{-- term --}}
                         <div class="mb-3 col-md-6">
-                            <label for="terms">Term <span class="text-danger">*</span></label>
+                            <label for="terms">@lang('message.Term') <span class="text-danger">*</span></label>
                             <select class="form-control" name="term_id" id="terms">
                                 @foreach ($ordinaries as $ordinary)
                                     <option value="{{ $loop->iteration }}"
@@ -41,7 +41,7 @@
 
                         {{-- Negaran --}}
                         <div class="negaran col-md-12">
-                            <label for="negaran">Negaran Name <span class="text-danger">*</span></label>
+                            <label for="negaran">@lang('message.Negaran Name') <span class="text-danger">*</span></label>
                             <input type="text" name="negaran" id="negaran" class="form-control"
                                 >
 

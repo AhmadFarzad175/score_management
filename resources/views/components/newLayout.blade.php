@@ -54,35 +54,85 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="nav nav-pills">
+
+
+
+                <ul class="nav nav-pills"  style="direction:{{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 1 ? 'active' : '' }}"
-                            href="{{ route('classes.index') }}">Class</a>
+                            href="{{ route('classes.index') }}">@lang('message.Class')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 2 ? 'active' : '' }}"
-                            href="{{ route('students.index') }}">Student</a>
+                            href="{{ route('students.index') }}">@lang('message.Student')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 3 ? 'active' : '' }}"
-                            href="{{ route('attendances.index') }}">Attendance</a>
+                            href="{{ route('attendances.index') }}">@lang('message.Attendance')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 4 ? 'active' : '' }}"
-                            href="{{ route('subjects.index') }}">Subject</a>
+                            href="{{ route('subjects.index') }}">@lang('message.Subject')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 5 ? 'active' : '' }}"
-                            href="{{ route('scores.index') }}">Score</a>
+                            href="{{ route('scores.index') }}">@lang('message.Score')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ $page == 6 ? 'active' : '' }}"
-                            href="/results">Result</a>
+                        <a class="nav-link {{ $page == 6 ? 'active' : '' }}" href="/results">@lang('message.Result')</a>
                     </li>
-                    <ul class="nav nav-pills">
-    
-                        <li class="nav-item" style="position: absolute; right: 0;"><a href="/logout" class="nav-link">Logout</a></li>
-                    </ul>
+                </ul>
+                <ul class="nav nav-pills d-none d-xl-flex" style="position: absolute; right:20px; top:10px">
+                    
+                    <li>
+                        <div class="btn-group" style="position: absolute; right:200px">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                                @lang('message.Language')
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="lang/en">
+                                    <img style="width: 30px; border-radius: 5px; padding-right:15px"
+                                        src="{{ asset('imge/united-states.svg') }}" alt="">
+                                    @lang('message.English')
+                                </a>
+                                <a class="dropdown-item" href="lang/da">
+                                    <img style="width: 30px; border-radius: 5px; padding-right:15px"
+                                        src="{{ asset('imge/afghanistan.svg') }}" alt="">
+
+                                    @lang('message.Dari')
+                                </a>
+                                <a class="dropdown-item" href="lang/pa">
+                                    <img style="width: 30px; border-radius: 5px; padding-right:15px"
+                                        src="{{ asset('imge/afghanistan.svg') }}" alt="">
+                                    @lang('message.Pashto')
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="user-block btn-group" style="position: absolute; top:-6px; right:0px">
+                            <button type="button" class="btn">
+                                <img class="img-circle" src="{{ asset('imge/300-1.jpg') }}" alt="User Image">
+                                <span class="username">{{ auth()->user()->name }}</span>
+                                <span class="description">{{ auth()->user()->getRoleNames()->first() }}</span>
+                            </button>
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                                @role('admin')
+                                    <a href="/register" class="dropdown-item">@lang('message.Register')</a>
+                                @endrole
+                                <a href="/logout" class="dropdown-item">@lang('message.Logout')</a>
+                            </div>
+                        </div>
+
+
+
+                    </li>
+
                 </ul>
             </div>
 

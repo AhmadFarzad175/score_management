@@ -1,7 +1,7 @@
 <x-newLayout page="4">
-    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
+    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px;  direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
         <div class="align-self-end">
-            <h4>Subjects</h4>
+            <h4>@lang('message.Subjects')</h4>
         </div>
     </div>
     <form action="{{ route('subjects.index') }}">
@@ -10,7 +10,7 @@
 
             <div class="col-8 col-sm-5 col-md-4 col-lg-3">
                 <div class="input-group">
-                    <button type="button" class="btn-primary input_radious_left" style="">Class</button>
+                    <button type="button" class="btn-primary input_radious_left" style="">@lang('message.Class')</button>
                     <select class="form-control select2 input_radious_none" name="classs_id" id="classs">
                         @foreach ($ordinaries as $ordinary)
                             <option {{ $loop->iteration == $classs_id ? 'selected' : '' }} value="{{ $loop->iteration }}">
@@ -25,7 +25,7 @@
             <div class="col-4 col-sm-4 col-md-3 text-right mb-3 align-self-end">
                 <button type="sbmit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i>
-                    Search
+                    @lang('message.Search')
                 </button>
             </div>
         </div>
@@ -37,13 +37,13 @@
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="example2" class="table table-hover text-left">
+            <table id="example2" class="table table-hover"  style="direction: {{session('locale') != 'en' ? 'rtl; text-align:right' : 'ltr'}}">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Subject</th>
-                        <th>Class</th>
-                        <th class="text-right">Action</th>
+                        <th>@lang('message.Subject')</th>
+                        <th>@lang('message.Class')</th>
+                        <th class="{{session('locale') != 'en' ? 'text-left' : 'text-right'}}">@lang('message.Action')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $subject->name }}</td>
                             <td>{{ $ordinaries[$subject->classs_id] }}</td>
-                            <td class="text-right py-0 align-middle">
+                            <td class="{{session('locale') != 'en' ? 'text-left' : 'text-right'}} py-0 align-middle">
                                 {{-- EDIT BTTON --}}
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
@@ -77,9 +77,10 @@
                     @endforeach
 
             </table>
-            <div class="d-flex justify-content-between mt-3">
-                <a href="{{ route('attendances.index') }}" class="btn btn-primary">Back</a>
-                <a href="{{ route('scores.index') }}" class="btn btn-primary">Next</a>
+
+            <div class="mt-3 d-flex justify-content-between" style="direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
+                <a href="{{ route('attendances.index') }}" class="btn btn-primary">@lang('message.Back')</a>
+                <a href="{{ route('scores.index') }}" class="btn btn-primary next-btn" style="{{session('locale') != 'en' ? 'left:20px' : 'right:20px'}}">@lang('message.Next')</a>
             </div>
         </div>
         <!-- /.card-body -->
@@ -95,10 +96,10 @@
     $(function() {
         $("#example2").DataTable({
             paging: false,
-            lengthChange: true,
+            lengthChange: false,
             searching: true,
             ordering: true,
-            info: true,
+            info: false,
             autoWidth: true,
         });
     });

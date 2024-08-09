@@ -41,6 +41,7 @@ trait ResultTrait
                 $student->result = 0;
             }
         }
+
         return $students;
     }
 

@@ -1,15 +1,20 @@
 <x-newLayout page="6">
-    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
-        <h4>Students' Score</h4>
+    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px;  direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
+        <h4>@lang('message.Result')</h4>
         <div>
             <button type="button" class="btn btn-primary createBtn" data-toggle="modal"
                 data-target="#modal-default-promote">
-                ارتقای صنف
+                @lang('message.Promote')
             </button>
 
             <a href="{{ '/parcha?classs_id=' . request('classs_id') . '&exam_type=' . request('exam_type') . '&year=' . request('year')}}" type="button"
                 class="btn btn-primary createBtn">
-                اطــــلاع نامـــه
+                @lang('message.Result Sheet')
+            </a>
+
+            <a href="{{ '/jadwal?classs_id=' . request('classs_id') . '&exam_type=' . request('exam_type') . '&year=' . request('year')}}" type="button"
+                class="btn btn-primary createBtn">
+                @lang('message.Jadwal')
             </a>
 
 
@@ -23,18 +28,18 @@
 
     <div class="card">
         <!-- /.card-header -->
-        <div class="card-body">
-            <table id="example2" class="table table-hover">
+        <div class="card-body" style="overflow:auto">
+            <table id="example2" class="table table-hover" style="direction: {{session('locale') != 'en' ? 'rtl; text-align:right' : 'ltr'}}">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Image</th>
-                        <th>Firstname</th>
-                        <th>Fathername</th>
-                        <th>مجموع نمرات</th>
-                        <th>اوسط نمرات</th>
-                        <th> درجه </th>
-                        <th> نتیجه </th>
+                        <th>@lang('message.Image')</th>
+                        <th>@lang('message.Firstname')</th>
+                        <th>@lang('message.Fathername')</th>
+                        <th>@lang('message.Marks" Sum')</th>
+                        <th>@lang('message.Marks" average')</th>
+                        <th>@lang('message.Grade')</th>
+                        <th>@lang('message.Result')</th>
 
 
                     </tr>
@@ -86,7 +91,7 @@
 <script>
     $(function() {
         $("#example2").DataTable({
-            paging: true,
+            paging: false,
             lengthChange: true,
             searching: true,
             ordering: true,

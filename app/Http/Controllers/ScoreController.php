@@ -120,15 +120,18 @@ class ScoreController extends Controller
 
 
         if ($request->classs_id) {
-            $students = student::join('scores', 'students.id', '=', 'scores.student_id')
-                ->where('scores.classs_id', $request->classs_id)
-                ->where('scores.subject_id', $request->subject_id)
-                ->where('scores.exam_type', $request->exam_type)
-                ->whereHas('studentDetails', function ($query) use ($request) {
-                    $query->where('year', $request->year);
-                })
-                ->orderBy('first_name')
-                ->orderBy('father_name')
+            $students = Student::where('status', null)
+            ->leftJoin('scores', function ($join) use ($request) {
+                $join->on('students.id', '=', 'scores.student_id')
+                    ->where('scores.classs_id', '=', $request->classs_id)
+                    ->where('scores.subject_id', '=', $request->subject_id)
+                    ->where('scores.exam_type', '=', $request->exam_type);
+            })
+                ->join('attendances', 'students.id', '=', 'attendances.student_id')
+                ->where('attendances.classs_id', '=', $request->classs_id)
+                ->where('attendances.year', '=', $request->year)
+                ->orderBy('students.first_name')
+                ->orderBy('students.father_name')
                 ->get();
         }
 
@@ -203,6 +206,7 @@ class ScoreController extends Controller
                 'students.first_name',
                 'scores.id AS score_id',
                 'scores.mark',
+                'scores.exam_type',
                 'subjects.id AS subject_id',
                 'subjects.name AS subject_name'
 
@@ -224,20 +228,13 @@ class ScoreController extends Controller
      */
     public function update(Request $request, Score $score)
     {
-        $messages = [
-            'subjects.*.required' => 'The mark for each subject is required.',
-            'subjects.*.numeric' => 'The mark for each subject must be a number.',
-            'subjects.*.min' => 'The mark for each subject must be at least :min.',
-            'subjects.*.max' => 'The mark for each subject must not be greater than :max.',
-        ];
-        // Validate the incoming request data
-        $request->validate([
+        $validated = $request->validate([
             'subjects.*' => 'required|numeric|min:0|max:100',
-        ], $messages);
+        ]);
 
 
         // Loop through the subjects and update each score
-        foreach ($request->input('subjects') as $scoreId => $mark) {
+        foreach ($validated['subjects'] as $scoreId => $mark) {
             $score = Score::find($scoreId);
             if ($score) {
                 $score->mark = $mark;
@@ -245,7 +242,7 @@ class ScoreController extends Controller
             }
         }
 
-        return redirect()->route('scores.index', ['classs_id' => $score->classs_id, 'exam_type' => $score->exam_type])->with('success', 'Scores updated successfully');
+        return redirect()->route('scores.index', ['classs_id' => $score->classs_id, 'exam_type' => $score->exam_type, 'year' => $score->year])->with('success', 'Scores updated successfully');
     }
 
     /**

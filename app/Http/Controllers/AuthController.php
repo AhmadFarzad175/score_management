@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class AuthController extends Controller
         // Validate the request data
         $credentials = $request->validate([
             'name' => 'required|string|max:10|unique:users,name',
-            'password' => 'required|string|min:3|max:10',
+            'password' => 'required|string|min:3|confirmed',
         ]);
 
         // Hash the password before saving it to the database
@@ -31,12 +32,10 @@ class AuthController extends Controller
         // Create the user
         $user = User::create($credentials);
 
-        // Log the user in
-        Auth::login($user);
 
         // Redirect to the classes index page
-        return redirect()->route('classes.index');
-    }
+        return redirect()->route('classes.index')->with('success', 'Registration successful.');
+        }
 
 
 
@@ -60,8 +59,9 @@ class AuthController extends Controller
 
         
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
+            session(['locale' => 'en']);
             return redirect()->route('classes.index');
         }
 

@@ -1,11 +1,11 @@
 <x-newLayout page="5">
     {{-- @dd($students) --}}
-    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
-        <h4>Students' Score</h4>
+    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px ;  direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
+        <h4>@lang("message.Students' Score")</h4>
         <div>
             <a href="{{ route('scores.create') }}" type="button" class="btn btn-primary createBtn">
                 <i class="fas fa-plus"></i>
-                Create
+                @lang("message.Create")
             </a>
 
         </div>
@@ -17,21 +17,21 @@
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body" style="overflow: auto">
-            <table id="example2" class="table table-hover">
+            <table id="example2" class="table table-hover" style="direction: {{session('locale') != 'en' ? 'rtl; text-align:right' : 'ltr'}}">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Image</th>
-                        <th>Firstname</th>
-                        <th>Fathername</th>
+                        <th>@lang("message.Image")</th>
+                        <th>@lang("message.First name")</th>
+                        <th>@lang("message.Father name")</th>
                         @if (isset($students[0]['subjects']))
                             @foreach ($students[0]['subjects'] as $subject)
                                 <th>{{ $subject['subject_name'] }}</th>
                             @endforeach
                         @endif
 
-                        <td class="text-right">Action</td>
-                    </tr>
+                        <th class="{{session('locale') != 'en' ? 'text-left' : 'text-right'}}">@lang('message.Action')</th>
+                    </tr>   
                 </thead>
                 <tbody>
                     @foreach ($students as $index => $student)
@@ -76,9 +76,9 @@
                 </tbody>
             </table>
 
-            <div class="d-flex justify-content-between mt-3">
-                <a href="{{ route('students.index') }}" class="btn btn-primary">Back</a>
-                <a href="results" class="btn btn-primary">Next</a>
+            <div class="mt-3 d-flex justify-content-between" style="direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
+                <a href="{{ route('students.index') }}" class="btn btn-primary">@lang('message.Back')</a>
+                <a href="results" class="btn btn-primary next-btn" style="{{session('locale') != 'en' ? 'left:20px' : 'right:20px'}}">@lang('message.Next')</a>
             </div>
         </div>
         <!-- /.card-body -->
@@ -93,7 +93,7 @@
 <script>
     $(function() {
         $("#example2").DataTable({
-            paging: true,
+            paging: false,
             lengthChange: true,
             searching: true,
             ordering: true,
@@ -130,7 +130,7 @@
                     container.innerHTML += `
                     <div class="form-group col-md-6">
                         <div class="name mb-3">
-                            <label for="first_name">Student <span class="text-danger">*</span></label>
+                            <label for="first_name">@lang('message.Student') <span class="text-danger">*</span></label>
                             <input type="text" name="first_name" id="first_name" class="form-control" value="${scoreData[0].first_name}" disabled>
                             </div>
                             </div>
@@ -141,7 +141,7 @@
                         container.innerHTML += `
                             <div class="form-group col-md-6">
                                 <label>${score.subject_name}</label>
-                                <input type="number" max="${ examType == 1 ? 60 : 40}" class="form-control" name="subjects[${score.score_id}]" value="${score.mark}">
+                                <input type="number" max="${score.exam_type == 1 ? 60 : 40 }" class="form-control" name="subjects[${score.score_id}]" value="${score.mark}">
                             </div>
                         `;
                     });

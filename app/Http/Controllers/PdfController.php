@@ -2,72 +2,19 @@
 
 namespace App\Http\Controllers;
 
-// namespace App\Http\Controllers;
 
-// use App\Models\Classs;
-// use App\Models\Student;
-// use Illuminate\Http\Request;
-// use App\Services\parchaPdfService;
-// use Illuminate\Support\Facades\DB;
-
-
-// class PdfController extends Controller
-// {
-//     protected $parchaPdfService;
-
-//     public function __construct(parchaPdfService $parchaPdfService)
-//     {
-//         $this->parchaPdfService = $parchaPdfService;
-//     }
-
-//     public function generateParchaPdf(Request $request)
-//     {
-//         $html = view('pdf.parcha')->render(); // Assume you have a view file 'resources/views/pdf/template.blade.php'
-//         return $this->parchaPdfService->generatePdf($html);
-//     }
-// }
-
-
-
-
-// $year = $request->year ? $request->year : date('Y');
-//         $exam_type = $request->exam_type ? $request->exam_type : 0;
-//         $classs_id = $request->classs_id ? $request->classs_id : Classs::latest()->first()->id;
-
-//         $students = Student::with(['scores' => function ($query) use ($year, $classs_id, $exam_type) {
-//             $query->where('classs_id', $classs_id)
-//                 ->where('year', $year)
-//                 ->where('exam_type', $exam_type);
-//         }, 'scores.subject' => function ($query) {
-//             $query->select('id', 'name');
-//         }, 'attendances' => function ($query) use ($year, $classs_id) {
-//             $query->where('year', $year)
-//                 ->where('classs_id', $classs_id)
-//                 ->where('attendance_type', 0);
-//         }])
-//             ->whereHas('studentDetails', function ($query) use ($year, $classs_id) {
-//                 $query->where('year', $year)
-//                     ->where('classs_id', $classs_id);
-//             })
-//             ->get();
-
-//         dd($students);
-
-
-
-
-
-
-
+use Mpdf\Mpdf;
 use App\Models\Classs;
+
 
 use App\Models\Student;
 use App\Traits\ResultTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Mpdf\Mpdf;
-use Mpdf\Config\ConfigVariables;
+use Morilog\Jalali\Jalalian;
 use Mpdf\Config\FontVariables;
+use Mpdf\Config\ConfigVariables;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class PdfController extends Controller
@@ -133,7 +80,7 @@ class PdfController extends Controller
         SELECT SUM(mark)
         FROM scores
         WHERE scores.student_id = students.id
-        AND (scores.exam_type = 0 OR scores.exam_type = 1)
+        AND (scores.exam_type = 0)
         AND scores.year = ?
     ), 0) as total_marks,
     COALESCE((
@@ -141,10 +88,10 @@ class PdfController extends Controller
         FROM (
             SELECT student_id, subject_id, SUM(mark) as total_subject_marks
             FROM scores
-            WHERE (scores.exam_type = 0 OR scores.exam_type = 1)
+            WHERE (scores.exam_type = 0)
             AND scores.year = ?
             GROUP BY student_id, subject_id
-            HAVING SUM(mark) < 40
+            HAVING SUM(mark) < 16
         ) as subject_totals
         WHERE subject_totals.student_id = students.id
     ), 0) as marks_under_16,
@@ -159,18 +106,17 @@ class PdfController extends Controller
             ->get();
 
         $students = [];
+        $counter = 1;
 
         $this->midTermResult($studentsRaw);
-        
+
         foreach ($studentsRaw as $student) {
-            // trhowing an error message for less subjects
+            // Throw an error message for less subjects
             if ($student->subject_count < 17 && $student->subject_count > 0) {
                 throw ValidationException::withMessages([
-                    'subject_count' => "Student: {$student->first_name} has less score data"
+                    'subject_count' => "Students have less score data"
                 ]);
             }
-
-
 
             // Assuming only one attendance record per student
             $attendance = $student->attendances->first();
@@ -182,10 +128,11 @@ class PdfController extends Controller
                 $studentScores[$score->subject->abb] = $score->mark;
             }
 
-            // dd($studentScores);
+            $dobShamsi = Jalalian::fromCarbon(\Carbon\Carbon::parse($student->dob))->format('Y-m-d');
 
             // Combine the scores and the rest of the student data
             $students[] = array_merge($studentScores, [
+                'number' => $counter,
                 'id' => $student->id,
                 'first_name' => $student->first_name,
                 'first_name_en' => $student->first_name_en,
@@ -195,6 +142,7 @@ class PdfController extends Controller
                 'father_name_en' => $student->father_name_en,
                 'grand_father' => $student->grand_father,
                 'dob' => $student->dob,
+                'dobShamsi' => $dobShamsi,
                 'base_number' => $student->base_number,
                 'tazkira_number' => $student->tazkira_number,
                 'main_residence' => $student->mainResidence->name,
@@ -214,7 +162,10 @@ class PdfController extends Controller
                 'grade' => $student->grade,
                 'result' => $student->result,
             ]);
+
+            $counter++;
         }
+
 
 
 
@@ -243,5 +194,110 @@ class PdfController extends Controller
 
         // Output the PDF
         return $mpdf->Output('parcha.pdf', 'I'); // 'I' for inline view, 'D' for download
+    }
+
+
+    // public function generateJadwalPdf(Request $request)
+    // {
+    //     // $html = view('pdf.jadwal')->render(); // Ensure you have a view file 'resources/views/pdf/jadwal.blade.php'
+
+    //     // // Use the $this->mpdf instance initialized in the constructor
+    //     // $mpdf = $this->mpdf;
+
+    //     // // Write the single HTML content to the PDF
+    //     // $mpdf->WriteHTML($html);
+
+    //     // // Output the PDF
+    //     // return $mpdf->Output('jadwal.pdf', 'I');
+
+
+    //     // $year = $request->year ? $request->year : date('Y');
+    //     // $exam_type = $request->exam_type ? $request->exam_type : 0;
+    //     // $classs = $request->classs_id ? Classs::find($request->classs_id) : Classs::latest()->first();
+
+
+
+    //     $students = [];
+
+
+
+
+
+
+
+
+
+    //     // Initialize an empty array to store HTML for each page
+    //     $htmlPages = [];
+
+    //     // Loop to generate HTML content for each page
+    //     for ($i = 0; $i < 3; $i++) {
+    //         $htmlPages[] = view('pdf.jadwal')->render();
+    //     }
+
+    //     // Use the $this->mpdf instance initialized in the constructor
+    //     $mpdf = $this->mpdf;
+
+    //     foreach ($htmlPages as $html) {
+    //         $mpdf->WriteHTML($html);
+    //         $mpdf->AddPage();
+    //     }
+
+    //     // Output the PDF
+    //     return $mpdf->Output('jadwal.pdf', 'D'); // 'I' for inline view, 'D' for download
+    // }
+
+
+
+
+    public function generateJadwalPdf(Request $request)
+    {
+        $year = $request->year ? $request->year : date('Y');
+        $exam_type = $request->exam_type ? $request->exam_type : 0;
+        $classs = $request->classs_id ? Classs::find($request->classs_id) : Classs::latest()->first();
+
+        // Validate year and exam_type to be numeric
+        if (!is_numeric($year) || !is_numeric($exam_type)) {
+            return response()->json(['error' => 'Invalid year or exam type.'], 400);
+        }
+
+        $students = []; // Assuming you will populate this later
+
+        // Initialize an empty array to store HTML for each page
+        $htmlPages = [];
+
+        // Loop to generate HTML content for each page
+        for ($i = 0; $i < 3; $i++) {
+            $html = view('pdf.jadwal')->render();
+
+            // Check if the HTML content is empty
+            if (empty($html)) {
+                return response()->json(['error' => 'Rendered HTML content is empty.'], 500);
+            }
+
+            $htmlPages[] = $html;
+        }
+
+        // Check if the $htmlPages array is populated
+        if (empty($htmlPages)) {
+            return response()->json(['error' => 'HTML pages array is empty.'], 500);
+        }
+
+        // Use the $this->mpdf instance initialized in the constructor
+        $mpdf = $this->mpdf;
+
+        // Iterate through each HTML page content and add it to the PDF
+        foreach ($htmlPages as $index => $html) {
+            // Add the page content
+            $mpdf->WriteHTML($html);
+
+            // Add a new page after each page except the last one
+            if ($index < count($htmlPages) - 1) {
+                $mpdf->AddPage();
+            }
+        }
+
+        // Output the PDF
+        return $mpdf->Output('jadwal.pdf', 'D'); // 'I' for inline view, 'D' for download
     }
 }

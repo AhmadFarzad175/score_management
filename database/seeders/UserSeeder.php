@@ -13,23 +13,29 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        $user = User::factory()->create([
-            'name' => 'admin',
+        $admin = User::factory()->create([
+            'name' => 'Maiwand',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        $teacher = User::factory()->create([
+            'name' => 'Farzad',
             'password' => Hash::make('12345678'),
         ]);
 
         // Create roles
-        $admin = Role::create(['name' => 'admin']);
-        $teacher = Role::create(['name' => 'teacher']);
-        
+        $adminRole = Role::create(['name' => 'admin']);
+        $teacherRole = Role::create(['name' => 'teacher']);
+
         // Create permissions
         $manageAllData = Permission::create(['name' => 'manage all data']);
         $manageOwnData = Permission::create(['name' => 'manage own data']);
-        
-        // Assign permissions to roles
-        $admin->givePermissionTo($manageAllData);
-        $teacher->givePermissionTo($manageOwnData);
 
-        $user->assignRole('admin');
+        // Assign permissions to roles
+        $adminRole->givePermissionTo($manageAllData);
+        $teacherRole->givePermissionTo($manageOwnData);
+
+        $admin->assignRole($adminRole);
+        $teacher->assignRole($teacherRole);
     }
 }

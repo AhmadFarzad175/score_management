@@ -2,6 +2,7 @@
 
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\ClasssController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\PdfController;
+use App\Http\Controllers\LocalizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,12 @@ use App\Http\Controllers\PdfController;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
 
+
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::redirect('/', 'classes');
     Route::resource('/scores', ScoreController::class);
     Route::resource('/subjects', SubjectController::class);
     Route::resource('/attendances', AttendanceController::class);
@@ -37,11 +42,30 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/promote', [ResultController::class, 'promote']);
     Route::get('/export', [TeacherController::class, 'export']);
     Route::get('/parcha', [PdfController::class, 'generateParchaPdf']);
+    Route::get('/jadwal', [PdfController::class, 'generateJadwalPdf']);
 });
 
 
-Route::get('/register', [AuthController::class, 'registerPage']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/register', [AuthController::class, 'registerPage']);
+    Route::post('/register', [AuthController::class, 'register']);
+});
+
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::middleware(['web','restrict.night.login'])->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+});
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+// localization routes
+Route::get('lang/{locale}', [LocalizationController::class, 'setLocale']);
+
+
+
+
+Route::view('/sumNumbers', 'test');
+
+Route::get('/sum', function(){
+    return Request('num1') + Request('num2');
+});
+

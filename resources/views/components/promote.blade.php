@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-default">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Promote Class</h4>
+                <h4 class="modal-title">@lang('message.Promote Class')</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -18,7 +18,7 @@
                     @endif
 
                         <div class="form-group col-12 col-md-6">
-                            <label for="from">From Class <span class="text-danger">*</span></label>
+                            <label for="from">@lang('message.From Class') <span class="text-danger">*</span></label>
                             <select name="from" class="form-control classSelect" id="from">
                                 @foreach ($classes as $class)
                                     <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
@@ -27,13 +27,13 @@
                             </select>
                         </div>
                         <div class="form-group col-12 col-md-6">
-                            <label for="year">Year <span class="text-danger">*</span></label>
+                            <label for="year">@lang('message.Year') <span class="text-danger">*</span></label>
                             <select class="form-control" name="year" id="year-picker-promote">
                             </select>
                         </div>
 
                         <div class="form-group col-12 ">
-                            <label for="to">To Class <span class="text-danger">*</span></label>
+                            <label for="to">@lang('message.To Class') <span class="text-danger">*</span></label>
                             <select name="to" class="form-control classSelect" id="to">
                                 @foreach ($classes as $class)
                                     <option {{ request('classs_id') == $class->id ? 'selected' : '' }}
@@ -46,7 +46,7 @@
             </div>
             <div class="modal-footer ">
                 <div class="student-submit text-left">
-                    <button type="submit" class="btn btn-primary">Promote</button>
+                    <button type="submit" class="btn btn-primary">@lang('message.Promote')</button>
                 </div>
             </div>
 

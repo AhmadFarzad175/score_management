@@ -14,13 +14,14 @@ class ProvinceSeeder extends Seeder
     public function run(): void
     {
         $provinces = [
-            'Badakhshan', 'Badghis', 'Baghlan', 'Balkh', 'Bamyan',
-            'Daykundi', 'Farah', 'Faryab', 'Ghazni', 'Ghor', 'Helmand',
-            'Herat', 'Jowzjan', 'Kabul', 'Kandahar', 'Kapisa', 'Khost',
-            'Kunar', 'Kunduz', 'Laghman', 'Logar', 'Nangarhar', 'Nimruz',
-            'Nuristan', 'Paktia', 'Paktika', 'Panjshir', 'Parwan',
-            'Samangan', 'Sar-e Pol', 'Takhar', 'Urozgan', 'Wardak', 'Zabul',
+            'بدخشان', 'بادغیس', 'بغلان', 'بلخ', 'بامیان',
+            'دایکندی', 'فراه', 'فاریاب', 'غزنی', 'غور', 'هلمند',
+            'هرات', 'جوزجان', 'کابل', 'قندهار', 'کاپیسا', 'خوست',
+            'کنر', 'کندز', 'لغمان', 'لوگر', 'ننگرهار', 'نیمروز',
+            'نورستان', 'پکتیا', 'پکتیکا', 'پنجشیر', 'پروان',
+            'سمنگان', 'سرپل', 'تخار', 'ارزگان', 'وردک', 'زابل',
         ];
+        
 
         foreach ($provinces as $province) {
             Province::create(['name' => $province]);

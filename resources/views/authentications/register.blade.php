@@ -6,7 +6,7 @@
     <title>Score Management System</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="{{ asset('dist/css/myCss.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
@@ -34,7 +34,8 @@
                 <form action="/register" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="name">
+                        <input type="text" name="name" value="{{ old('name') }}" class="form-control"
+                            placeholder="name">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -43,7 +44,8 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="password" name="password" value="{{old('password')}}" class="form-control" placeholder="Password">
+                        <input type="password" name="password" value="{{ old('password') }}" class="form-control"
+                            placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -51,27 +53,21 @@
                         </div>
                     </div>
 
-
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember" name="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Password Confirmation" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat best-shadow">Register</button>
-                        </div>
-                        <!-- /.col -->
                     </div>
-                </form>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign Out</button>
+                    </div>
+                    <!-- /.col -->
 
-                <p class="mb-1">
-                    <a href="#">I forgot my password</a>
-                </p>
+                </form>
 
             </div>
         </div>

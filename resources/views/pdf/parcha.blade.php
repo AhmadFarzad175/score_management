@@ -48,7 +48,7 @@
         style="width: 700px; border: 1px solid black; text-align: center; direction: rtl; border-collapse: collapse;">
         <tr>
             <td style="width: 110px; border: 1px solid #000;">شماره</td>
-            <td colspan="3" style="border: 1px solid #000; width: 200px;">3</td>
+            <td colspan="3" style="border: 1px solid #000; width: 200px;">{{$number}}</td>
             <td rowspan="41" style="width: 10px; border: 1px solid #000;"></td>
             <td style="width: 390px;" rowspan="5" colspan="4">
                 <img src="storage/images/etlaNama.JPG" style="width: 100%; height: auto" />
@@ -94,7 +94,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px; text-wrap: nowrap">تاریخ تولد شمسی</td>
-            <td colspan="3" style="border: 1px solid #000;">{{$dob}}</td>
+            <td colspan="3" style="border: 1px solid #000;">{{$dobShamsi}}</td>
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px; text-wrap: nowrap">تاریخ تولد میلادی</td>
@@ -149,7 +149,7 @@
         </tr>
         <tr>
             <td style="border: 1px solid #000; width: 100px">لسان سوم</td>
-            <td style="border:1px solid #000">31</td>
+            <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border:1px solid #000"></td>
             <td style="border: 1px solid #000; " colspan="2">از 20 الی 23.99</td>

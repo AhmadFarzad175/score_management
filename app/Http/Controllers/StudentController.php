@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Classs;
 use App\Models\Student;
 use App\Models\Province;
-use App\Traits\ImageManipulation;
 use Illuminate\Http\Request;
 use App\Models\StudentDetails;
+use App\Traits\ImageManipulation;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StudentRequest;
 
 class StudentController extends Controller
@@ -51,6 +52,7 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
+        $user = Auth::user();
         $validated = $request->validated();
 
         $request->hasFile('image') ? $this->storeImage($request, $validated, 'images') : null;
@@ -88,6 +90,7 @@ class StudentController extends Controller
      */
     public function update(StudentRequest $request, Student $student)
     {
+        $user = Auth::user();
         $validated = $request->validated();
         
         if (!$request['p_classs_id']) {
@@ -132,4 +135,6 @@ class StudentController extends Controller
         $provinces = Province::all();
         return response()->json(['classes' => $classes, 'provinces' => $provinces]);
     }
+
+
 }

@@ -1,12 +1,12 @@
 <x-newLayout page="2">
 
-    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
+    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px;  direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
         <div class="align-self-end">
-            <h4>Students</h4>
+            <h4>@lang('message.Students')</h4>
         </div>
         <button type="button" class="btn btn-primary createBtn" data-toggle="modal" data-target="#modal-lg">
             <i class="fas fa-plus"></i>
-            Create
+            @lang('message.Create')
         </button>
     </div>
     <x-student-search menu="students" />
@@ -24,18 +24,18 @@
         <!-- /.card-header -->
 
         <div class="card-body" style="overflow: auto">
-            <table id="example2" class="table table-hover">
+            <table id="example2" class="table table-hover" style="direction: {{session('locale') != 'en' ? 'rtl; text-align:right' : 'ltr'}}">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Image</th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Fathername</th>
-                        <th>Age</th>
+                        <th>@lang('message.Image')</th>
+                        <th>@lang('message.Firstname')</th>
+                        <th>@lang('message.Lastname')</th>
+                        <th>@lang('message.Fathername')</th>
+                        <th>@lang('message.Age')</th>
                         {{-- class in the top --}}
-                        <th>Main Residence</th>
-                        <th class="text-right">Action</th>
+                        <th>@lang('message.Main Residence')</th>
+                        <th class="{{session('locale') != 'en' ? 'text-left' : 'text-right'}}">@lang('message.Action')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,7 @@
                             <td>{{ $student->father_name }}</td>
                             <td>{{ \Carbon\Carbon::parse($student->dob)->age }}</td>
                             <td>{{ $student->mainResidence->name }}</td>
-                            <td class="text-right py-0 align-middle">
+                            <td class="{{session('locale') != 'en' ? 'text-left' : 'text-right'}} py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
                                         title="Edit" data-student-id="{{ $student->id }}" data-toggle="modal"
@@ -75,9 +75,9 @@
                     @endforeach
 
             </table>
-            <div class="mt-3">
-                <a href="{{ route('classes.index') }}" class="btn btn-primary">Back</a>
-                <a href="{{ route('attendances.create') }}" class="btn btn-primary next-btn">Next</a>
+            <div class="mt-3 d-flex justify-content-between" style="direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
+                <a href="{{ route('classes.index') }}" class="btn btn-primary">@lang('message.Back')</a>
+                <a href="{{ route('attendances.create') }}" class="btn btn-primary next-btn" style="{{session('locale') != 'en' ? 'left:20px' : 'right:20px'}}">@lang('message.Next')</a>
             </div>
         </div>
         <!-- /.card-body -->

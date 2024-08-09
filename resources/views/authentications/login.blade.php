@@ -6,7 +6,7 @@
     <title>Score Management System</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="{{ asset('dist/css/myCss.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
@@ -34,7 +34,8 @@
                 <form action="/login" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="name">
+                        <input type="text" name="name" value="{{ old('name') }}" class="form-control"
+                            placeholder="name">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -43,7 +44,8 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="password" name="password" value="{{old('password')}}" class="form-control" placeholder="Password">
+                        <input type="password" name="password" value="{{ old('password') }}" class="form-control"
+                            placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -69,9 +71,9 @@
                     </div>
                 </form>
 
-                <p class="mb-1">
+                {{-- <p class="mb-1">
                     <a href="#">I forgot my password</a>
-                </p>
+                </p> --}}
 
             </div>
         </div>
@@ -100,8 +102,17 @@
                 @endforeach
             });
         </script>
+    @elseif(session('error'))
+        <script type="text/javascript">
+            $(document).ready(function() {
+                toastr.error('{{ session('error') }}');
+            });
+        </script>
     @endif
 
+
+
+    {{-- @dump($errors->any()) --}}
 </body>
 
 </html>

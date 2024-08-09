@@ -1,9 +1,9 @@
 {{-- @dd($classes) --}}
 <x-newLayout page="5">
 
-    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
+    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px;  direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
         <div class="align-self-end">
-            <h4>Create Score</h4>
+            <h4>@lang('message.Create Score')</h4>
         </div>
 
     </div>
@@ -12,7 +12,7 @@
         <div class="card d-flex flex-row pt-3 justify-content-between flex-wrap">
             <div class="col-12 col-sm-6 col-lg-3 col-xl-3 mb-3">
                 <div class="input-group">
-                    <button type="button" class="btn-primary input_radious_left">Class</button>
+                    <button type="button" class="btn-primary input_radious_left">@lang('message.Class')</button>
                     <select class="form-control select2 input_radious_none " name="classs_id" id="classs">
                         @foreach ($classes as $class)
                             <option data-term-id="{{ $class->term_id }}"
@@ -24,7 +24,7 @@
             </div>
             <div class="input-group col-12 col-sm-6 col-lg-3 col-xl-2 mb-3">
                 <div class="input-group">
-                    <button type="button" class="btn-primary input_radious_left">Year</button>
+                    <button type="button" class="btn-primary input_radious_left">@lang('message.Year')</button>
                     <select class="form-control select2 input_radious_none " name="year" id="year-picker">
                     </select>
                 </div>
@@ -32,19 +32,17 @@
 
             <div class="col-12 col-sm-6 col-lg-3 col-xl-3 mb-3">
                 <div class="input-group">
-                    <button type="button" class="btn-primary input_radious_left">Subjects</button>
+                    <button type="button" class="btn-primary input_radious_left">@lang('message.Subjects')</button>
                     <select class="form-control select2 " name="subject_id" id="subjects">
                     </select>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-3 col-xl-3 mb-3">
                 <div class="input-group">
-                    <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">Exam
-                        Type</button>
+                    <button type="button" class="btn-primary input_radious_left" style="text-wrap:nowrap">@lang('message.Exam Type')</button>
                     <select class="form-control " name="exam_type" id="exam_type">
-                        <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>Midterm Term
-                        </option>
-                        <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>Final Term
+                        <option value="0" {{ request('exam_type') == '0' ? 'selected' : '' }}>چهارونیم ماه</option>
+                        <option value="1" {{ request('exam_type') == '1' ? 'selected' : '' }}>سالانه
                         </option>
                     </select>
                 </div>
@@ -52,7 +50,7 @@
             <div class="col-12 col-sm-12 col-xl-1 mb-3 text-right align-self-end">
                 <button type="submit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i>
-                    Search
+                    @lang('message.Search')
                 </button>
             </div>
         </div>
@@ -66,15 +64,15 @@
             <!-- /.card-header -->
 
             <div class="card-body overflow-auto">
-                <table id="example2" class="table table-hover">
+                <table id="example2" class="table table-hover" style="direction: {{session('locale') != 'en' ? 'rtl; text-align:right' : 'ltr'}}">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Image</th>
-                            <th>Firstname</th>
-                            <th>Fathername</th>
-                            <th>Subject</th>
-                            <th>Mark</th>
+                            <th>@lang('message.Image')</th>
+                            <th>@lang('message.Firstname')</th>
+                            <th>@lang('message.Fathername')</th>
+                            <th>@lang('message.Subject')</th>
+                            <th>@lang('message.Mark')</th>
 
                         </tr>
                     </thead>
@@ -105,9 +103,10 @@
                     </tbody>
 
                 </table>
-                <div class="d-flex justify-content-between mt-3">
-                    <a href="{{ route('attendances.index') }}" class="btn btn-primary">Back</a>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+ 
+                <div class="mt-3 d-flex justify-content-between" style="direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
+                    <a href="attendances" class="btn btn-primary">@lang('message.Back')</a>
+                    <button type="submit" class="btn btn-primary best-shadow next-btn" style="{{session('locale') != 'en' ? 'left:20px' : 'right:20px'}}">@lang('message.Submit')</button>
                 </div>
 
             </div>

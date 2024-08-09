@@ -66,8 +66,7 @@ class AttendanceController extends Controller
                 ->join('student_details', 'students.id', '=', 'student_details.student_id')
                 ->where('student_details.year', $request->year)
                 ->where('student_details.classs_id', $request->classs_id)
-                ->orderBy('students.first_name')
-                ->orderBy('students.father_name')
+                ->orderBy('students.id')
                 ->select(
                     'students.id AS student_id',
                     'students.first_name',

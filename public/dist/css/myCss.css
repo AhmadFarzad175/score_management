@@ -216,5 +216,13 @@ body {
 
 .next-btn {
     position: absolute;
-    right: 20px;
+}
+
+
+
+
+@media screen and (min-width: 576px) {
+    .col-sm-left{left: 40px; top: 20px}
+    
+
 }

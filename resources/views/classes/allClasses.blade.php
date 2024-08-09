@@ -1,7 +1,7 @@
 <x-newLayout page="1">
-    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px">
+    <div class="d-flex justify-content-between mb-2" style="margin-top: 30px; direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
         <div class="align-self-end">
-            <h4>Classes</h4>
+            <h4>@lang('message.Classes')</h4>
         </div>
         <button type="button" class="btn btn-primary createBtn" data-toggle="modal" data-target="#modal-default">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
@@ -9,7 +9,7 @@
                     style="fill:none;stroke:#ffffff;stroke-linecap:square;stroke-linejoin:round;stroke-width:32px" />
                 <line x1="400" y1="256" x2="112" y2="256"
                     style="fill:none;stroke:#ffffff;stroke-linecap:square;stroke-linejoin:round;stroke-width:32px" />
-            </svg> Create
+            </svg> @lang('message.Create')
         </button>
 
     </div>
@@ -20,20 +20,18 @@
 
     <x-class-form :ordinaries="$ordinaries"/>
     <!-- /.modal -->
-
     <!-- /.card -->
     <div class="card">
         <!-- /.card-header -->
-
         <div class="card-body" style="overflow: auto">
-            <table id="example2" class="table table-hover">
+            <table id="example2" class="table table-hover" style="direction: {{session('locale') != 'en' ? 'rtl; text-align:right' : 'ltr'}}">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Class</th>
-                        <th>Negaran</th>
-                        <th>Term</th>
-                        <th class="text-right">Action</th>
+                        <th>@lang('message.Class')</th>
+                        <th>@lang('message.Negaran')</th>
+                        <th>@lang('message.Term')</th>
+                        <th class="{{session('locale') != 'en' ? 'text-left' : 'text-right'}}">@lang('message.Action')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +42,7 @@
                             <td>{{ $class->name }}</td>
                             <td>{{ $class->negaran }}</td>
                             <td>{{ $ordinaries[$class->term_id] }}</td>
-                            <td class="text-right py-0 align-middle">
+                            <td class="{{session('locale') != 'en' ? 'text-left' : 'text-right'}} py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
                                     <button class="editBtn best-shadow btn btn-outline-success border-transparent"
                                         title="Edit" data-class-id="{{ $class->id }}" data-toggle="modal"
@@ -67,9 +65,9 @@
                     @endforeach
 
             </table>
-            <div class="d-flex justify-content-between mt-3">
+            <div class="d-flex justify-content-between mt-3" style="direction: {{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
                 <a href=""></a>
-                <a href="{{ route('students.index') }}" class="btn btn-primary">Next</a>
+                <a href="{{ route('students.index') }}" class="btn btn-primary">@lang('message.Next')</a>
             </div>
         </div>
         <!-- /.card-body -->
