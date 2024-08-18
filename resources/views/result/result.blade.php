@@ -36,8 +36,8 @@
                         <th>@lang('message.Image')</th>
                         <th>@lang('message.Firstname')</th>
                         <th>@lang('message.Fathername')</th>
-                        <th>@lang('message.Marks" Sum')</th>
-                        <th>@lang('message.Marks" average')</th>
+                        <th>@lang('message.Sum')</th>
+                        <th>@lang('message.Average')</th>
                         <th>@lang('message.Grade')</th>
                         <th>@lang('message.Result')</th>
 

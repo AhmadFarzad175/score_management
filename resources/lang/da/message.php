@@ -62,8 +62,8 @@ return [
     'Update Attendance' => 'تغییر حاضری',
     'Update Subject' => 'تغییر مضمون',
     'Update Score' => 'تغییر نمرات',
-    'Marks" Sum' => 'مجموع نمرات',
-    'Marks" average' => 'اوسط نمرات',
+    'Sum' => 'مجموع نمرات',
+    'Average' => 'اوسط نمرات',
     'Grade' => 'درجه',
     'Promote' => 'ارتقا صنف',
     'Result Sheet' => 'اطلاع نامه',
@@ -71,20 +71,7 @@ return [
     'Promote Class' => 'ارتقای صنف',
     'From Class' => 'از صنف',
     'To Class' => 'به صنف'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ];
+
+
+

@@ -49,6 +49,7 @@
       .rotate {
         width: 966px;
         height: 100px !important;
+        border: 1px solid #741414;
         border-collapse: collapse;
         transform: rotate(270deg);
         position: absolute;
@@ -66,11 +67,11 @@
         <table class="rotate">
           <tr>
             <td rowspan="7">
-              <img src="storage/images/emarat.png" alt="" />
+              <img src="image/emarat.png" alt="" />
             </td>
             <td rowspan="2">وزارت معارف ا.ا.ا</td>
             <td rowspan="7">
-              <img src="storage/images/marif.png" alt="" />
+              <img src="image/marif.png" alt="" />
             </td>
             <td class="attendance" style="width: 80px" colspan="2">خلص نتایج سالانه</td>
             <td class="attendance" style="width: 80px" colspan="2">خلص نتایج سالانه</td>
@@ -116,9 +117,9 @@
             <td class="attendance"></td>
           </tr>
           <tr>
-            <td class="border-top">جدول نتایج : صنف:( {{$student['classs_name_1'] ?? ''}} )</td>
-            <td class="border-top">مربوط نگران صنف : ( {{$student['negaran_1'] ?? ''}} )</td>
-            <td class="border-top">بابت سال تعلیمی : {{$student['year_1'] ?? ''}}</td>
+            <td class="border-top">جدول نتایج : صنف:( دهم 15 )</td>
+            <td class="border-top">مربوط نگران صنف : ( عبدالرحمن خان )</td>
+            <td class="border-top">بابت سال تعلیمی : 1403</td>
             <td class="attendance"></td>
             <td class="attendance"></td>
             <td class="attendance">محروم</td>
@@ -159,8 +160,8 @@
           <tr>
             <td>L/Name</td>
             <td colspan="3">{{$student['last_name_en_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['last_name_en_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['last_name_en_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['last_name_en_1'] ?? '/'}}</td>
+            <td colspan="3">{{$student['last_name_en_1'] ?? '/'}}</td>
           </tr>
     
           <tr>
@@ -208,8 +209,8 @@
           <tr>
             <td>سال تولد میلادی</td>
             <td colspan="3">{{$student['dob_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['dob_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['dob_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['dob_1'] ?? '/'}}</td>
+            <td colspan="3">{{$student['dob_1'] ?? '/'}}</td>
           </tr>
     
           <tr>
@@ -237,61 +238,61 @@
           <tr>
             <td>تفسیر شریف</td>
             <td>{{$student['sub1_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub1_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub1_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>عقاید، فقه، حدیث</td>
             <td>{{$student['sub2_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub2_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub2_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>لسان اول</td>
             <td>{{$student['sub3_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub3_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub3_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>لسان دوم</td>
             <td>{{$student['sub4_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub4_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub4_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
@@ -312,325 +313,325 @@
           <tr>
             <td>انگلیسی</td>
             <td>{{$student['sub5_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub5_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub5_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>ریاضی</td>
             <td>{{$student['sub6_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub6_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub6_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>فزیک</td>
             <td>{{$student['sub7_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub7_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub7_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>کیمیا</td>
             <td>{{$student['sub8_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub8_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub8_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>بیولوژی</td>
             <td>{{$student['sub9_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub9_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub9_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>جیولوژی</td>
             <td>{{$student['sub10_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub10_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub10_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>تاریخ</td>
             <td>{{$student['sub11_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub11_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub11_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>جغرافیه</td>
             <td>{{$student['sub12_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub12_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub12_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>تعلیمات مدنی</td>
             <td>{{$student['sub13_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub13_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub13_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>کمپیوتر</td>
             <td>{{$student['sub14_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub14_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub14_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>فرهنگ</td>
             <td>{{$student['sub15_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub15_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub15_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>سپورت</td>
             <td>{{$student['sub16_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub16_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub16_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>تهذیب</td>
             <td>{{$student['sub17_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub17_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sub17_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>مجموعه نمرات</td>
             <td>{{$student['total_marks_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['total_marks_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['total_marks_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>اوسط نمرات</td>
             <td>{{$student['average_marks_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['average_marks_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['average_marks_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>نتیجه</td>
             <td>{{$student['result_1'] ?? '/'}}</td>
-            <td colspan="2"></td>
+            <td colspan="2">ارتقا صنف</td>
     
             <td>{{$student['result_2'] ?? '/'}}</td>
-            <td colspan="2"></td>
+            <td colspan="2">ارتقا صنف</td>
     
             <td>{{$student['result_3'] ?? '/'}}</td>
-            <td colspan="2"></td>
+            <td colspan="2">ارتقا صنف</td>
           </tr>
     
           <tr>
             <td>درجه</td>
             <td>{{$student['grade_1'] ?? '/'}}</td>
-            <td colspan="2"></td>
+            <td colspan="2">الف</td>
     
             <td>{{$student['grade_2'] ?? '/'}}</td>
-            <td colspan="2"></td>
+            <td colspan="2">الف</td>
     
             <td>{{$student['grade_3'] ?? '/'}}</td>
-            <td colspan="2"></td>
+            <td colspan="2">الف</td>
           </tr>
     
           <tr>
             <td>ایام تعلیمی</td>
             <td>{{$student['total_year_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>130</td>
+            <td>121</td>
     
             <td>{{$student['total_year_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>130</td>
+            <td>121</td>
     
             <td>{{$student['total_year_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>130</td>
+            <td>121</td>
           </tr>
     
           <tr>
             <td>حاضر</td>
             <td>{{$student['present_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['present_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['present_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>غیر حاضر</td>
             <td>{{$student['absent_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['absent_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['absent_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>مریض</td>
             <td>{{$student['sick_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sick_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['sick_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
             <td>رخصت</td>
             <td>{{$student['leave_1'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['leave_2'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
     
             <td>{{$student['leave_3'] ?? '/'}}</td>
-            <td></td>
-            <td></td>
+            <td>30</td>
+            <td>21</td>
           </tr>
     
           <tr>
