@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Models\Student;
 
-trait ResultTrait
+trait resultTrait
 {
 
     public function midTermResult($students)

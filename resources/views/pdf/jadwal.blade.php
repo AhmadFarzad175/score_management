@@ -62,7 +62,7 @@
   <!-- <body style="margin-right: auto; margin-left: auto;"> -->
   <body >
     @foreach ($students as $student)
-    <div style="width: 700px; margin-right: auto; margin-left: auto; display: flex; position: relative;">
+    <div style="width: 700px; margin-right: auto; margin-left: auto; display: flex; position: relative; margin-top:10px">
         <table class="rotate">
           <tr>
             <td rowspan="7">
@@ -75,38 +75,37 @@
             <td class="attendance" style="width: 80px" colspan="2">خلص نتایج سالانه</td>
             <td class="attendance" style="width: 80px" colspan="2">خلص نتایج سالانه</td>
           </tr>
-    
           <tr>
             <td class="attendance">تعداد داخله</td>
-            <td class="attendance" style="width: 25px">38</td>
+            <td class="attendance" style="width: 25px">{{end($students)['number_1'] ?? '/'}}</td>
             <td class="attendance">تعداد داخله</td>
-            <td class="attendance" style="width: 25px">38</td>
+            <td class="attendance" style="width: 25px"></td>
           </tr>
           <tr>
             <td rowspan="2">ریاست معارف : ( معارف شهر کابل )</td>
             <td class="attendance">شامل امتحان</td>
-            <td class="attendance">38</td>
+            <td class="attendance">{{end($students)['number_1'] ?? '/'}}</td>
             <td class="attendance">شامل امتحان</td>
-            <td class="attendance">38</td>
+            <td class="attendance"></td>
           </tr>
           <tr>
             <td class="attendance">موفق</td>
-            <td class="attendance">28</td>
+            <td class="attendance">{{end($students)['succeed_1'] ?? '/'}}</td>
             <td class="attendance">ارتقا صنف</td>
-            <td class="attendance">8</td>
+            <td class="attendance"></td>
           </tr>
           <tr>
             <td rowspan="2">آمریت حوزه : ( حوزه هفتم تعلیمی )</td>
             <td class="attendance">تلاش بیشتر</td>
-            <td class="attendance">8</td>
+            <td class="attendance">{{end($students)['faild_1'] ?? '/'}}</td>
             <td class="attendance">تکرار صنف</td>
-            <td class="attendance">3</td>
+            <td class="attendance"></td>
           </tr>
           <tr>
             <td class="attendance">معذرتی</td>
-            <td class="attendance">2</td>
+            <td class="attendance"></td>
             <td class="attendance">مشروط</td>
-            <td class="attendance">8</td>
+            <td class="attendance"></td>
           </tr>
           <tr>
             <td>مدیریت مکتب : ( لیسه عالی حبیبیه )</td>
@@ -122,101 +121,101 @@
             <td class="attendance"></td>
             <td class="attendance"></td>
             <td class="attendance">محروم</td>
-            <td class="attendance">8</td>
+            <td class="attendance"></td>
           </tr>
         </table>
         <table class="score" style="width: 460px; border: 1px solid #000; border-collapse: collapse; direction: ltr;">
           <tr>
             <th>شماره</th>
-            <th colspan="3">{{$student['number_1'] ?? '/'}}</th>
+            <th colspan="3">{{$student['number_1'] ?? ''}}</th>
             <th rowspan="49"></th>
-            <th colspan="3">{{$student['number_2'] ?? '/'}}</th>
+            <th colspan="3">{{$student['number_2'] ?? ''}}</th>
             <th rowspan="49"></th>
-            <th colspan="3">{{$student['number_3'] ?? '/'}}</th>
+            <th colspan="3">{{$student['number_3'] ?? ''}}</th>
           </tr>
     
           <tr>
             <td>نام</td>
-            <td colspan="3">{{$student['first_name_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['first_name_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['first_name_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['first_name_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['first_name_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['first_name_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>Name</td>
-            <td colspan="3">{{$student['first_name_en_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['first_name_en_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['first_name_en_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['first_name_en_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['first_name_en_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['first_name_en_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>تخلص</td>
-            <td colspan="3">{{$student['last_name_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['last_name_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['last_name_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['last_name_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['last_name_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['last_name_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>L/Name</td>
-            <td colspan="3">{{$student['last_name_en_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['last_name_en_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['last_name_en_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['last_name_en_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['last_name_en_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['last_name_en_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>نام پدر</td>
-            <td colspan="3">{{$student['father_name_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['father_name_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['father_name_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['father_name_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['father_name_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['father_name_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>ّF/Name</td> 
-            <td colspan="3">{{$student['father_name_en_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['father_name_en_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['father_name_en_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['father_name_en_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['father_name_en_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['father_name_en_3'] ?? ''}}</td>
           </tr>
           <tr>
             <td>ّنام پدرکلان</td>
-            <td colspan="3">{{$student['grand_father_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['grand_father_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['grand_father_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['grand_father_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['grand_father_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['grand_father_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>نمبر اساس</td>
-            <td colspan="3">{{$student['base_number_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['base_number_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['base_number_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['base_number_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['base_number_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['base_number_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>نمبر تذکره</td>
-            <td colspan="3">{{$student['tazkira_number_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['tazkira_number_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['tazkira_number_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['tazkira_number_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['tazkira_number_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['tazkira_number_3'] ?? ''}}</td>
           </tr>
     
     
           <tr>
             <td>سال تولد شمسی</td>
-            <td colspan="3">{{$student['dobShamsi_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['dobShamsi_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['dobShamsi_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['dobShamsi_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['dobShamsi_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['dobShamsi_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>سال تولد میلادی</td>
-            <td colspan="3">{{$student['dob_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['dob_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['dob_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['dob_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['dob_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['dob_3'] ?? ''}}</td>
           </tr>
     
           <tr>
             <td>سکونت اصلی</td>
-            <td colspan="3">{{$student['main_residence_1'] ?? '/'}}</td>
-            <td colspan="3">{{$student['main_residence_2'] ?? '/'}}</td>
-            <td colspan="3">{{$student['main_residence_3'] ?? '/'}}</td>
+            <td colspan="3">{{$student['main_residence_1'] ?? ''}}</td>
+            <td colspan="3">{{$student['main_residence_2'] ?? ''}}</td>
+            <td colspan="3">{{$student['main_residence_3'] ?? ''}}</td>
           </tr>
     
           <tr>

@@ -60,19 +60,22 @@
                 <ul class="nav nav-pills"  style="direction:{{session('locale') != 'en' ? 'rtl' : 'ltr'}}">
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 1 ? 'active' : '' }}"
-                            href="{{ route('classes.index') }}">@lang('message.Class')</a>
+                            href="{{ route('classes.index') }}">
+                            <i class="fas fa-school"></i>
+                            @lang('message.Class')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 2 ? 'active' : '' }}"
-                            href="{{ route('students.index') }}">@lang('message.Student')</a>
+                            href="{{ route('students.index') }}"><i class="fas fa-user"></i>
+                            @lang('message.Student')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 3 ? 'active' : '' }}"
-                            href="{{ route('attendances.index') }}">@lang('message.Attendance')</a>
+                            href="{{ route('attendances.index') }}"><i class="fas fa-clipboard-user"></i>@lang('message.Attendance')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 4 ? 'active' : '' }}"
-                            href="{{ route('subjects.index') }}">@lang('message.Subject')</a>
+                            href="{{ route('subjects.index') }}"><i class="fas fa-clipboard-user"></i>@lang('message.Subject')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $page == 5 ? 'active' : '' }}"

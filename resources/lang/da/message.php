@@ -70,7 +70,8 @@ return [
     'Jadwal' => 'جدول نتایج',
     'Promote Class' => 'ارتقای صنف',
     'From Class' => 'از صنف',
-    'To Class' => 'به صنف'
+    'To Class' => 'به صنف',
+    'required' => 'این فیلد ضروری اس'
 ];
 
 

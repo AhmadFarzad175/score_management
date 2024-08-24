@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Mpdf\Mpdf;
 use App\Models\Classs;
 use App\Models\Student;
-use App\Traits\ResultTrait;
+use App\Traits\resultTrait;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 use Mpdf\Config\FontVariables;
@@ -16,7 +16,7 @@ use Illuminate\Validation\ValidationException;
 
 class PdfController extends Controller
 {
-    use ResultTrait;
+    use resultTrait;
     protected $mpdf;
 
     public function __construct()
@@ -148,6 +148,9 @@ class PdfController extends Controller
 
         $studentsRaw = $this->getStudentsRaw($year, $exam_type, $classs);
 
+        $succeed = 0;
+        $faild = 0;
+
         $students = [];
         $tempGroup = [];
         $counter = 1;
@@ -158,6 +161,13 @@ class PdfController extends Controller
                 throw ValidationException::withMessages([
                     'subject_count' => "Students have less score data"
                 ]);
+            }
+
+            // find the attendance table of jadwal 
+            if ($student->result == 'موفق') {
+                $succeed++;
+            } elseif ($student->result == 'تلاش بیشتر') {
+                $faild++;
             }
 
             // Assuming only one attendance record per student
@@ -174,6 +184,8 @@ class PdfController extends Controller
             // Combine the scores and the rest of the student data
             $studentData = array_merge($studentScores, [
                 'number' => $counter,
+                'succeed' => $succeed,
+                'faild' => $faild,
                 'id' => $student->id,
                 'first_name' => $student->first_name,
                 'first_name_en' => $student->first_name_en,
@@ -231,6 +243,8 @@ class PdfController extends Controller
             $students[] = $combinedStudent;
         }
 
+        // dd($students);
+
         // Generate and return the view
         return view('pdf.jadwal', ['students' => $students]);
     }
@@ -238,30 +252,30 @@ class PdfController extends Controller
 
 
     private function getStudentsRaw($year, $exam_type, $classs)
-{
-    $studentsRaw = Student::with([
-        'scores' => function ($query) use ($year, $classs, $exam_type) {
-            $query->where('classs_id', $classs->id)
-                ->where('year', $year)
-                ->where('exam_type', $exam_type);
-        },
-        'scores.subject' => function ($query) {
-            $query->select('id', 'name', 'abb');
-        },
-        'mainResidence' => function ($query) {
-            $query->select('id', 'name');
-        },
-        'attendances' => function ($query) use ($year, $classs) {
-            $query->where('year', $year)
-                ->where('classs_id', $classs->id)
-                ->where('attendance_type', 0);
-        }
-    ])
-    ->whereHas('studentDetails', function ($query) use ($year, $classs) {
-        $query->where('year', $year)
-            ->where('classs_id', $classs->id);
-    })
-    ->selectRaw('
+    {
+        $studentsRaw = Student::with([
+            'scores' => function ($query) use ($year, $classs, $exam_type) {
+                $query->where('classs_id', $classs->id)
+                    ->where('year', $year)
+                    ->where('exam_type', $exam_type);
+            },
+            'scores.subject' => function ($query) {
+                $query->select('id', 'name', 'abb');
+            },
+            'mainResidence' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'attendances' => function ($query) use ($year, $classs) {
+                $query->where('year', $year)
+                    ->where('classs_id', $classs->id)
+                    ->where('attendance_type', 0);
+            }
+        ])
+            ->whereHas('studentDetails', function ($query) use ($year, $classs) {
+                $query->where('year', $year)
+                    ->where('classs_id', $classs->id);
+            })
+            ->selectRaw('
         students.*, 
         COALESCE((
             SELECT SUM(mark)
@@ -290,14 +304,13 @@ class PdfController extends Controller
             AND scores.year = ?
         ), 0) as subject_count
     ', [$year, $year, $exam_type, $year])
-    ->orderBy('total_marks', 'desc')
-    ->get();
+            ->orderBy('total_marks', 'desc')
+            ->get();
 
-    $this->midTermResult($studentsRaw);
+        $this->midTermResult($studentsRaw);
 
-    return $studentsRaw;
-}
-
+        return $studentsRaw;
+    }
 }
 
 
